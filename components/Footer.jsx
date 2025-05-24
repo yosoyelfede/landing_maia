@@ -38,7 +38,7 @@ export default function Footer() {
             {/* Social Media Links */}
             <div className="flex items-center gap-x-4">
               <a 
-                href="https://linkedin.com/company/maia-tour" 
+                href="https://www.linkedin.com/company/maiacl" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-white transition-colors"
