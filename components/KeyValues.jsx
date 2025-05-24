@@ -1,60 +1,26 @@
 'use client';
 
-import { motion } from '../lib/motion';
 import { getAssetPath } from '../lib/assetUtils';
 
 export default function KeyValues() {
-  const featureAnimation = {
-    hidden: { opacity: 0, y: 40 },
-    visible: (custom) => ({
-      opacity: 1,
-      y: 0,
-      transition: { 
-        delay: custom * 0.2,
-        duration: 0.8,
-        ease: [0.21, 0.45, 0.32, 0.9]
-      }
-    })
-  };
-  
   return (
     <section id="features" className="py-10 bg-gray-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="max-w-3xl mx-auto text-center mb-16"
-        >
-          <motion.h2 
-            variants={featureAnimation} 
-            custom={0}
-            className="text-3xl sm:text-4xl font-display font-bold mb-6 text-gray-900"
-          >
+        <div className="max-w-3xl mx-auto text-center mb-16">
+          <h2 className="text-3xl sm:text-4xl font-display font-bold mb-6 text-gray-900">
             Recorridos virtuales con IA que convierten <span className="text-primary-600 relative">
               visitas en ventas
               <span className="absolute bottom-1 left-0 w-full h-2 bg-secondary-200 opacity-50 -z-10"></span>
             </span>
-          </motion.h2>
-          <motion.p 
-            variants={featureAnimation}
-            custom={1}
-            className="text-xl text-gray-600"
-          >
+          </h2>
+          <p className="text-xl text-gray-600">
             Transformamos tus recorridos virtuales en experiencias interactivas 
             guiadas por IA, donde los compradores pueden explorar proyectos sin depender de un ejecutivo.
-          </motion.p>
-        </motion.div>
+          </p>
+        </div>
 
         {/* Feature 1 - Imagen a la izquierda */}
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={featureAnimation}
-          custom={2}
-          className="grid md:grid-cols-2 gap-12 items-center mb-24 rounded-2xl overflow-hidden bg-white shadow-xl border border-gray-100"
-        >
+        <div className="grid md:grid-cols-2 gap-12 items-center mb-24 rounded-2xl overflow-hidden bg-white shadow-xl border border-gray-100">
           <div className="relative h-full min-h-[400px] md:min-h-[500px] bg-gray-100">
             <img 
               src={getAssetPath("/images/feature/feature-1.jpg")} 
@@ -96,17 +62,10 @@ export default function KeyValues() {
               </li>
             </ul>
           </div>
-        </motion.div>
+        </div>
 
         {/* Feature 2 - Imagen a la derecha */}
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={featureAnimation}
-          custom={3}
-          className="grid md:grid-cols-2 gap-12 items-center mb-24 rounded-2xl overflow-hidden bg-white shadow-xl border border-gray-100"
-        >
+        <div className="grid md:grid-cols-2 gap-12 items-center mb-24 rounded-2xl overflow-hidden bg-white shadow-xl border border-gray-100">
           <div className="order-1 md:order-2 relative h-full min-h-[400px] md:min-h-[500px] bg-gray-100">
             <img 
               src={getAssetPath("/images/feature/feature-2.jpg")} 
@@ -147,17 +106,10 @@ export default function KeyValues() {
               </li>
             </ul>
           </div>
-        </motion.div>
+        </div>
 
         {/* Feature 3 - Imagen a la izquierda */}
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={featureAnimation}
-          custom={4}
-          className="grid md:grid-cols-2 gap-12 items-center rounded-2xl overflow-hidden bg-white shadow-xl border border-gray-100"
-        >
+        <div className="grid md:grid-cols-2 gap-12 items-center rounded-2xl overflow-hidden bg-white shadow-xl border border-gray-100">
           <div className="relative h-full min-h-[400px] md:min-h-[500px] bg-gray-100">
             <img 
               src={getAssetPath("/images/feature/feature-3.jpg")} 
@@ -198,7 +150,7 @@ export default function KeyValues() {
               </li>
             </ul>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

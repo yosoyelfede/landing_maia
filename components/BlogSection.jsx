@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import { motion } from '../lib/motion';
 import { getAssetPath } from '../lib/assetUtils';
 
 export default function BlogSection() {
@@ -13,13 +12,7 @@ export default function BlogSection() {
         </div>
         
         <div className="max-w-5xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="bg-white rounded-xl overflow-hidden shadow-md transition-transform hover:shadow-lg"
-          >
+          <div className="bg-white rounded-xl overflow-hidden shadow-md transition-transform hover:shadow-lg">
             <Link href="/blog/render-vs-recorrido-virtual">
               <div className="md:flex">
                 <div className="md:w-1/3 h-64 md:h-auto relative">
@@ -41,7 +34,7 @@ export default function BlogSection() {
                 </div>
               </div>
             </Link>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
