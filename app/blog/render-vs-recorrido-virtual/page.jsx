@@ -4,8 +4,8 @@ import Footer from '../../../components/Footer';
 import { getAssetPath } from '../../../lib/assetUtils';
 
 export const metadata = {
-  title: '¿Render o recorrido virtual? Ventajas y desventajas para proyectos inmobiliarios | Maia',
-  description: 'Aprende cuándo utilizar cada tecnología y cómo maximizar tu retorno de inversión en marketing digital inmobiliario.',
+  title: '¿Render o recorrido? Cuándo conviene usar cada uno para vender mejor',
+  description: '¿Render o recorrido virtual? Descubre cuándo conviene usar cada uno en proyectos inmobiliarios y cómo transformar recorridos existentes en herramientas de venta con Maia.',
 }
 
 export default function BlogPost() {
@@ -13,118 +13,159 @@ export default function BlogPost() {
     <main>
       <Navbar />
       
-      <div className="pt-32 pb-16">
-        <article className="container mx-auto px-4 max-w-4xl">
-          <header className="mb-12 text-center">
+      <div className="pt-24">
+        {/* Hero header con imagen de fondo */}
+        <header className="relative mb-16">
+          <div className="absolute inset-0 w-full h-full">
+            <img 
+              src={getAssetPath("/images/blog/render-vs-recorrido.png")} 
+              alt="Fondo" 
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/60"></div>
+          </div>
+          
+          <div className="relative z-10 container mx-auto px-4 py-32 md:py-40 text-center">
             <div className="mb-4">
-              <Link href="/blog" className="text-primary-600 hover:text-primary-700 transition-colors">
+              <Link href="/blog" className="text-white hover:text-primary-300 transition-colors font-semibold">
                 ← Volver al blog
               </Link>
             </div>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-gray-900">
-              ¿Render o recorrido virtual? Ventajas y desventajas para proyectos inmobiliarios
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white max-w-4xl mx-auto leading-tight">
+              ¿Render o recorrido? Cuándo conviene usar cada uno para vender mejor
             </h1>
-            <div className="flex justify-center gap-4 text-sm text-gray-600">
+            <div className="flex justify-center gap-4 text-sm text-gray-200 font-medium">
               <span>10 Mayo, 2024</span>
               <span>·</span>
               <span>5 min de lectura</span>
             </div>
-          </header>
+          </div>
+        </header>
 
+        <article className="container mx-auto px-4 max-w-4xl pb-16">
           <div className="prose prose-lg max-w-none mb-10">
-            <p className="lead">
-              En el competitivo mercado inmobiliario actual, la tecnología juega un papel fundamental en la estrategia de marketing y ventas. Dos de las herramientas más potentes son los renders y los recorridos virtuales, pero ¿cuándo conviene usar cada uno?
-            </p>
+            <p><strong>Resumen:</strong><br />
+            Los renders son ideales para destacar atributos visuales en etapas tempranas, mientras que los recorridos virtuales son más efectivos cuando se quiere generar conexión emocional y captar leads calificados.</p>
 
-            <div className="my-8 rounded-xl overflow-hidden">
-              <img 
-                src={getAssetPath("/images/blog/render-vs-recorrido.png")} 
-                alt="Comparación entre render y recorrido virtual" 
-                className="w-full h-auto"
-              />
+            <hr />
+
+            <h2>¿Qué es un render inmobiliario?</h2>
+            <p>Un render inmobiliario es una imagen digital que simula cómo se verá un proyecto una vez construido. Se utiliza para mostrar espacios, terminaciones, iluminación y ambiente general.</p>
+
+            <h3>Ventajas:</h3>
+            <ul>
+              <li>Comunica visualmente el concepto del proyecto</li>
+              <li>Útil para campañas de atracción en redes sociales y plataformas visuales</li>
+              <li>Puede utilizarse en etapas tempranas sin necesidad de mucho desarrollo</li>
+            </ul>
+
+            <h3>Limitaciones:</h3>
+            <ul>
+              <li>Es estático: el usuario no puede interactuar ni moverse dentro de la imagen</li>
+              <li>Es plano: muestra una única perspectiva fija del espacio, sin posibilidad de cambiar el punto de vista</li>
+              <li>No permite capturar datos ni entender el comportamiento del interesado</li>
+            </ul>
+
+            <hr />
+
+            <h2>¿Qué es un recorrido virtual?</h2>
+            <p>Un recorrido virtual es una experiencia digital que permite a los usuarios explorar una propiedad en 360°, desde cualquier dispositivo, como si estuvieran físicamente ahí.<br />
+            Se usa comúnmente en sitios web de proyectos inmobiliarios para reemplazar o complementar la visita presencial.</p>
+
+            <h3>Ventajas:</h3>
+            <ul>
+              <li>Permite recorrer la propiedad en cualquier momento y desde cualquier lugar</li>
+              <li>Mejora la comprensión espacial del proyecto frente a un render estático</li>
+              <li>Aumenta el tiempo de permanencia y el engagement del usuario</li>
+            </ul>
+
+            <h3>Limitaciones:</h3>
+            <ul>
+              <li>No capta datos de contacto ni preferencias del usuario</li>
+              <li>No entrega información al equipo comercial</li>
+              <li>No permite saber qué partes del recorrido generaron más interés</li>
+            </ul>
+
+            <h2>¿Cuándo conviene usar uno u otro?</h2>
+            <div className="overflow-x-auto my-6">
+              <table className="min-w-full divide-y divide-gray-300">
+                <thead>
+                  <tr className="bg-gray-100">
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-900">Etapa del proyecto</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-900">Mejor opción</th>
+                    <th className="px-4 py-3 text-left text-sm font-semibold text-gray-900">Por qué</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                  <tr>
+                    <td className="px-4 py-3 text-sm text-gray-700">Idea / anteproyecto</td>
+                    <td className="px-4 py-3 text-sm text-gray-700">Render</td>
+                    <td className="px-4 py-3 text-sm text-gray-700">Más barato y rápido para probar interés</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 text-sm text-gray-700">Preventa (sin sala de ventas)</td>
+                    <td className="px-4 py-3 text-sm text-gray-700">Recorrido virtual</td>
+                    <td className="px-4 py-3 text-sm text-gray-700">Sustituye la visita física y aumenta la conversión</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 text-sm text-gray-700">Lanzamiento de campaña digital</td>
+                    <td className="px-4 py-3 text-sm text-gray-700">Render + recorrido virtual</td>
+                    <td className="px-4 py-3 text-sm text-gray-700">Render para redes + recorrido para sitio y contacto</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 text-sm text-gray-700">Proyecto en venta con piloto</td>
+                    <td className="px-4 py-3 text-sm text-gray-700">Recorrido + fotos reales</td>
+                    <td className="px-4 py-3 text-sm text-gray-700">Refuerza la experiencia para compradores que están lejos</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 text-sm text-gray-700">Venta internacional</td>
+                    <td className="px-4 py-3 text-sm text-gray-700">Recorrido virtual</td>
+                    <td className="px-4 py-3 text-sm text-gray-700">Elimina barreras de distancia y horario</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
 
-            <h2>Renders: visualización estática con alto impacto visual</h2>
-            
-            <p>
-              Los renders 3D son representaciones fotorrealistas generadas por computadora que muestran cómo se verá un proyecto una vez terminado. Son especialmente útiles en las etapas iniciales cuando el proyecto aún no está construido.
-            </p>
-            
-            <h3>Ventajas de los renders:</h3>
-            
+            <h2>¿Cómo convierte Maia un recorrido común en una herramienta de ventas?</h2>
+            <p>Hoy, todos los recorridos virtuales del mercado solo sirven para mirar. Ninguno vende.<br />
+            Ninguno te dice quién los vio, por cuánto tiempo, qué le interesó o qué preguntó.</p>
+
+            <p>Con Maia, puedes reutilizar tu recorrido actual y transformarlo en una herramienta activa de venta e inteligencia comercial. ¿Cómo?</p>
             <ul>
-              <li><strong>Control total sobre la presentación</strong>: iluminación perfecta, ángulos ideales y ambientación impecable.</li>
-              <li><strong>Costo-efectivos</strong> para mostrar múltiples unidades o variaciones.</li>
-              <li><strong>Rápida actualización</strong> ante cambios en el diseño.</li>
-              <li><strong>Ideales para marketing masivo</strong> en redes sociales, vallas publicitarias y material impreso.</li>
-            </ul>
-            
-            <h3>Desventajas de los renders:</h3>
-            
-            <ul>
-              <li>No permiten exploración libre del espacio.</li>
-              <li>Menor sensación de inmersión y espacialidad.</li>
-              <li>Pueden generar expectativas irreales si son demasiado idealizados.</li>
+              <li>Guiamos al visitante con un asistente AI que responde preguntas, destaca atributos y personaliza la experiencia en tiempo real (una funcionalidad única en el mundo)</li>
+              <li>Captamos datos como nombre, RUT, correo e intereses a través de lenguaje natural, sin fricción y sin formularios</li>
+              <li>Analizamos el comportamiento completo dentro del recorrido: qué miró, cuánto tiempo estuvo, qué ignoró, qué preguntó</li>
+              <li>Te entregamos información sobre intención de compra y nivel de interés de cada visitante</li>
             </ul>
 
-            <h2>Recorridos virtuales: experiencia inmersiva e interactiva</h2>
-            
-            <p>
-              Los recorridos virtuales permiten a los potenciales compradores "caminar" digitalmente por el espacio, explorando cada rincón a su propio ritmo y desde cualquier ángulo, creando una experiencia altamente interactiva.
-            </p>
-            
-            <h3>Ventajas de los recorridos virtuales:</h3>
-            
+            <p>Esto ya no es una visualización pasiva. Es una experiencia de venta activa.</p>
+
+            <hr />
+
+            <h2>¿Qué debería hacer una inmobiliaria si quiere vender más (y mejor)?</h2>
+            <p>Hoy, muchas inmobiliarias ya tienen renders y recorridos. El problema es que los están usando como piezas de apoyo, no como herramientas comerciales.</p>
+
+            <p>Lo ideal sería:</p>
             <ul>
-              <li><strong>Experiencia inmersiva</strong> que genera conexión emocional con el espacio.</li>
-              <li><strong>Mayor transparencia</strong> al mostrar el espacio tal como es.</li>
-              <li><strong>Filtran leads</strong>: quienes dedican tiempo a explorar un recorrido suelen ser prospectos más calificados.</li>
-              <li><strong>Reducen visitas innecesarias</strong> y acortan el ciclo de venta.</li>
-              <li><strong>Diferencian tu proyecto</strong> de la competencia con una experiencia digital superior.</li>
-            </ul>
-            
-            <h3>Desventajas de los recorridos virtuales:</h3>
-            
-            <ul>
-              <li>Requieren que el espacio esté construido o maquetado (aunque existen alternativas de recorridos virtuales CGI).</li>
-              <li>Mayor inversión inicial comparado con renders individuales.</li>
-              <li>No ideales para todos los medios de marketing tradicional.</li>
+              <li>Usar los renders para captar atención temprana en redes sociales, portales y presentaciones</li>
+              <li>Implementar recorridos virtuales como el punto central de sus sitios web para que el cliente explore la propiedad de forma autónoma</li>
+              <li>Agregar inteligencia a ese recorrido a través de Maia: transformar esa visualización en una experiencia guiada, personalizada y medible</li>
             </ul>
 
-            <h2>¿Cuándo usar cada uno?</h2>
-            
-            <p><strong>Usa renders cuando:</strong></p>
-            
-            <ul>
-              <li>El proyecto está en etapas iniciales y no hay espacios físicos que mostrar.</li>
-              <li>Necesitas material visual para publicidad tradicional y redes sociales.</li>
-              <li>Quieres destacar aspectos visuales específicos con control total sobre la presentación.</li>
-              <li>Tienes un presupuesto limitado para visualización.</li>
-            </ul>
-            
-            <p><strong>Usa recorridos virtuales cuando:</strong></p>
-            
-            <ul>
-              <li>El proyecto tiene espacios construidos o showrooms listos.</li>
-              <li>Buscas generar leads más calificados y reducir visitas innecesarias.</li>
-              <li>Tu objetivo es crear una conexión emocional más profunda con el espacio.</li>
-              <li>Quieres diferenciarte de la competencia con una experiencia digital superior.</li>
-              <li>Buscas capturar datos de comportamiento para optimizar tu estrategia comercial.</li>
-            </ul>
+            <hr />
 
-            <h2>La estrategia ideal: combinar ambas tecnologías</h2>
-            
-            <p>
-              La estrategia más efectiva suele ser utilizar renders en las etapas iniciales para generar interés y visibilidad, y posteriormente implementar recorridos virtuales cuando existan espacios físicos que mostrar o para departamentos piloto.
-            </p>
-            
-            <p>
-              Con Maia, puedes llevar tus recorridos virtuales al siguiente nivel, transformándolos en herramientas de inteligencia comercial que no solo muestran tu proyecto, sino que capturan datos valiosos sobre el comportamiento e intereses de tus potenciales clientes.
-            </p>
+            <h2>Conclusión</h2>
+            <p>No se trata de elegir entre render o recorrido.<br />
+            Se trata de entender que ambos tienen un rol distinto, y que solo uno de ellos puede evolucionar a ser una herramienta de inteligencia comercial.</p>
+
+            <p>Si quieres vender más, con mejores leads y menos fricción, necesitas un recorrido que haga más que solo mostrar:<br />
+            <strong>necesitas un recorrido que hable, que capte, que analice y que venda.</strong></p>
+
+            <p className="font-bold">¿Ya tienes un recorrido virtual? Poténcialo con Maia.</p>
           </div>
           
           <div className="bg-gradient-to-r from-primary-50 to-secondary-50 rounded-2xl p-8 text-center">
-            <h3 className="text-2xl font-bold mb-4">¿Quieres saber cómo implementar recorridos virtuales inteligentes en tu proyecto?</h3>
+            <h3 className="text-2xl font-bold mb-4">¿Quieres una demostración de Maia?</h3>
             <a 
               href="mailto:fede@maiavr.cl"
               className="inline-block px-6 py-3 bg-primary-600 text-white font-medium rounded-lg hover:bg-primary-700 transition-colors"
