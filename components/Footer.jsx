@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { getAssetPath } from '../lib/assetUtils';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -10,7 +11,7 @@ export default function Footer() {
           <div className="mb-8 md:mb-0">
             <Link href="/" className="flex items-center">
               <img
-                src="/logos/main/logo.png" 
+                src={getAssetPath("/logos/main/logo.png")} 
                 alt="Maia Logo"
                 className="h-20 w-auto"
               />
@@ -35,18 +36,18 @@ export default function Footer() {
             </nav>
             
             {/* Social Media Links */}
-            <div className="flex gap-4">
+            <div className="flex items-center gap-x-4">
               <a 
-                href="https://www.linkedin.com/company/maiacl" 
+                href="https://linkedin.com/company/maia-tour" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                className="text-white hover:text-primary-300 transition-colors"
+                className="text-gray-400 hover:text-white transition-colors"
               >
+                <span className="sr-only">LinkedIn</span>
                 <img 
-                  src="/logos/linkedin.svg" 
+                  src={getAssetPath("/logos/linkedin.svg")} 
                   alt="LinkedIn" 
-                  className="h-6 w-auto" 
+                  className="h-6 w-6"
                 />
               </a>
               <a 

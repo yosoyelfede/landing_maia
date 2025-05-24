@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from '../lib/motion';
+import { getAssetPath } from '../lib/assetUtils';
 
 export default function KeyValues() {
   const featureAnimation = {
@@ -56,7 +57,7 @@ export default function KeyValues() {
         >
           <div className="relative h-full min-h-[400px] md:min-h-[500px] bg-gray-100">
             <img 
-              src="/images/feature/feature-1.jpg" 
+              src={getAssetPath("/images/feature/feature-1.jpg")} 
               alt="Recorridos virtuales inteligentes" 
               className="absolute inset-0 w-full h-full object-cover"
             />
@@ -108,7 +109,7 @@ export default function KeyValues() {
         >
           <div className="order-1 md:order-2 relative h-full min-h-[400px] md:min-h-[500px] bg-gray-100">
             <img 
-              src="/images/feature/feature-2.jpg" 
+              src={getAssetPath("/images/feature/feature-2.jpg")} 
               alt="Captura inteligente de datos" 
               className="absolute inset-0 w-full h-full object-cover"
             />
@@ -159,7 +160,7 @@ export default function KeyValues() {
         >
           <div className="relative h-full min-h-[400px] md:min-h-[500px] bg-gray-100">
             <img 
-              src="/images/feature/feature-3.jpg" 
+              src={getAssetPath("/images/feature/feature-3.jpg")} 
               alt="Análisis de comportamiento" 
               className="absolute inset-0 w-full h-full object-cover"
             />

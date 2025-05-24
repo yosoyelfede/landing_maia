@@ -1,50 +1,59 @@
 "use client";
 
 import { motion } from '../lib/motion';
+import { getAssetPath } from '../lib/assetUtils';
 
 export default function TrustedBy() {
   return (
     <section id="apoyados" className="py-10 bg-[#0a1860] text-white relative overflow-hidden">
       {/* Background decorations */}
-      <div className="absolute inset-0 bg-[url('/patterns/grid-light.svg')] opacity-5"></div>
-      <div className="absolute -top-40 -right-40 w-96 h-96 rounded-full bg-blue-400/20 mix-blend-overlay filter blur-3xl"></div>
-      <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-blue-300/20 mix-blend-overlay filter blur-3xl"></div>
+      <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-primary-900/20 to-transparent"></div>
       
-      <div className="container relative z-10">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-12"
-        >
-          <h2 className="text-3xl font-bold mb-4">
-            Apoyados por
-          </h2>
-        </motion.div>
+      {/* Animated decoration elements */}
+      <motion.div 
+        initial={{ opacity: 0.2 }}
+        animate={{ 
+          opacity: [0.2, 0.3, 0.2],
+          rotate: [0, 5, 0]
+        }}
+        transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
+        className="absolute top-40 -left-20 w-64 h-64 rounded-full bg-primary-400/10 blur-3xl"
+      ></motion.div>
+      
+      <motion.div 
+        initial={{ opacity: 0.2 }}
+        animate={{ 
+          opacity: [0.2, 0.3, 0.2],
+          rotate: [0, -5, 0]
+        }}
+        transition={{ repeat: Infinity, duration: 15, ease: "easeInOut", delay: 2 }}
+        className="absolute bottom-20 -right-32 w-96 h-96 rounded-full bg-accent-400/10 blur-3xl"
+      ></motion.div>
+      
+      <div className="container mx-auto px-4 text-center relative z-10">
+        <h2 className="text-3xl md:text-4xl font-bold mb-12">Apoyados por</h2>
         
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex flex-wrap justify-center items-center gap-10 md:gap-16 mb-16"
-        >
-          <div className="transform transition-all duration-300 hover:scale-105">
-            <img
-              src="/logos/incubators/incuba-udd.png"
-              alt="Incuba UDD"
-              className="h-[86px] w-auto object-contain"
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 justify-items-center max-w-3xl mx-auto">
+          <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 flex flex-col items-center">
+            <img 
+              src={getAssetPath("/logos/incubators/incuba-udd.png")} 
+              alt="Incuba UDD Logo" 
+              className="h-20 w-auto mb-4"
             />
+            <h3 className="text-xl font-semibold">Incuba UDD</h3>
+            <p className="text-sm text-gray-300 mt-2">Incubadora de la Universidad del Desarrollo</p>
           </div>
-          <div className="transform transition-all duration-300 hover:scale-105">
-            <img
-              src="/logos/incubators/acelera-udd.png"
-              alt="Acelera UDD"
-              className="h-[72px] w-auto object-contain"
+          
+          <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 flex flex-col items-center">
+            <img 
+              src={getAssetPath("/logos/incubators/acelera-udd.png")}
+              alt="Acelera UDD Logo" 
+              className="h-20 w-auto mb-4"
             />
+            <h3 className="text-xl font-semibold">Acelera UDD</h3>
+            <p className="text-sm text-gray-300 mt-2">Aceleradora de la Universidad del Desarrollo</p>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
