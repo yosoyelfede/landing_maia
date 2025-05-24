@@ -1,5 +1,6 @@
 import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
+import { getAssetPath } from '../lib/assetUtils';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 const plusJakarta = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-space-grotesk', display: 'swap' });
@@ -17,7 +18,7 @@ export const metadata = {
     siteName: 'Maia',
     images: [
       {
-        url: '/images/og-image.jpg',
+        url: getAssetPath('/images/og-image.jpg'),
         width: 1200,
         height: 630,
         alt: 'Maia - Transforma tus recorridos virtuales en inteligencia comercial',
@@ -30,7 +31,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Maia - Transforma tus recorridos virtuales en inteligencia comercial',
     description: 'Maia transforma tus recorridos virtuales en herramientas de inteligencia comercial, ayudando a las empresas a tomar mejores decisiones basadas en datos.',
-    images: ['/images/og-image.jpg'],
+    images: [getAssetPath('/images/og-image.jpg')],
   },
   robots: {
     index: true,
@@ -38,11 +39,11 @@ export const metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: '32x32' },
-      { url: '/favicon.png', sizes: 'any' }
+      { url: getAssetPath('/favicon.ico'), sizes: '32x32' },
+      { url: getAssetPath('/favicon.png'), sizes: 'any' }
     ],
-    shortcut: '/favicon.png',
-    apple: '/favicon.png',
+    shortcut: getAssetPath('/favicon.png'),
+    apple: getAssetPath('/favicon.png'),
   },
 };
 
@@ -50,9 +51,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="es" className={`${inter.variable} ${plusJakarta.variable} scroll-smooth`}>
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="32x32" />
-        <link rel="icon" href="/favicon.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/favicon.png" />
+        <link rel="icon" href={getAssetPath('/favicon.ico')} sizes="32x32" />
+        <link rel="icon" href={getAssetPath('/favicon.png')} type="image/png" />
+        <link rel="apple-touch-icon" href={getAssetPath('/favicon.png')} />
       </head>
       <body className="antialiased bg-white text-gray-900 font-sans min-h-screen">
         {children}

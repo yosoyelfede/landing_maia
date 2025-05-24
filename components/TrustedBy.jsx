@@ -4,7 +4,7 @@ import { getAssetPath } from '../lib/assetUtils';
 
 export default function TrustedBy() {
   return (
-    <section id="apoyados" className="py-20 bg-[#0a1860] text-white relative overflow-hidden">
+    <section id="apoyados" className="py-20 bg-[#091440] text-white relative overflow-hidden">
       {/* Background decorations */}
       <div className="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-primary-900/20 to-transparent"></div>
       
@@ -19,13 +19,13 @@ export default function TrustedBy() {
           <img 
             src={getAssetPath("/logos/incubators/incuba-udd.png")} 
             alt="Incuba UDD Logo" 
-            className="h-24 w-auto"
+            className="h-24 w-auto bg-white/10 p-3 rounded-xl"
           />
           
           <img 
             src={getAssetPath("/logos/incubators/acelera-udd.png")}
             alt="Acelera UDD Logo" 
-            className="h-24 w-auto"
+            className="h-24 w-auto bg-white/10 p-3 rounded-xl"
           />
         </div>
       </div>
