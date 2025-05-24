@@ -1,6 +1,6 @@
 export default function Hero() {
   return (
-    <section id="inicio" className="relative py-10 overflow-hidden bg-gradient-to-b from-gray-50 to-white">
+    <section id="inicio" className="relative py-20 overflow-hidden bg-gradient-to-b from-gray-50 to-white">
       {/* Background pattern */}
       <div className="absolute inset-0 bg-dot-pattern opacity-50 pointer-events-none"></div>
       
