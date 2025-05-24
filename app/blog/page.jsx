@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import { getAssetPath } from '../../lib/assetUtils';
 
 const blogPosts = [
   {
@@ -37,7 +38,7 @@ export default function BlogPage() {
                 <Link href={`/blog/${post.slug}`}>
                   <div className="h-64 relative overflow-hidden bg-gray-100">
                     <img 
-                      src={post.imageUrl} 
+                      src={getAssetPath(post.imageUrl)} 
                       alt={post.title} 
                       className="absolute inset-0 w-full h-full object-cover"
                       style={{objectPosition: '50% 50%'}}
