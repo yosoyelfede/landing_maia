@@ -4,8 +4,7 @@
 
 :root {
   --foreground-rgb: 51, 51, 51;
-  --background-start-rgb: 255, 255, 255;
-  --background-end-rgb: 249, 250, 251;
+  --background-rgb: 255, 255, 255;
 }
 
 html {
@@ -16,11 +15,7 @@ html {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      rgb(var(--background-start-rgb)),
-      rgb(var(--background-end-rgb))
-    );
+  background: rgb(var(--background-rgb));
   overflow-x: hidden;
 }
 
