@@ -7,7 +7,7 @@ export default function Demo() {
           <iframe 
             src="https://maiavr.s3.sa-east-1.amazonaws.com/demo.html" 
             className="absolute inset-0 w-full h-full"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allow="xr-spatial-tracking *; microphone *; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             title="Demo de Maia"
             loading="lazy"

@@ -12,7 +12,7 @@ export default function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-gray-900 mb-8 animate-fade-in-up">
-            ¿Y si tus propiedades se vendieran <span className="text-primary-600 relative">
+            ¿Y si tus propiedades se vendieran <span className="text-primary-500 relative">
               solas
               <span className="absolute bottom-1 left-0 w-full h-2 bg-secondary-200 opacity-50 -z-10"></span>
             </span>?
@@ -49,6 +49,8 @@ export default function Hero() {
               style={{ borderRadius: '8px' }}
               title="Demo de Maia"
               className="bg-white shadow-inner"
+              allow="xr-spatial-tracking *; microphone *;"
+              allowFullScreen
             ></iframe>
           </div>
           
