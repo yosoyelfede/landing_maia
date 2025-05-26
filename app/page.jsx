@@ -1,6 +1,5 @@
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
-import Demo from "../components/Demo";
 import Partners from "../components/Partners";
 import KeyValues from "../components/KeyValues";
 import TrustedBy from "../components/TrustedBy";
@@ -18,7 +17,6 @@ export default function HomePage() {
     <main className="space-y-0">
       <Navbar />
       <Hero />
-      <Demo />
       <Partners />
       <KeyValues />
       <BlogSection />
