@@ -12,7 +12,7 @@ export default function TrustedBy() {
           <img 
             src={getAssetPath("/logos/incubators/incuba-udd.png")} 
             alt="Incuba UDD Logo" 
-            className="h-24 w-auto"
+            className="h-[6.3rem] w-auto"
           />
           
           <img 
