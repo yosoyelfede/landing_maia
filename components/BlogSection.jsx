@@ -24,7 +24,7 @@ export default function BlogSection() {
                 </div>
                 <div className="p-6 md:w-2/3">
                   <div className="uppercase tracking-wide text-sm text-primary-600 font-semibold">Tecnología inmobiliaria</div>
-                  <h3 className="mt-2 text-xl font-bold leading-tight">¿Render o recorrido virtual? Ventajas y desventajas para proyectos inmobiliarios</h3>
+                  <h3 className="mt-2 text-xl font-bold leading-tight">¿Render o recorrido? Cuándo conviene usar cada uno para vender mejor</h3>
                   <p className="mt-2 text-gray-600">Aprende cuándo utilizar cada tecnología y cómo maximizar tu retorno de inversión en marketing digital inmobiliario.</p>
                   <div className="mt-4 flex items-center">
                     <span className="inline-block bg-primary-100 text-primary-800 text-xs px-2 py-1 rounded-full">Recorridos virtuales</span>

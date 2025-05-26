@@ -6,7 +6,7 @@ export default function TrustedBy() {
   return (
     <section id="apoyados" className="py-20 bg-[#0A1860] text-white relative overflow-hidden">
       <div className="container mx-auto px-4 text-center relative z-10">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12">Apoyados por</h2>
+        <h2 className="text-3xl font-bold mb-4 text-white">Apoyados por</h2>
         
         <div className="flex flex-wrap justify-center gap-16 max-w-3xl mx-auto">
           <img 

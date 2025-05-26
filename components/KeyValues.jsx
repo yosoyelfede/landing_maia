@@ -8,9 +8,8 @@ export default function KeyValues() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-display font-bold mb-6 text-gray-900">
-            Recorridos virtuales con IA que convierten <span className="text-primary-600 relative">
+            Recorridos virtuales con IA que convierten <span className="text-primary-500 relative">
               visitas en ventas
-              <span className="absolute bottom-1 left-0 w-full h-2 bg-secondary-200 opacity-50 -z-10"></span>
             </span>
           </h2>
           <p className="text-xl text-gray-600">

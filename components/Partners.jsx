@@ -24,7 +24,7 @@ export default function Partners() {
       
       <div className="container">
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <h2 className="text-3xl font-bold mb-4 text-primary-600">
+          <h2 className="text-3xl font-bold mb-4 text-primary-500">
             Confían en nosotros
           </h2>
         </div>
