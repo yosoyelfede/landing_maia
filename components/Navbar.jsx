@@ -17,7 +17,7 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-primary-50 shadow-soft backdrop-blur-lg bg-opacity-80">
+    <header className="fixed inset-x-0 top-0 z-50 bg-white shadow-soft backdrop-blur-lg bg-opacity-80">
       <nav 
         className="container flex items-center justify-between py-1 md:py-2" 
         aria-label="Global"
