@@ -28,7 +28,7 @@ export default function FinalCTA() {
               href="mailto:fede@maiavr.cl" 
               className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-secondary-500 text-white rounded-xl text-lg font-medium hover:bg-secondary-600 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
             >
-              ¡Quiero un mes de prueba gratis!
+              ¡Quiero probarlo!
             </a>
           </div>
         </div>

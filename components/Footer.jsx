@@ -21,7 +21,7 @@ export default function Footer() {
           
           <div className="flex flex-col md:flex-row gap-8 items-center">
             <nav className="flex gap-x-8">
-              <Link href="/#inicio" className="hover:text-primary-300 transition-colors">
+              <Link href="/" className="hover:text-primary-300 transition-colors">
                 Inicio
               </Link>
               <Link href="/#demo" className="hover:text-primary-300 transition-colors">
@@ -70,12 +70,12 @@ export default function Footer() {
               © {currentYear} Maia. Todos los derechos reservados.
             </p>
             <div className="mt-4 md:mt-0 flex gap-6">
-              <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors">
+              <Link href="/terminos-y-condiciones" className="text-sm text-gray-400 hover:text-white transition-colors">
                 Términos y condiciones
-              </a>
-              <a href="#" className="text-sm text-gray-400 hover:text-white transition-colors">
+              </Link>
+              <Link href="/politica-de-privacidad" className="text-sm text-gray-400 hover:text-white transition-colors">
                 Política de privacidad
-              </a>
+              </Link>
             </div>
           </div>
         </div>

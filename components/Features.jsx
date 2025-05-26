@@ -5,8 +5,8 @@ import { motion } from '../lib/motion';
 export default function Features() {
   const features = [
     {
-      title: "Asistente AI Inteligente",
-      description: "Un asistente virtual que guía a los visitantes, responde preguntas y destaca las características más relevantes de cada propiedad en tiempo real.",
+      title: "Agente AI Inteligente",
+      description: "Un agente virtual que guía a los visitantes, responde preguntas y destaca las características más relevantes de cada propiedad en tiempo real.",
       icon: (
         <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="12" cy="12" r="10"></circle>

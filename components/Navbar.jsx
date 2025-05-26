@@ -7,8 +7,8 @@ import { getAssetPath } from '../lib/assetUtils';
 
 const navigation = [
   { name: 'Inicio', href: '/' },
-  { name: 'Demo', href: '#demo' },
-  { name: 'Características', href: '#features' },
+  { name: 'Demo', href: '/#demo' },
+  { name: 'Características', href: '/#features' },
   { name: 'Blog', href: '/blog' },
   { name: 'Contacto', href: 'mailto:fede@maiavr.cl' },
 ];

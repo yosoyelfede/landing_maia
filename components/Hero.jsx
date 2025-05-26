@@ -27,7 +27,7 @@ export default function Hero() {
               href="mailto:fede@maiavr.cl" 
               className="inline-flex items-center justify-center px-8 py-4 bg-primary-600 text-white rounded-xl text-lg font-medium transition-all duration-300 shadow-soft hover:shadow-strong transform hover:-translate-y-1 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2"
             >
-              ¡Quiero un mes de prueba gratis!
+              ¡Quiero probarlo!
             </a>
           </div>
         </div>
