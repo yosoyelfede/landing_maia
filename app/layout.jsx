@@ -51,6 +51,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="es" className={`${inter.variable} ${plusJakarta.variable} scroll-smooth`}>
       <head>
+        <meta name="google-site-verification" content="_jBu0z5AOuedmoN8S1RomjG9q4yuMsqHZ71Axnaa73M" />
         <link rel="icon" href={getAssetPath('/favicon.ico')} sizes="32x32" />
         <link rel="icon" href={getAssetPath('/favicon.png')} type="image/png" />
         <link rel="apple-touch-icon" href={getAssetPath('/favicon.png')} />
