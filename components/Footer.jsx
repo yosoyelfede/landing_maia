@@ -20,21 +20,21 @@ export default function Footer() {
           </div>
           
           <div className="flex flex-col gap-6 items-center">
-            {/* Navigation Links - 2 rows for mobile */}
-            <nav className="grid grid-cols-3 md:flex gap-x-2 sm:gap-x-6 md:gap-x-8 gap-y-4 text-center">
-              <Link href="/" className="hover:text-primary-300 transition-colors px-2">
+            {/* Navigation Links - vertical layout for mobile */}
+            <nav className="flex flex-col sm:grid sm:grid-cols-3 md:flex md:flex-row gap-4 sm:gap-x-6 md:gap-x-8 text-center">
+              <Link href="/" className="hover:text-primary-300 transition-colors px-4 py-1">
                 Inicio
               </Link>
-              <Link href="/#demo" className="hover:text-primary-300 transition-colors px-2">
+              <Link href="/#demo" className="hover:text-primary-300 transition-colors px-4 py-1">
                 Demo
               </Link>
-              <Link href="/#features" className="hover:text-primary-300 transition-colors px-2">
+              <Link href="/#features" className="hover:text-primary-300 transition-colors px-4 py-1">
                 Características
               </Link>
-              <Link href="/como-funciona" className="hover:text-primary-300 transition-colors px-2 col-span-2 col-start-1">
+              <Link href="/como-funciona" className="hover:text-primary-300 transition-colors px-4 py-1">
                 ¿Cómo funciona?
               </Link>
-              <Link href="/blog" className="hover:text-primary-300 transition-colors px-2">
+              <Link href="/blog" className="hover:text-primary-300 transition-colors px-4 py-1">
                 Blog
               </Link>
             </nav>
