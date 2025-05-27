@@ -477,7 +477,7 @@ export default function ComoFunciona() {
               {/* Mobile-optimized Comparison Table with more padding */}
               <div className="overflow-x-auto -mx-0 px-4 sm:mx-0">
                 <div className="inline-block min-w-[94%] sm:min-w-[96%] sm:px-0 align-middle mx-auto">
-                  <div className="min-w-full overflow-hidden rounded-xl shadow-md">
+                  <div className="min-w-full overflow-hidden rounded-xl shadow-md p-2 sm:p-3 bg-white">
                     {/* Headers */}
                     <div className="grid grid-cols-3 overflow-hidden">
                       <div className="bg-white p-1 sm:p-2 md:p-3 flex items-center justify-center">
@@ -493,8 +493,8 @@ export default function ComoFunciona() {
                         </div>
                       </div>
                       
-                      {/* Row 1 - Darker */}
-                      <div className="bg-gray-50 p-1 sm:p-2 md:p-3 flex items-center">
+                      {/* Row 1 */}
+                      <div className="bg-white p-1 sm:p-2 md:p-3 flex items-center">
                         <div className="flex items-center">
                           <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-10 md:h-10 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center mr-1 sm:mr-2 md:mr-3">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-5 md:h-5 text-blue-500">
@@ -504,7 +504,7 @@ export default function ComoFunciona() {
                           <h3 className="font-semibold text-gray-800 text-xxxs sm:text-xs md:text-base">Captura de datos</h3>
                         </div>
                       </div>
-                      <div className="bg-gray-200 p-1 sm:p-2 md:p-3">
+                      <div className="bg-gray-100 p-1 sm:p-2 md:p-3">
                         <div className="flex flex-col items-center justify-center h-full">
                           <div className="bg-white px-2 py-1 sm:px-3 sm:py-2 rounded-lg text-gray-600 text-xxxs sm:text-xs border border-gray-200 w-full text-center font-medium mb-1 sm:mb-2">
                             Formulario estático
@@ -517,7 +517,7 @@ export default function ComoFunciona() {
                           </div>
                         </div>
                       </div>
-                      <div className="bg-[#4845CC] p-1 sm:p-2 md:p-3">
+                      <div className="bg-[#4F46E5] p-1 sm:p-2 md:p-3">
                         <div className="flex flex-col items-center justify-center h-full">
                           <div className="bg-white px-2 py-1 sm:px-3 sm:py-2 rounded-lg text-primary-700 text-xxxs sm:text-xs border border-primary-100 w-full text-center font-medium mb-1 sm:mb-2">
                             Conversación natural
@@ -531,7 +531,7 @@ export default function ComoFunciona() {
                         </div>
                       </div>
                       
-                      {/* Row 2 - Lighter */}
+                      {/* Row 2 */}
                       <div className="bg-white p-1 sm:p-2 md:p-3 flex items-center">
                         <div className="flex items-center">
                           <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-10 md:h-10 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center mr-1 sm:mr-2 md:mr-3">
@@ -542,7 +542,7 @@ export default function ComoFunciona() {
                           <h3 className="font-semibold text-gray-800 text-xxxs sm:text-xs md:text-base">Información obtenida</h3>
                         </div>
                       </div>
-                      <div className="bg-gray-100 p-1 sm:p-2 md:p-3">
+                      <div className="bg-white p-1 sm:p-2 md:p-3">
                         <div className="flex flex-col items-center justify-center h-full">
                           <div className="bg-white px-2 py-1 sm:px-3 sm:py-2 rounded-lg text-gray-600 text-xxxs sm:text-xs border border-gray-200 w-full text-center font-medium mb-1 sm:mb-2">
                             Básica
@@ -569,8 +569,8 @@ export default function ComoFunciona() {
                         </div>
                       </div>
                       
-                      {/* Row 3 - Darker */}
-                      <div className="bg-gray-50 p-1 sm:p-2 md:p-3 flex items-center">
+                      {/* Row 3 */}
+                      <div className="bg-white p-1 sm:p-2 md:p-3 flex items-center">
                         <div className="flex items-center">
                           <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-10 md:h-10 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center mr-1 sm:mr-2 md:mr-3">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-5 md:h-5 text-blue-500">
@@ -580,7 +580,7 @@ export default function ComoFunciona() {
                           <h3 className="font-semibold text-gray-800 text-xxxs sm:text-xs md:text-base">Experiencia del usuario</h3>
                         </div>
                       </div>
-                      <div className="bg-gray-200 p-1 sm:p-2 md:p-3">
+                      <div className="bg-gray-100 p-1 sm:p-2 md:p-3">
                         <div className="flex flex-col items-center justify-center h-full">
                           <div className="bg-white px-2 py-1 sm:px-3 sm:py-2 rounded-lg text-gray-600 text-xxxs sm:text-xs border border-gray-200 w-full text-center font-medium mb-1 sm:mb-2">
                             Pasiva
@@ -593,13 +593,13 @@ export default function ComoFunciona() {
                           </div>
                         </div>
                       </div>
-                      <div className="bg-[#4845CC] p-1 sm:p-2 md:p-3">
+                      <div className="bg-[#4F46E5] p-1 sm:p-2 md:p-3">
                         <div className="flex flex-col items-center justify-center h-full">
                           <div className="bg-white px-2 py-1 sm:px-3 sm:py-2 rounded-lg text-primary-700 text-xxxs sm:text-xs border border-primary-100 w-full text-center font-medium mb-1 sm:mb-2">
                             Interactiva y personalizada
                           </div>
                           <div className="flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3 h-3 sm:w-4 sm:h-4 mr-1 text-green-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3 h-3 sm:w-4 sm:h-4 mr-1 text-green-400 flex-shrink-0 self-center">
                               <path strokeLinecap="round" strokeLinejoin="round" d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
                             </svg>
                             <span className="text-xxxs sm:text-xs text-green-400">Adaptada al visitante</span>
@@ -607,7 +607,7 @@ export default function ComoFunciona() {
                         </div>
                       </div>
                       
-                      {/* Row 4 - Lighter */}
+                      {/* Row 4 */}
                       <div className="bg-white p-1 sm:p-2 md:p-3 flex items-center">
                         <div className="flex items-center">
                           <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-10 md:h-10 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center mr-1 sm:mr-2 md:mr-3">
@@ -618,7 +618,7 @@ export default function ComoFunciona() {
                           <h3 className="font-semibold text-gray-800 text-xxxs sm:text-xs md:text-base">Conversión</h3>
                         </div>
                       </div>
-                      <div className="bg-gray-100 p-1 sm:p-2 md:p-3">
+                      <div className="bg-white p-1 sm:p-2 md:p-3">
                         <div className="flex flex-col items-center justify-center h-full">
                           <div className="bg-white px-2 py-1 sm:px-3 sm:py-2 rounded-lg text-gray-600 text-xxxs sm:text-xs border border-gray-200 w-full text-center font-medium mb-1 sm:mb-2">
                             Baja
@@ -645,8 +645,8 @@ export default function ComoFunciona() {
                         </div>
                       </div>
                       
-                      {/* Row 5 - Darker */}
-                      <div className="bg-gray-50 p-1 sm:p-2 md:p-3 flex items-center">
+                      {/* Row 5 */}
+                      <div className="bg-white p-1 sm:p-2 md:p-3 flex items-center">
                         <div className="flex items-center">
                           <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-10 md:h-10 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center mr-1 sm:mr-2 md:mr-3">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-5 md:h-5 text-blue-500">
@@ -656,7 +656,7 @@ export default function ComoFunciona() {
                           <h3 className="font-semibold text-gray-800 text-xxxs sm:text-xs md:text-base">Información accionable</h3>
                         </div>
                       </div>
-                      <div className="bg-gray-200 p-1 sm:p-2 md:p-3">
+                      <div className="bg-gray-100 p-1 sm:p-2 md:p-3">
                         <div className="flex flex-col items-center justify-center h-full">
                           <div className="bg-white px-2 py-1 sm:px-3 sm:py-2 rounded-lg text-gray-600 text-xxxs sm:text-xs border border-gray-200 w-full text-center font-medium mb-1 sm:mb-2">
                             Limitada
@@ -669,7 +669,7 @@ export default function ComoFunciona() {
                           </div>
                         </div>
                       </div>
-                      <div className="bg-[#4845CC] p-1 sm:p-2 md:p-3">
+                      <div className="bg-[#4F46E5] p-1 sm:p-2 md:p-3">
                         <div className="flex flex-col items-center justify-center h-full">
                           <div className="bg-white px-2 py-1 sm:px-3 sm:py-2 rounded-lg text-primary-700 text-xxxs sm:text-xs border border-primary-100 w-full text-center font-medium mb-1 sm:mb-2">
                             Insights concretos
