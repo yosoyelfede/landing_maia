@@ -21,6 +21,9 @@ module.exports = {
         sans: ['var(--font-inter)', 'ui-sans-serif', 'system-ui'],
         display: ['var(--font-space-grotesk)', 'ui-sans-serif', 'system-ui'],
       },
+      fontSize: {
+        'xxs': '0.65rem',
+      },
       colors: {
         primary: {
           50: '#f0f5ff',
@@ -84,6 +87,8 @@ module.exports = {
         'fade-in': 'fadeIn 0.5s ease-in-out',
         'fade-in-up': 'fadeInUp 0.7s ease-out',
         'float': 'float 6s ease-in-out infinite',
+        'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'swipe-hint': 'swipeHint 1.5s ease-in-out infinite',
       },
       keyframes: {
         fadeIn: {
@@ -97,6 +102,17 @@ module.exports = {
         float: {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-10px)' },
+        },
+        pulse: {
+          '0%, 100%': { opacity: 1 },
+          '50%': { opacity: 0.5 },
+        },
+        swipeHint: {
+          '0%': { transform: 'translateX(0)' },
+          '25%': { transform: 'translateX(5px)' },
+          '50%': { transform: 'translateX(0)' },
+          '75%': { transform: 'translateX(-5px)' },
+          '100%': { transform: 'translateX(0)' },
         },
       },
     },

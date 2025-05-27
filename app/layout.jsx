@@ -45,6 +45,7 @@ export const metadata = {
     shortcut: getAssetPath('/favicon.png'),
     apple: getAssetPath('/favicon.png'),
   },
+  viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0',
 };
 
 export default function RootLayout({ children }) {
