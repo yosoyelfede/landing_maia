@@ -475,11 +475,11 @@ export default function ComoFunciona() {
             
             <div className="max-w-5xl mx-auto mt-8">
               {/* Mobile-optimized Comparison Table with more padding */}
-              <div className="px-6 py-4">
+              <div className="px-4 sm:px-6 py-2 sm:py-4">
                 <div className="mx-auto">
-                  <div className="w-full overflow-visible rounded-xl bg-white border border-gray-200">
+                  <div className="w-full rounded-xl bg-white">
                     {/* Headers */}
-                    <div className="grid grid-cols-3">
+                    <div className="grid grid-cols-3 overflow-hidden rounded-xl">
                       <div className="bg-white p-1 sm:p-2 md:p-3 flex items-center justify-center">
                         <h3 className="text-xxxs sm:text-xs md:text-base font-semibold text-gray-600">Características</h3>
                       </div>
