@@ -9,6 +9,7 @@ const navigation = [
   { name: 'Inicio', href: '/' },
   { name: 'Demo', href: '/#demo' },
   { name: 'Características', href: '/#features' },
+  { name: '¿Cómo funciona?', href: '/como-funciona' },
   { name: 'Blog', href: '/blog' },
   { name: 'Contacto', href: 'mailto:fede@maiavr.cl' },
 ];

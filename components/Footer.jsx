@@ -30,6 +30,9 @@ export default function Footer() {
               <Link href="/#features" className="hover:text-primary-300 transition-colors">
                 Características
               </Link>
+              <Link href="/como-funciona" className="hover:text-primary-300 transition-colors">
+                ¿Cómo funciona?
+              </Link>
               <Link href="/blog" className="hover:text-primary-300 transition-colors">
                 Blog
               </Link>

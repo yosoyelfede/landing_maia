@@ -26,7 +26,7 @@ export default function FinalCTA() {
           <div className="flex justify-center">
             <a 
               href="mailto:fede@maiavr.cl" 
-              className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-secondary-500 text-white rounded-xl text-lg font-medium hover:bg-secondary-600 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
+              className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-secondary-200 text-primary-900 rounded-xl text-lg font-medium hover:bg-secondary-300 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
             >
               ¡Quiero probarlo!
             </a>

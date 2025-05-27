@@ -20,8 +20,8 @@ export default function HomePage() {
       <Partners />
       <KeyValues />
       <BlogSection />
-      <TrustedBy />
       <FinalCTA />
+      <TrustedBy />
       <Footer />
     </main>
   );

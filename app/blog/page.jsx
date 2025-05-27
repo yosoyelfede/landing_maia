@@ -2,6 +2,8 @@ import Link from 'next/link';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { getAssetPath } from '../../lib/assetUtils';
+import FinalCTA from '../../components/FinalCTA';
+import TrustedBy from '../../components/TrustedBy';
 
 const blogPosts = [
   {
@@ -61,6 +63,8 @@ export default function BlogPage() {
         </div>
       </section>
       
+      <FinalCTA />
+      <TrustedBy />
       <Footer />
     </main>
   );

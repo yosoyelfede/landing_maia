@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
-import { getAssetPath } from '../../../lib/assetUtils';
+import Head from 'next/head';
+import FinalCTA from '../../../components/FinalCTA';
+import TrustedBy from '../../../components/TrustedBy';
 
 export const metadata = {
   title: '¿Render o recorrido? Cuándo conviene usar cada uno para vender mejor',
@@ -12,19 +14,55 @@ export default function BlogPost() {
   return (
     <main>
       <Navbar />
-      
+
+      <Head>
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="¿Render o recorrido? Cuándo conviene usar cada uno para vender mejor" />
+        <meta property="og:description" content="¿Render o recorrido virtual? Descubre cuándo conviene usar cada uno en proyectos inmobiliarios y cómo transformar recorridos existentes en herramientas de venta con Maia." />
+        <meta property="og:image" content="https://www.maiavr.cl/images/blog/render-vs-recorrido.png" />
+        <meta property="og:url" content="https://www.maiavr.cl/blog/render-vs-recorrido-virtual" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="¿Render o recorrido? Cuándo conviene usar cada uno para vender mejor" />
+        <meta name="twitter:description" content="¿Render o recorrido virtual? Descubre cuándo conviene usar cada uno en proyectos inmobiliarios y cómo transformar recorridos existentes en herramientas de venta con Maia." />
+        <meta name="twitter:image" content="https://www.maiavr.cl/images/blog/render-vs-recorrido.png" />
+
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: `{
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          "headline": "¿Render o recorrido? Cuándo conviene usar cada uno para vender mejor",
+          "description": "¿Render o recorrido virtual? Descubre cuándo conviene usar cada uno en proyectos inmobiliarios y cómo transformar recorridos existentes en herramientas de venta con Maia.",
+          "author": {
+            "@type": "Organization",
+            "name": "Maia"
+          },
+          "publisher": {
+            "@type": "Organization",
+            "name": "Maia",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://www.maiavr.cl/logo.png"
+            }
+          },
+          "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://www.maiavr.cl/blog/render-vs-recorrido-virtual"
+          },
+          "datePublished": "2024-05-10"
+        }` }} />
+      </Head>
+
       <div className="pt-24">
-        {/* Hero header con imagen de fondo */}
         <header className="relative mb-16">
           <div className="absolute inset-0 w-full h-full">
             <img 
-              src={getAssetPath("/images/blog/render-vs-recorrido.png")} 
-              alt="Fondo" 
+              src="https://www.maiavr.cl/images/blog/render-vs-recorrido.png" 
+              alt="Comparación entre render y recorrido virtual inmobiliario" 
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/60"></div>
           </div>
-          
+
           <div className="relative z-10 container mx-auto px-4 py-32 md:py-40 text-center">
             <div className="mb-4">
               <Link href="/blog" className="text-white hover:text-primary-300 transition-colors font-semibold">
@@ -163,7 +201,7 @@ export default function BlogPost() {
 
             <p className="font-bold">¿Ya tienes un recorrido virtual? Poténcialo con Maia.</p>
           </div>
-          
+
           <div className="bg-gradient-to-r from-primary-50 to-secondary-50 rounded-2xl p-8 text-center">
             <h3 className="text-2xl font-bold mb-4">¿Quieres una demostración de Maia?</h3>
             <a 
@@ -175,8 +213,10 @@ export default function BlogPost() {
           </div>
         </article>
       </div>
-      
+
+      <FinalCTA />
+      <TrustedBy />
       <Footer />
     </main>
   );
-} 
+}
