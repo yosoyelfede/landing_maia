@@ -19,27 +19,28 @@ export default function Footer() {
             </Link>
           </div>
           
-          <div className="flex flex-col md:flex-row gap-8 items-center">
-            <nav className="flex gap-x-8">
-              <Link href="/" className="hover:text-primary-300 transition-colors">
+          <div className="flex flex-col gap-6 items-center">
+            {/* Navigation Links - 2 rows for mobile */}
+            <nav className="grid grid-cols-3 md:flex gap-x-2 sm:gap-x-6 md:gap-x-8 gap-y-4 text-center">
+              <Link href="/" className="hover:text-primary-300 transition-colors px-2">
                 Inicio
               </Link>
-              <Link href="/#demo" className="hover:text-primary-300 transition-colors">
+              <Link href="/#demo" className="hover:text-primary-300 transition-colors px-2">
                 Demo
               </Link>
-              <Link href="/#features" className="hover:text-primary-300 transition-colors">
+              <Link href="/#features" className="hover:text-primary-300 transition-colors px-2">
                 Características
               </Link>
-              <Link href="/como-funciona" className="hover:text-primary-300 transition-colors">
+              <Link href="/como-funciona" className="hover:text-primary-300 transition-colors px-2 col-span-2 col-start-1">
                 ¿Cómo funciona?
               </Link>
-              <Link href="/blog" className="hover:text-primary-300 transition-colors">
+              <Link href="/blog" className="hover:text-primary-300 transition-colors px-2">
                 Blog
               </Link>
             </nav>
             
             {/* Social Media Links */}
-            <div className="flex items-center gap-x-4">
+            <div className="flex items-center gap-x-4 mt-2">
               <a 
                 href="https://www.linkedin.com/company/maiacl" 
                 target="_blank" 

@@ -468,9 +468,9 @@ export default function ComoFunciona() {
             <h2 className="text-3xl sm:text-4xl font-display font-bold mb-12 text-gray-900 text-center">¿Por qué usar Maia?</h2>
             
             <div className="max-w-5xl mx-auto mt-8">
-              {/* Mobile-optimized Comparison Table */}
-              <div className="overflow-x-auto -mx-4 sm:mx-0">
-                <div className="inline-block min-w-full sm:px-0 align-middle">
+              {/* Mobile-optimized Comparison Table with more padding */}
+              <div className="overflow-x-auto -mx-0 px-4 sm:mx-0">
+                <div className="inline-block min-w-[94%] sm:min-w-[96%] sm:px-0 align-middle mx-auto">
                   <div className="min-w-full overflow-hidden rounded-xl shadow-md">
                     {/* Headers */}
                     <div className="grid grid-cols-3 overflow-hidden">
