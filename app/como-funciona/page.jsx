@@ -164,7 +164,7 @@ export default function ComoFunciona() {
                 {steps.map((step, index) => (
                   <div
                     key={index}
-                    className={`absolute top-0 left-0 w-full h-full rounded-2xl p-6 transition-all duration-500 ${
+                    className={`absolute top-0 left-0 w-full h-full md:h-[250px] h-[350px] rounded-2xl p-6 transition-all duration-500 ${
                       activeIndex === index 
                         ? 'opacity-100 transform translate-x-0 z-10 bg-white shadow-md' 
                         : index < activeIndex
@@ -178,8 +178,8 @@ export default function ComoFunciona() {
                         Paso {index + 1}
                       </span>
                     </div>
-                    <h3 className="text-2xl font-bold mb-4 text-gray-900 text-center">{step.title}</h3>
-                    <p className="text-lg text-gray-600 text-center leading-relaxed">{step.description}</p>
+                    <h3 className="text-xl md:text-2xl font-bold mb-4 text-gray-900 text-center">{step.title}</h3>
+                    <p className="text-sm md:text-lg text-gray-600 text-center leading-relaxed">{step.description}</p>
                   </div>
                 ))}
                 </div>
@@ -199,17 +199,6 @@ export default function ComoFunciona() {
                     aria-label={`Go to step ${index + 1}`}
                   />
                 ))}
-              </div>
-              
-              {/* Swipe hint for mobile - only visible on small screens */}
-              <div className="md:hidden text-center mt-4 text-sm text-gray-500 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 mr-2 text-primary-500 animate-swipe-hint">
-                  <path d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-                <span>Desliza para ver más pasos</span>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 ml-2 text-primary-500 animate-swipe-hint">
-                  <path d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
               </div>
             </div>
           </section>
@@ -485,31 +474,31 @@ export default function ComoFunciona() {
                   <div className="min-w-full overflow-hidden rounded-xl shadow-md">
                     {/* Headers */}
                     <div className="grid grid-cols-3 overflow-hidden">
-                      <div className="bg-white p-4 sm:p-6 flex items-center justify-center">
-                        <h3 className="text-base sm:text-lg font-semibold text-gray-600">Características</h3>
+                      <div className="bg-white p-2 sm:p-4 md:p-6 flex items-center justify-center">
+                        <h3 className="text-xxs sm:text-sm md:text-lg font-semibold text-gray-600">Características</h3>
                       </div>
-                      <div className="bg-gray-100 p-4 sm:p-6 flex items-center justify-center">
-                        <span className="font-bold text-base sm:text-lg text-gray-700">Sin Maia</span>
+                      <div className="bg-gray-100 p-2 sm:p-4 md:p-6 flex items-center justify-center">
+                        <span className="font-bold text-xxs sm:text-sm md:text-lg text-gray-700">Sin Maia</span>
                       </div>
-                      <div className="bg-[#4F46E5] p-4 sm:p-6 flex items-center justify-center">
+                      <div className="bg-[#4F46E5] p-2 sm:p-4 md:p-6 flex items-center justify-center">
                         <div className="flex items-center">
-                          <span className="font-bold text-base sm:text-lg mr-2 text-white">Con</span>
-                          <img src="/logos/main/logo.png" alt="Maia Logo" className="h-10 sm:h-20 object-contain" />
+                          <span className="font-bold text-xxs sm:text-sm md:text-lg mr-1 sm:mr-2 text-white">Con</span>
+                          <img src="/logos/main/logo.png" alt="Maia Logo" className="h-6 sm:h-10 md:h-16 object-contain" />
                         </div>
                       </div>
                       
                       {/* Row 1 - Darker */}
-                      <div className="bg-gray-50 p-4 sm:p-6 flex items-center">
+                      <div className="bg-gray-50 p-2 sm:p-4 md:p-6 flex items-center">
                         <div className="flex items-center">
-                          <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center mr-2 sm:mr-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-6 sm:h-6 text-blue-500">
+                          <div className="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center mr-1 sm:mr-2 md:mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3 sm:w-4 sm:h-4 md:w-6 md:h-6 text-blue-500">
                               <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
                             </svg>
                           </div>
-                          <h3 className="font-semibold text-gray-800 text-sm sm:text-lg">Captura de datos</h3>
+                          <h3 className="font-semibold text-gray-800 text-xxxs sm:text-xs md:text-lg">Captura de datos</h3>
                         </div>
                       </div>
-                      <div className="bg-gray-200 p-4 sm:p-6">
+                      <div className="bg-gray-200 p-2 sm:p-4 md:p-6">
                         <div className="flex flex-col items-center justify-center h-full">
                           <div className="bg-white px-3 py-2 sm:px-5 sm:py-3 rounded-lg text-gray-600 text-xs sm:text-sm border border-gray-200 w-full text-center font-medium mb-2 sm:mb-4">
                             Formulario estático
@@ -522,7 +511,7 @@ export default function ComoFunciona() {
                           </div>
                         </div>
                       </div>
-                      <div className="bg-[#4845CC] p-4 sm:p-6">
+                      <div className="bg-[#4845CC] p-2 sm:p-4 md:p-6">
                         <div className="flex flex-col items-center justify-center h-full">
                           <div className="bg-white px-3 py-2 sm:px-5 sm:py-3 rounded-lg text-primary-700 text-xs sm:text-sm border border-primary-100 w-full text-center font-medium mb-2 sm:mb-4">
                             Conversación natural
@@ -537,17 +526,17 @@ export default function ComoFunciona() {
                       </div>
                       
                       {/* Row 2 - Lighter */}
-                      <div className="bg-white p-4 sm:p-6 flex items-center">
+                      <div className="bg-white p-2 sm:p-4 md:p-6 flex items-center">
                         <div className="flex items-center">
-                          <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center mr-2 sm:mr-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-6 sm:h-6 text-blue-500">
+                          <div className="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center mr-1 sm:mr-2 md:mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3 sm:w-4 sm:h-4 md:w-6 md:h-6 text-blue-500">
                               <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                             </svg>
                           </div>
-                          <h3 className="font-semibold text-gray-800 text-sm sm:text-lg">Información obtenida</h3>
+                          <h3 className="font-semibold text-gray-800 text-xxxs sm:text-xs md:text-lg">Información obtenida</h3>
                         </div>
                       </div>
-                      <div className="bg-gray-100 p-4 sm:p-6">
+                      <div className="bg-gray-100 p-2 sm:p-4 md:p-6">
                         <div className="flex flex-col items-center justify-center h-full">
                           <div className="bg-white px-3 py-2 sm:px-5 sm:py-3 rounded-lg text-gray-600 text-xs sm:text-sm border border-gray-200 w-full text-center font-medium mb-2 sm:mb-4">
                             Básica
@@ -560,7 +549,7 @@ export default function ComoFunciona() {
                           </div>
                         </div>
                       </div>
-                      <div className="bg-[#4F46E5] p-4 sm:p-6">
+                      <div className="bg-[#4F46E5] p-2 sm:p-4 md:p-6">
                         <div className="flex flex-col items-center justify-center h-full">
                           <div className="bg-white px-3 py-2 sm:px-5 sm:py-3 rounded-lg text-primary-700 text-xs sm:text-sm border border-primary-100 w-full text-center font-medium mb-2 sm:mb-4">
                             Completa + comportamiento
@@ -575,17 +564,17 @@ export default function ComoFunciona() {
                       </div>
                       
                       {/* Row 3 - Darker */}
-                      <div className="bg-gray-50 p-4 sm:p-6 flex items-center">
+                      <div className="bg-gray-50 p-2 sm:p-4 md:p-6 flex items-center">
                         <div className="flex items-center">
-                          <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center mr-2 sm:mr-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-6 sm:h-6 text-blue-500">
+                          <div className="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center mr-1 sm:mr-2 md:mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3 sm:w-4 sm:h-4 md:w-6 md:h-6 text-blue-500">
                               <path strokeLinecap="round" strokeLinejoin="round" d="M15.182 16.318A4.486 4.486 0 0012.016 15a4.486 4.486 0 00-3.198 1.318M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
                             </svg>
                           </div>
-                          <h3 className="font-semibold text-gray-800 text-sm sm:text-lg">Experiencia del usuario</h3>
+                          <h3 className="font-semibold text-gray-800 text-xxxs sm:text-xs md:text-lg">Experiencia del usuario</h3>
                         </div>
                       </div>
-                      <div className="bg-gray-200 p-4 sm:p-6">
+                      <div className="bg-gray-200 p-2 sm:p-4 md:p-6">
                         <div className="flex flex-col items-center justify-center h-full">
                           <div className="bg-white px-3 py-2 sm:px-5 sm:py-3 rounded-lg text-gray-600 text-xs sm:text-sm border border-gray-200 w-full text-center font-medium mb-2 sm:mb-4">
                             Pasiva
@@ -598,7 +587,7 @@ export default function ComoFunciona() {
                           </div>
                         </div>
                       </div>
-                      <div className="bg-[#4845CC] p-4 sm:p-6">
+                      <div className="bg-[#4845CC] p-2 sm:p-4 md:p-6">
                         <div className="flex flex-col items-center justify-center h-full">
                           <div className="bg-white px-3 py-2 sm:px-5 sm:py-3 rounded-lg text-primary-700 text-xs sm:text-sm border border-primary-100 w-full text-center font-medium mb-2 sm:mb-4">
                             Interactiva y personalizada
@@ -613,17 +602,17 @@ export default function ComoFunciona() {
                       </div>
                       
                       {/* Row 4 - Lighter */}
-                      <div className="bg-white p-4 sm:p-6 flex items-center">
+                      <div className="bg-white p-2 sm:p-4 md:p-6 flex items-center">
                         <div className="flex items-center">
-                          <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center mr-2 sm:mr-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-6 sm:h-6 text-blue-500">
+                          <div className="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center mr-1 sm:mr-2 md:mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3 sm:w-4 sm:h-4 md:w-6 md:h-6 text-blue-500">
                               <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
                             </svg>
                           </div>
-                          <h3 className="font-semibold text-gray-800 text-sm sm:text-lg">Conversión</h3>
+                          <h3 className="font-semibold text-gray-800 text-xxxs sm:text-xs md:text-lg">Conversión</h3>
                         </div>
                       </div>
-                      <div className="bg-gray-100 p-4 sm:p-6">
+                      <div className="bg-gray-100 p-2 sm:p-4 md:p-6">
                         <div className="flex flex-col items-center justify-center h-full">
                           <div className="bg-white px-3 py-2 sm:px-5 sm:py-3 rounded-lg text-gray-600 text-xs sm:text-sm border border-gray-200 w-full text-center font-medium mb-2 sm:mb-4">
                             Baja
@@ -636,7 +625,7 @@ export default function ComoFunciona() {
                           </div>
                         </div>
                       </div>
-                      <div className="bg-[#4F46E5] p-4 sm:p-6">
+                      <div className="bg-[#4F46E5] p-2 sm:p-4 md:p-6">
                         <div className="flex flex-col items-center justify-center h-full">
                           <div className="bg-white px-3 py-2 sm:px-5 sm:py-3 rounded-lg text-primary-700 text-xs sm:text-sm border border-primary-100 w-full text-center font-medium mb-2 sm:mb-4">
                             Alta
@@ -651,17 +640,17 @@ export default function ComoFunciona() {
                       </div>
                       
                       {/* Row 5 - Darker */}
-                      <div className="bg-gray-50 p-4 sm:p-6 flex items-center">
+                      <div className="bg-gray-50 p-2 sm:p-4 md:p-6 flex items-center">
                         <div className="flex items-center">
-                          <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center mr-2 sm:mr-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-6 sm:h-6 text-blue-500">
+                          <div className="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center mr-1 sm:mr-2 md:mr-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3 sm:w-4 sm:h-4 md:w-6 md:h-6 text-blue-500">
                               <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
                             </svg>
                           </div>
-                          <h3 className="font-semibold text-gray-800 text-sm sm:text-lg">Información accionable</h3>
+                          <h3 className="font-semibold text-gray-800 text-xxxs sm:text-xs md:text-lg">Información accionable</h3>
                         </div>
                       </div>
-                      <div className="bg-gray-200 p-4 sm:p-6">
+                      <div className="bg-gray-200 p-2 sm:p-4 md:p-6">
                         <div className="flex flex-col items-center justify-center h-full">
                           <div className="bg-white px-3 py-2 sm:px-5 sm:py-3 rounded-lg text-gray-600 text-xs sm:text-sm border border-gray-200 w-full text-center font-medium mb-2 sm:mb-4">
                             Limitada
@@ -674,7 +663,7 @@ export default function ComoFunciona() {
                           </div>
                         </div>
                       </div>
-                      <div className="bg-[#4845CC] p-4 sm:p-6">
+                      <div className="bg-[#4845CC] p-2 sm:p-4 md:p-6">
                         <div className="flex flex-col items-center justify-center h-full">
                           <div className="bg-white px-3 py-2 sm:px-5 sm:py-3 rounded-lg text-primary-700 text-xs sm:text-sm border border-primary-100 w-full text-center font-medium mb-2 sm:mb-4">
                             Insights concretos
