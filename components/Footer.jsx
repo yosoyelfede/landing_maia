@@ -4,11 +4,19 @@ import { getAssetPath } from '../lib/assetUtils';
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
+  const navigation = [
+    { name: 'Inicio', href: '/' },
+    { name: 'Demo', href: '/#demo' },
+    { name: 'Características', href: '/#features' },
+    { name: '¿Cómo funciona?', href: '/como-funciona' },
+    { name: 'Blog', href: '/blog' },
+  ];
+
   return (
     <footer className="bg-gray-900 text-white py-20">
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-center mb-10">
-          <div className="mb-8 md:mb-0">
+          <div className="mb-8 md:mb-0 md:flex-1">
             <Link href="/" className="flex items-center">
               <img
                 src={getAssetPath("/logos/main/logo.png")} 
@@ -19,51 +27,57 @@ export default function Footer() {
             </Link>
           </div>
           
-          <div className="flex flex-col gap-6 items-center">
-            {/* Navigation Links - vertical layout for mobile */}
-            <nav className="flex flex-col sm:grid sm:grid-cols-3 md:flex md:flex-row gap-4 sm:gap-x-6 md:gap-x-8 text-center">
-              <Link href="/" className="hover:text-primary-300 transition-colors px-4 py-1">
-                Inicio
-              </Link>
-              <Link href="/#demo" className="hover:text-primary-300 transition-colors px-4 py-1">
-                Demo
-              </Link>
-              <Link href="/#features" className="hover:text-primary-300 transition-colors px-4 py-1">
-                Características
-              </Link>
-              <Link href="/como-funciona" className="hover:text-primary-300 transition-colors px-4 py-1">
-                ¿Cómo funciona?
-              </Link>
-              <Link href="/blog" className="hover:text-primary-300 transition-colors px-4 py-1">
-                Blog
-              </Link>
-            </nav>
-            
-            {/* Social Media Links */}
-            <div className="flex items-center gap-x-4 mt-2">
-              <a 
-                href="https://www.linkedin.com/company/maiacl" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                <span className="sr-only">LinkedIn</span>
-                <img 
-                  src={getAssetPath("/logos/linkedin.svg")} 
-                  alt="LinkedIn" 
-                  className="h-6 w-6"
-                />
-              </a>
-              <a 
-                href="mailto:fede@maiavr.cl" 
-                aria-label="Email"
-                className="text-white hover:text-primary-300 transition-colors"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                  <polyline points="22,6 12,13 2,6"></polyline>
-                </svg>
-              </a>
+          <div className="flex md:flex-1 justify-end items-center">
+            {/* Navigation Links using the exact same structure as header */}
+            <div className="flex flex-col md:flex-row md:items-center md:gap-x-10">
+              {navigation.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`text-[16px] font-semibold text-white hover:text-primary-300 transition-colors duration-300 mb-2 md:mb-0 ${item.name === '¿Cómo funciona?' ? 'whitespace-nowrap' : ''}`}
+                >
+                  {item.name}
+                </Link>
+              ))}
+              <div className="flex items-center gap-x-3 mt-2 md:mt-0">
+                <a 
+                  href="mailto:fede@maiavr.cl" 
+                  aria-label="Email"
+                  className="text-white hover:text-primary-300 transition-colors"
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                >
+                  <div style={{ transform: 'scale(1)', transformOrigin: 'center', height: '30px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <svg 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      width="30" 
+                      height="30"
+                    >
+                      <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                    </svg>
+                  </div>
+                </a>
+                <a 
+                  href="https://www.linkedin.com/company/maiacl" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-primary-300 transition-colors"
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                >
+                  <span className="sr-only">LinkedIn</span>
+                  <div style={{ height: '30px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6">
+                      <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                  </div>
+                </a>
+              </div>
             </div>
           </div>
         </div>
