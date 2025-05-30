@@ -1,6 +1,7 @@
 'use client';
 
 import { getAssetPath } from '../lib/assetUtils';
+import Link from 'next/link';
 
 export default function KeyValues() {
   return (
@@ -12,10 +13,20 @@ export default function KeyValues() {
               visitas en ventas
             </span>
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-600 mb-8">
             Transformamos tus recorridos virtuales en experiencias interactivas 
             guiadas por IA, donde los compradores pueden explorar proyectos sin depender de un ejecutivo.
           </p>
+          
+          {/* Botón CTA hacia la página de cómo funciona */}
+          <div className="flex justify-center mb-16">
+            <Link 
+              href="/como-funciona" 
+              className="inline-flex items-center justify-center px-8 py-4 bg-primary-600 text-white rounded-xl text-lg font-medium transition-all duration-300 shadow-soft hover:shadow-strong transform hover:-translate-y-1 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2"
+            >
+              Conoce cómo funciona
+            </Link>
+          </div>
         </div>
 
         {/* Feature 1 - Imagen a la izquierda */}
