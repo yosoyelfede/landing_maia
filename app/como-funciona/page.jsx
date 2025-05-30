@@ -6,6 +6,7 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import Button from '../../components/ui/Button';
 import TrustedBy from "../../components/TrustedBy";
+import FAQCTA from "../../components/FAQCTA";
 
 // Add custom styles for hiding scrollbar
 const scrollbarStyles = `
@@ -199,7 +200,7 @@ export default function ComoFunciona() {
                     key={index}
                     className={`absolute top-0 left-0 w-full h-full md:h-[250px] h-[350px] rounded-2xl p-6 transition-all duration-500 ${
                       activeIndex === index 
-                        ? 'opacity-100 transform translate-x-0 z-10 bg-white border border-gray-200' 
+                        ? 'opacity-100 transform translate-x-0 z-10 bg-white border-2 border-gray-300' 
                         : index < activeIndex
                           ? 'opacity-0 transform -translate-x-full' 
                           : 'opacity-0 transform translate-x-full'
@@ -245,7 +246,7 @@ export default function ComoFunciona() {
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Feature 1 */}
-              <div className="flex flex-col items-center text-center p-5 rounded-lg transition-all duration-300 hover:bg-secondary-200 hover:bg-opacity-50">
+              <div className="flex flex-col items-center text-center p-5 rounded-lg border-2 border-gray-300 transition-all duration-300 hover:bg-secondary-200 hover:bg-opacity-50 hover:border-gray-400">
                 <div className="w-14 h-14 mb-4 rounded-full bg-primary-100 flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7 text-primary-500">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
@@ -256,7 +257,7 @@ export default function ComoFunciona() {
               </div>
               
               {/* Feature 2 */}
-              <div className="flex flex-col items-center text-center p-5 rounded-lg transition-all duration-300 hover:bg-secondary-200 hover:bg-opacity-50">
+              <div className="flex flex-col items-center text-center p-5 rounded-lg border-2 border-gray-300 transition-all duration-300 hover:bg-secondary-200 hover:bg-opacity-50 hover:border-gray-400">
                 <div className="w-14 h-14 mb-4 rounded-full bg-primary-100 flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7 text-primary-500">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
@@ -267,7 +268,7 @@ export default function ComoFunciona() {
               </div>
               
               {/* Feature 3 */}
-              <div className="flex flex-col items-center text-center p-5 rounded-lg transition-all duration-300 hover:bg-secondary-200 hover:bg-opacity-50">
+              <div className="flex flex-col items-center text-center p-5 rounded-lg border-2 border-gray-300 transition-all duration-300 hover:bg-secondary-200 hover:bg-opacity-50 hover:border-gray-400">
                 <div className="w-14 h-14 mb-4 rounded-full bg-primary-100 flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7 text-primary-500">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
@@ -279,7 +280,7 @@ export default function ComoFunciona() {
               </div>
               
               {/* Feature 4 */}
-              <div className="flex flex-col items-center text-center p-5 rounded-lg transition-all duration-300 hover:bg-secondary-200 hover:bg-opacity-50">
+              <div className="flex flex-col items-center text-center p-5 rounded-lg border-2 border-gray-300 transition-all duration-300 hover:bg-secondary-200 hover:bg-opacity-50 hover:border-gray-400">
                 <div className="w-14 h-14 mb-4 rounded-full bg-primary-100 flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7 text-primary-500">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
@@ -290,7 +291,7 @@ export default function ComoFunciona() {
               </div>
               
               {/* Feature 5 */}
-              <div className="flex flex-col items-center text-center p-5 rounded-lg transition-all duration-300 hover:bg-secondary-200 hover:bg-opacity-50">
+              <div className="flex flex-col items-center text-center p-5 rounded-lg border-2 border-gray-300 transition-all duration-300 hover:bg-secondary-200 hover:bg-opacity-50 hover:border-gray-400">
                 <div className="w-14 h-14 mb-4 rounded-full bg-primary-100 flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7 text-primary-500">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
@@ -301,7 +302,7 @@ export default function ComoFunciona() {
               </div>
               
               {/* Feature 6 */}
-              <div className="flex flex-col items-center text-center p-5 rounded-lg transition-all duration-300 hover:bg-secondary-200 hover:bg-opacity-50">
+              <div className="flex flex-col items-center text-center p-5 rounded-lg border-2 border-gray-300 transition-all duration-300 hover:bg-secondary-200 hover:bg-opacity-50 hover:border-gray-400">
                 <div className="w-14 h-14 mb-4 rounded-full bg-primary-100 flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7 text-primary-500">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
@@ -310,204 +311,6 @@ export default function ComoFunciona() {
                 <h3 className="text-2xl font-bold mb-4 text-gray-900">Insights comerciales</h3>
                 <p className="text-lg text-gray-600 leading-relaxed">Detecta intereses, patrones y objeciones frecuentes para optimizar tu estrategia.</p>
               </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="py-20 bg-gray-50 relative overflow-hidden">
-          {/* Remove background decorations */}
-          
-          <div className="container relative z-10">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-display font-bold mb-6 text-gray-900">Preguntas frecuentes</h2>
-              <p className="text-xl text-gray-600">Todo lo que necesitas saber sobre cómo implementar Maia en tus proyectos</p>
-            </div>
-            
-            <div className="max-w-3xl mx-auto bg-white rounded-xl overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.03)] mb-8">
-              <Accordion type="single" collapsible={true} className="w-full divide-y divide-gray-100 rounded-xl">
-                <AccordionItem 
-                  value="q1" 
-                  title={
-                    <div className="flex items-center">
-                      <div className="mr-4 p-2 bg-primary-50 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-primary-500">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
-                        </svg>
-                      </div>
-                      <span className="text-lg font-semibold text-gray-900">¿Qué pasa si no tengo un recorrido virtual?</span>
-                    </div>
-                  }
-                >
-                  <div className="pl-11 pt-2 pb-1 text-lg text-gray-600 leading-relaxed">
-                    Podemos ayudarte a producir las imágenes 360 necesarias para crear tu recorrido virtual desde cero.
-                  </div>
-                </AccordionItem>
-                
-                <AccordionItem 
-                  value="q2" 
-                  title={
-                    <div className="flex items-center">
-                      <div className="mr-4 p-2 bg-primary-50 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-primary-500">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                        </svg>
-                      </div>
-                      <span className="text-lg font-semibold text-gray-900">¿Qué necesito entregar para comenzar?</span>
-                    </div>
-                  }
-                >
-                  <div className="pl-11 pt-2 pb-1 text-lg text-gray-600 leading-relaxed">
-                    Las imágenes 360° de la propiedad (ya sean renders o fotos) y toda la información clave del proyecto: especificaciones técnicas, manuales de ventas, precios, formas de financiamiento, atributos diferenciadores, servicios y zonas aledañas, etc. Mientras más completa sea la información, mejor será la experiencia que Maia podrá ofrecer.
-                  </div>
-                </AccordionItem>
-                
-                <AccordionItem 
-                  value="q3" 
-                  title={
-                    <div className="flex items-center">
-                      <div className="mr-4 p-2 bg-primary-50 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-5 h-5 text-primary-500">
-                          <path strokeWidth={1.5} stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="M5 5v14" />
-                          <path strokeWidth={1.5} stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round" d="M5 5h15v7h-15" />
-                          <path fill="currentColor" d="M8 5h3v3h-3zM14 5h3v3h-3zM8 9h3v3h-3zM14 9h3v3h-3z" />
-                        </svg>
-                      </div>
-                      <span className="text-lg font-semibold text-gray-900">¿Cuánto se demora la integración?</span>
-                    </div>
-                  }
-                >
-                  <div className="pl-11 pt-2 pb-1 text-lg text-gray-600 leading-relaxed">
-                    Alrededor de una semana desde que recibimos las imágenes e información completa del proyecto.
-                  </div>
-                </AccordionItem>
-                
-                <AccordionItem 
-                  value="q4" 
-                  title={
-                    <div className="flex items-center">
-                      <div className="mr-4 p-2 bg-primary-50 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-primary-500">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                        </svg>
-                      </div>
-                      <span className="text-lg font-semibold text-gray-900">¿Qué datos puede captar Maia?</span>
-                    </div>
-                  }
-                >
-                  <div className="pl-11 text-lg text-gray-600 leading-relaxed">
-                    Nombre, correo, RUT, intereses específicos, preguntas frecuentes y comportamiento detallado dentro del recorrido, incluyendo zonas de mayor interés y tiempo de permanencia.
-                  </div>
-                </AccordionItem>
-                
-                <AccordionItem 
-                  value="q5" 
-                  title={
-                    <div className="flex items-center">
-                      <div className="mr-4 p-2 bg-primary-50 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-primary-500">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-                        </svg>
-                      </div>
-                      <span className="text-lg font-semibold text-gray-900">¿Maia reemplaza al formulario tradicional?</span>
-                    </div>
-                  }
-                >
-                  <div className="pl-11 text-lg text-gray-600 leading-relaxed">
-                    Sí. Maia captura más información, de forma más fluida y natural mediante conversación, eliminando los puntos de fuga típicos de los formularios tradicionales.
-                  </div>
-                </AccordionItem>
-                
-                <AccordionItem 
-                  value="q6" 
-                  title={
-                    <div className="flex items-center">
-                      <div className="mr-4 p-2 bg-primary-50 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-primary-500">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
-                        </svg>
-                      </div>
-                      <span className="text-lg font-semibold text-gray-900">¿Cómo se entregan los leads?</span>
-                    </div>
-                  }
-                >
-                  <div className="pl-11 text-lg text-gray-600 leading-relaxed">
-                    Nos adaptamos a lo que más te convenga: correo electrónico, archivo compartido o cualquier otra vía que funcione mejor para tu equipo comercial. Estamos trabajando en la integración con CRMs.
-                  </div>
-                </AccordionItem>
-                
-                <AccordionItem 
-                  value="q7" 
-                  title={
-                    <div className="flex items-center">
-                      <div className="mr-4 p-2 bg-primary-50 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-primary-500">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                      </div>
-                      <span className="text-lg font-semibold text-gray-900">¿Cuándo se entregan los leads?</span>
-                    </div>
-                  }
-                >
-                  <div className="pl-11 text-lg text-gray-600 leading-relaxed">
-                    Tú eliges la frecuencia: diaria, semanal, mensual o personalizada.
-                  </div>
-                </AccordionItem>
-                
-                <AccordionItem 
-                  value="q8" 
-                  title={
-                    <div className="flex items-center">
-                      <div className="mr-4 p-2 bg-primary-50 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-primary-500">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" />
-                        </svg>
-                      </div>
-                      <span className="text-lg font-semibold text-gray-900">¿Puedo usar Maia en varios proyectos a la vez?</span>
-                    </div>
-                  }
-                >
-                  <div className="pl-11 text-lg text-gray-600 leading-relaxed">
-                    Sí. Puedes tener todas las propiedades que quieras activas simultáneamente, cada una con su configuración personalizada.
-                  </div>
-                </AccordionItem>
-                
-                <AccordionItem 
-                  value="q9" 
-                  title={
-                    <div className="flex items-center">
-                      <div className="mr-4 p-2 bg-primary-50 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-primary-500">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z" />
-                        </svg>
-                      </div>
-                      <span className="text-lg font-semibold text-gray-900">¿Tienen integración con CRMs?</span>
-                    </div>
-                  }
-                >
-                  <div className="pl-11 text-lg text-gray-600 leading-relaxed">
-                    Estamos trabajando en eso, ¡cuéntanos cuál usas y podremos avanzar más rápido!
-                  </div>
-                </AccordionItem>
-                
-                <AccordionItem 
-                  value="q10" 
-                  title={
-                    <div className="flex items-center">
-                      <div className="mr-4 p-2 bg-primary-50 rounded-full">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 text-primary-500">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
-                        </svg>
-                      </div>
-                      <span className="text-lg font-semibold text-gray-900">¿Ofrecen otros servicios asociados, cómo sitios web o renders?</span>
-                    </div>
-                  }
-                >
-                  <div className="pl-11 text-lg text-gray-600 leading-relaxed">
-                    Por supuesto, podemos ayudarte a desarrollar todo para potenciar tus recorridos y sitios al máximo, escríbenos y conversemos.
-                  </div>
-                </AccordionItem>
-              </Accordion>
             </div>
           </div>
         </section>
@@ -534,7 +337,7 @@ export default function ComoFunciona() {
                     {/* Outer container for fixed first column effect */}
                     <div className="flex min-w-full gap-4 sm:gap-6 md:gap-8 lg:min-w-0 lg:w-auto hide-scrollbar force-hide-scroll">
                       {/* Features Column - Standalone */}
-                      <div className="sticky left-0 z-20 w-[150px] sm:w-[200px] md:w-[270px] lg:w-[300px] flex-shrink-0 bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                      <div className="sticky left-0 z-20 w-[150px] sm:w-[200px] md:w-[270px] lg:w-[300px] flex-shrink-0 bg-white rounded-2xl border-2 border-gray-300 overflow-hidden hover:border-gray-400 transition-colors duration-300">
                         {/* Header */}
                         <div className="bg-white p-4 sm:p-6 md:p-8 flex items-center justify-center h-[80px] sm:h-[100px] md:h-[120px] border-b border-gray-200">
                           <h3 className="text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-gray-600">Características</h3>
@@ -598,7 +401,7 @@ export default function ComoFunciona() {
                       </div>
                       
                       {/* Sin Maia Column - Standalone */}
-                      <div className="w-[170px] sm:w-[250px] md:w-[300px] lg:w-[350px] flex-shrink-0 bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                      <div className="w-[170px] sm:w-[250px] md:w-[300px] lg:w-[350px] flex-shrink-0 bg-white rounded-2xl border-2 border-gray-300 overflow-hidden hover:border-gray-400 transition-colors duration-300">
                         {/* Header */}
                         <div className="bg-gray-100 p-4 sm:p-6 md:p-8 flex items-center justify-center h-[80px] sm:h-[100px] md:h-[120px] border-b border-gray-200">
                           <span className="font-bold text-sm sm:text-base md:text-xl lg:text-2xl text-gray-700">Sin Maia</span>
@@ -681,7 +484,7 @@ export default function ComoFunciona() {
                       </div>
                       
                       {/* Con Maia Column - Standalone */}
-                      <div className="w-[170px] sm:w-[250px] md:w-[300px] lg:w-[350px] flex-shrink-0 bg-[#4F46E5]/95 rounded-2xl shadow-lg border border-indigo-600 overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                      <div className="w-[170px] sm:w-[250px] md:w-[300px] lg:w-[350px] flex-shrink-0 bg-[#4F46E5]/95 rounded-2xl border-2 border-indigo-600 overflow-hidden hover:border-indigo-400 transition-colors duration-300">
                         {/* Header */}
                         <div className="bg-[#4F46E5] p-4 sm:p-6 md:p-8 flex items-center justify-center h-[80px] sm:h-[100px] md:h-[120px] border-b border-indigo-600">
                           <div className="flex items-center">
@@ -771,6 +574,11 @@ export default function ComoFunciona() {
               </div>
             </div>
           </div>
+        </section>
+
+        {/* Añadir el CTA de FAQ después de la tabla de comparación */}
+        <section>
+          <FAQCTA />
         </section>
 
         <section className="py-20 relative overflow-hidden">

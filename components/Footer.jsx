@@ -10,6 +10,7 @@ export default function Footer() {
     { name: 'Características', href: '/#features' },
     { name: '¿Cómo funciona?', href: '/como-funciona' },
     { name: 'Blog', href: '/blog' },
+    { name: 'FAQ', href: '/preguntas-frecuentes' },
   ];
 
   return (

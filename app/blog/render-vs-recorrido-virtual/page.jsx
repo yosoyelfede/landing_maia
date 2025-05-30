@@ -4,6 +4,7 @@ import Footer from '../../../components/Footer';
 import Head from 'next/head';
 import FinalCTA from '../../../components/FinalCTA';
 import TrustedBy from '../../../components/TrustedBy';
+import FAQCTA from '../../../components/FAQCTA';
 
 export const metadata = {
   title: '¿Render o recorrido? Cuándo conviene usar cada uno para vender mejor',
@@ -214,6 +215,11 @@ export default function BlogPost() {
         </article>
       </div>
 
+      {/* Wrapper section para FAQCTA */}
+      <section>
+        <FAQCTA />
+      </section>
+      
       <FinalCTA />
       <TrustedBy />
       <Footer />

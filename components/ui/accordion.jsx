@@ -53,7 +53,9 @@ export function AccordionItem({ value, title, children, isOpen, onToggle }) {
             e.stopPropagation();
             onToggle();
           }}
-          className="flex justify-between items-center w-full py-4 px-4 text-left font-medium focus:outline-none hover:bg-gray-50"
+          className={`flex justify-between items-center w-full py-4 px-4 text-left font-medium focus:outline-none transition-colors duration-200 ${
+            isOpen ? 'bg-secondary-100' : 'bg-white hover:bg-gray-50'
+          }`}
           aria-expanded={isOpen}
         >
           {typeof title === 'string' ? <span>{title}</span> : title}

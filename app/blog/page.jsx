@@ -4,6 +4,7 @@ import Footer from '../../components/Footer';
 import { getAssetPath } from '../../lib/assetUtils';
 import FinalCTA from '../../components/FinalCTA';
 import TrustedBy from '../../components/TrustedBy';
+import FAQCTA from '../../components/FAQCTA';
 
 const blogPosts = [
   {
@@ -26,17 +27,37 @@ export default function BlogPage() {
     <main>
       <Navbar />
       
-      <section className="py-16 md:py-24 bg-gray-50">
-        <div className="container mx-auto px-6">
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
-              Blog de <span className="text-primary-600">Maia</span>
+      {/* Hero section con fondo similar al landing */}
+      <section className="relative py-20 pb-8 md:py-24 md:pb-10 overflow-hidden bg-gradient-to-b from-gray-50 to-white">
+        {/* Background pattern */}
+        <div className="absolute inset-0 bg-dot-pattern opacity-50 pointer-events-none"></div>
+        
+        {/* Círculos decorativos con animaciones */}
+        <div className="absolute top-20 -left-28 w-96 h-96 bg-primary-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float"></div>
+        <div className="absolute top-40 -right-28 w-80 h-80 bg-secondary-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float" style={{ animationDelay: '1.5s' }}></div>
+        
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="max-w-3xl mx-auto text-center mb-0">
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-gray-900 mb-8 animate-fade-in-up">
+              Blog de <span className="text-primary-500 relative">
+                Maia
+                <span className="absolute bottom-1 left-0 w-full h-2 bg-secondary-200 opacity-50"></span>
+              </span>
             </h1>
+            <p className="text-xl md:text-2xl font-normal text-gray-600 max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+              ¿Tienes propiedades para vender?<br />
+              Esto te puede ayudar. Cada miércoles, sin falta.
+            </p>
           </div>
-          
+        </div>
+      </section>
+      
+      {/* Posts section con fondo gris */}
+      <section className="py-4 md:py-6 bg-gray-50">
+        <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-1 gap-8 max-w-3xl mx-auto">
             {blogPosts.map((post) => (
-              <article key={post.slug} className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <article key={post.slug} className="bg-white rounded-xl overflow-hidden border-2 border-gray-300 hover:border-gray-400 transition-colors duration-300">
                 <Link href={`/blog/${post.slug}`}>
                   <div className="h-64 relative overflow-hidden bg-gray-100">
                     <img 
@@ -61,6 +82,11 @@ export default function BlogPage() {
             ))}
           </div>
         </div>
+      </section>
+      
+      {/* Wrapper section para FAQCTA */}
+      <section>
+        <FAQCTA />
       </section>
       
       <FinalCTA />
