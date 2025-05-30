@@ -17,6 +17,19 @@ const scrollbarStyles = `
     scrollbar-width: none;
   }
 
+  /* Forzar ocultamiento de scrollbar en todos los contextos */
+  .force-hide-scroll {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+  }
+  
+  .force-hide-scroll::-webkit-scrollbar { 
+    width: 0 !important;
+    height: 0 !important;
+    display: none !important;
+  }
+
   /* Add even smaller text class for mobile */
   .text-xxxs {
     font-size: 0.6rem;
@@ -490,13 +503,20 @@ export default function ComoFunciona() {
             <div className="max-w-7xl mx-auto mt-8">
               {/* Comparison Table - Mobile Optimized with Standalone Columns */}
               <div className="px-2 sm:px-4 py-4 sm:py-6">
-                <div className="relative overflow-x-auto pb-4">
+                {/* Mobile scroll indicator - Movido arriba de la tabla */}
+                <div className="md:hidden mb-4 text-center text-gray-500">
+                  <span className="flex items-center justify-center">
+                    Desliza para comparar
+                  </span>
+                </div>
+                
+                <div className="relative overflow-x-auto pb-0 force-hide-scroll">
                   {/* Flexbox wrapper for centering on large screens */}
                   <div className="flex lg:justify-center">
                     {/* Outer container for fixed first column effect */}
-                    <div className="flex min-w-full gap-4 sm:gap-6 md:gap-8 lg:min-w-0 lg:w-auto">
+                    <div className="flex min-w-full gap-4 sm:gap-6 md:gap-8 lg:min-w-0 lg:w-auto hide-scrollbar force-hide-scroll">
                       {/* Features Column - Standalone */}
-                      <div className="sticky left-0 z-20 w-[150px] sm:w-[200px] md:w-[270px] lg:w-[300px] flex-shrink-0 bg-white rounded-xl shadow-md overflow-hidden">
+                      <div className="sticky left-0 z-20 w-[150px] sm:w-[200px] md:w-[270px] lg:w-[300px] flex-shrink-0 bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300">
                         {/* Header */}
                         <div className="bg-white p-4 sm:p-6 md:p-8 flex items-center justify-center h-[80px] sm:h-[100px] md:h-[120px] border-b border-gray-200">
                           <h3 className="text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-gray-600">Características</h3>
@@ -560,7 +580,7 @@ export default function ComoFunciona() {
                       </div>
                       
                       {/* Sin Maia Column - Standalone */}
-                      <div className="w-[170px] sm:w-[250px] md:w-[300px] lg:w-[350px] flex-shrink-0 bg-white rounded-xl shadow-md overflow-hidden">
+                      <div className="w-[170px] sm:w-[250px] md:w-[300px] lg:w-[350px] flex-shrink-0 bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300">
                         {/* Header */}
                         <div className="bg-gray-100 p-4 sm:p-6 md:p-8 flex items-center justify-center h-[80px] sm:h-[100px] md:h-[120px] border-b border-gray-200">
                           <span className="font-bold text-sm sm:text-base md:text-xl lg:text-2xl text-gray-700">Sin Maia</span>
@@ -643,7 +663,7 @@ export default function ComoFunciona() {
                       </div>
                       
                       {/* Con Maia Column - Standalone */}
-                      <div className="w-[170px] sm:w-[250px] md:w-[300px] lg:w-[350px] flex-shrink-0 bg-[#4F46E5]/95 rounded-xl shadow-md overflow-hidden">
+                      <div className="w-[170px] sm:w-[250px] md:w-[300px] lg:w-[350px] flex-shrink-0 bg-[#4F46E5]/95 rounded-2xl shadow-lg border border-indigo-600 overflow-hidden hover:shadow-xl transition-shadow duration-300">
                         {/* Header */}
                         <div className="bg-[#4F46E5] p-4 sm:p-6 md:p-8 flex items-center justify-center h-[80px] sm:h-[100px] md:h-[120px] border-b border-indigo-600">
                           <div className="flex items-center">
@@ -728,16 +748,6 @@ export default function ComoFunciona() {
                         </div>
                       </div>
                     </div>
-                  </div>
-                  
-                  {/* Mobile scroll indicator */}
-                  <div className="md:hidden mt-4 text-center text-gray-500">
-                    <span className="flex items-center justify-center gap-2">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 animate-pulse">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21L3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
-                      </svg>
-                      Desliza para comparar
-                    </span>
                   </div>
                 </div>
               </div>

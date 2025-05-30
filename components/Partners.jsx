@@ -41,12 +41,12 @@ export default function Partners() {
   
   const getHeight = (partnerName) => {
     switch(partnerName) {
-      case "Altas Cumbres": return "h-[121px]";
-      case "Galeria Inmobiliaria": return "h-[117px]";
-      case "IFocus": return "h-[170px]"; 
-      case "Qiiip": return "h-[75px]";
-      case "Fleep": return "h-[85px]";
-      default: return "h-[70px]";
+      case "Altas Cumbres": return "h-[121px] sm:h-[121px] max-sm:h-[79px]";
+      case "Galeria Inmobiliaria": return "h-[117px] sm:h-[117px] max-sm:h-[76px]";
+      case "IFocus": return "h-[170px] sm:h-[170px] max-sm:h-[110px]";
+      case "Qiiip": return "h-[75px] sm:h-[75px] max-sm:h-[49px]";
+      case "Fleep": return "h-[85px] sm:h-[85px] max-sm:h-[55px]";
+      default: return "h-[70px] sm:h-[70px] max-sm:h-[45px]";
     }
   };
   
@@ -56,7 +56,7 @@ export default function Partners() {
     
     let animationId;
     let startTime = null;
-    const scrollSpeed = 0.066; // Velocidad aumentada en un 10%
+    const scrollSpeed = 0.076;
     let timePaused = 0;
     
     const animate = (timestamp) => {
