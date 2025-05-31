@@ -1,9 +1,16 @@
+"use client";
+
 import React from 'react';
 import Link from 'next/link';
 import { getAssetPath } from '../lib/assetUtils';
 import FAQCTA from './FAQCTA';
+import { useLanguage } from '../lib/LanguageContext';
+import translations from '../lib/translations';
 
 export default function BlogSection() {
+  const { language } = useLanguage();
+  const content = translations.blogSection[language];
+  
   return (
     <>
       {/* Wrapper section para FAQCTA */}
@@ -14,8 +21,8 @@ export default function BlogSection() {
       <section className="py-20 bg-gray-100">
         <div className="container mx-auto px-4">
           <div className="text-center mb-10">
-            <h2 className="text-3xl font-bold">Novedades</h2>
-            <p className="text-gray-600 mt-2">Lee lo último de nuestro blog</p>
+            <h2 className="text-3xl font-bold">{content.heading}</h2>
+            <p className="text-gray-600 mt-2">{content.description}</p>
           </div>
           
           <div className="max-w-5xl mx-auto">
@@ -25,18 +32,18 @@ export default function BlogSection() {
                   <div className="md:w-1/3 h-64 md:h-auto relative">
                     <img
                       src={getAssetPath("/images/blog/render-vs-recorrido.png")}
-                      alt="Render vs recorrido virtual"
+                      alt={content.blogPosts.renderVsVirtualTour.title}
                       className="absolute inset-0 w-full h-full object-cover"
                     />
                   </div>
                   <div className="p-6 md:w-2/3">
-                    <div className="uppercase tracking-wide text-sm text-primary-600 font-semibold">Tecnología inmobiliaria</div>
-                    <h3 className="mt-2 text-xl font-bold leading-tight">¿Render o recorrido? Cuándo conviene usar cada uno para vender mejor</h3>
-                    <p className="mt-2 text-gray-600">Aprende cuándo utilizar cada tecnología y cómo maximizar tu retorno de inversión en marketing digital inmobiliario.</p>
+                    <div className="uppercase tracking-wide text-sm text-primary-600 font-semibold">{content.categories.realEstateTech}</div>
+                    <h3 className="mt-2 text-xl font-bold leading-tight">{content.blogPosts.renderVsVirtualTour.title}</h3>
+                    <p className="mt-2 text-gray-600">{content.blogPosts.renderVsVirtualTour.description}</p>
                     <div className="mt-4 flex items-center">
-                      <span className="inline-block bg-primary-100 text-primary-800 text-xs px-2 py-1 rounded-full">Recorridos virtuales</span>
+                      <span className="inline-block bg-primary-100 text-primary-800 text-xs px-2 py-1 rounded-full">{content.tags.virtualTours}</span>
                       <span className="mx-2 text-gray-500">·</span>
-                      <span className="text-sm text-gray-500">5 min de lectura</span>
+                      <span className="text-sm text-gray-500">{content.readingTime.replace('{minutes}', '5')}</span>
                     </div>
                   </div>
                 </div>

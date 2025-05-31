@@ -1,4 +1,12 @@
+"use client";
+
+import { useLanguage } from '../lib/LanguageContext';
+import translations from '../lib/translations';
+
 export default function Hero() {
+  const { language } = useLanguage();
+  const hero = translations.hero[language];
+  
   return (
     <section id="inicio" className="relative py-20 overflow-hidden bg-gradient-to-b from-gray-50 to-white">
       {/* Background pattern */}
@@ -11,14 +19,14 @@ export default function Hero() {
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 max-w-3xl mx-auto">
-          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-gray-900 mb-8 animate-fade-in-up">
-            ¿Y si tus propiedades se vendieran <span className="text-primary-500 relative">
-              solas
-              <span className="absolute bottom-1 left-0 w-full h-2 bg-secondary-200 opacity-50 -z-10"></span>
-            </span>?
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-gray-900 mb-8 animate-fade-in-up"
+              dangerouslySetInnerHTML={{ 
+                __html: hero.heading.replace('<span>', '<span class="text-primary-500 relative"><span class="absolute bottom-1 left-0 w-full h-2 bg-secondary-200 opacity-50 -z-10"></span>') 
+                                 .replace('</span>', '</span>')
+              }}>
           </h1>
           <p className="text-xl md:text-2xl font-normal text-gray-600 max-w-2xl mx-auto mb-10 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            Convierte tus recorridos virtuales en agentes de ventas inteligentes que capturan leads y generan conversiones.
+            {hero.description}
           </p>
           
           {/* CTA mejorado con efectos de hover */}
@@ -27,7 +35,7 @@ export default function Hero() {
               href="mailto:fede@maiavr.cl" 
               className="inline-flex items-center justify-center px-8 py-4 bg-primary-600 text-white rounded-xl text-lg font-medium transition-all duration-300 shadow-soft hover:shadow-strong transform hover:-translate-y-1 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2"
             >
-              ¡Quiero probarlo!
+              {hero.cta}
             </a>
           </div>
         </div>
@@ -47,7 +55,7 @@ export default function Hero() {
               width="100%"
               height="600"
               style={{ borderRadius: '8px' }}
-              title="Demo de Maia"
+              title={hero.demoTitle}
               className="bg-white shadow-inner"
               allow="xr-spatial-tracking *; microphone *;"
               allowFullScreen

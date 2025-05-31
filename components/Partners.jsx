@@ -2,8 +2,13 @@
 
 import { getAssetPath } from '../lib/assetUtils';
 import { useEffect, useRef } from 'react';
+import { useLanguage } from '../lib/LanguageContext';
+import translations from '../lib/translations';
 
 export default function Partners() {
+  const { language } = useLanguage();
+  const content = translations.partners[language];
+  
   const partners = [
     {
       name: "Altas Cumbres",
@@ -110,7 +115,7 @@ export default function Partners() {
       <div className="container">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl font-bold mb-4 text-primary-500">
-            Empresas que han confiado en nosotros
+            {content.heading}
           </h2>
         </div>
         

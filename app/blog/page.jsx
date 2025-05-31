@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
@@ -5,26 +7,18 @@ import { getAssetPath } from '../../lib/assetUtils';
 import FinalCTA from '../../components/FinalCTA';
 import TrustedBy from '../../components/TrustedBy';
 import FAQCTA from '../../components/FAQCTA';
-
-const blogPosts = [
-  {
-    slug: 'render-vs-recorrido-virtual',
-    title: '¿Render o recorrido? Cuándo conviene usar cada uno para vender mejor',
-    excerpt: 'Los renders son ideales para destacar atributos visuales en etapas tempranas, mientras que los recorridos virtuales son más efectivos cuando se quiere generar conexión emocional y captar leads calificados.',
-    author: 'Maia',
-    date: 'Mayo 2025',
-    imageUrl: '/images/blog/render-vs-recorrido.png'
-  }
-];
-
-export const metadata = {
-  title: 'Blog | Maia - Transformando recorridos virtuales',
-  description: 'Artículos sobre inteligencia artificial, recorridos virtuales y ventas inmobiliarias.',
-};
+import LanguageSelector from '../../components/LanguageSelector';
+import { useLanguage } from '../../lib/LanguageContext';
+import translations from '../../lib/translations';
 
 export default function BlogPage() {
+  const { language } = useLanguage();
+  const content = translations.blog[language];
+  const blogPosts = content.posts;
+  
   return (
     <main>
+      <LanguageSelector />
       <Navbar />
       
       {/* Hero section con fondo similar al landing */}
@@ -38,15 +32,11 @@ export default function BlogPage() {
         
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-3xl mx-auto text-center mb-0">
-            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-gray-900 mb-8 animate-fade-in-up">
-              Blog de <span className="text-primary-500 relative">
-                Maia
-                <span className="absolute bottom-1 left-0 w-full h-2 bg-secondary-200 opacity-50"></span>
-              </span>
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-gray-900 mb-8 animate-fade-in-up"
+                dangerouslySetInnerHTML={{ __html: content.title }}>
             </h1>
-            <p className="text-xl md:text-2xl font-normal text-gray-600 max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-              ¿Tienes propiedades para vender?<br />
-              Esto te puede ayudar. Cada miércoles, sin falta.
+            <p className="text-xl md:text-2xl font-normal text-gray-600 max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.2s' }}
+               dangerouslySetInnerHTML={{ __html: content.description }}>
             </p>
           </div>
         </div>
@@ -56,12 +46,12 @@ export default function BlogPage() {
       <section className="py-4 md:py-6 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-1 gap-8 max-w-3xl mx-auto">
-            {blogPosts.map((post) => (
-              <article key={post.slug} className="bg-white rounded-xl overflow-hidden border-2 border-gray-300 hover:border-gray-400 transition-colors duration-300">
+            {blogPosts.map((post, index) => (
+              <article key={index} className="bg-white rounded-xl overflow-hidden border-2 border-gray-300 hover:border-gray-400 transition-colors duration-300">
                 <Link href={`/blog/${post.slug}`}>
                   <div className="h-64 relative overflow-hidden bg-gray-100">
                     <img 
-                      src={getAssetPath(post.imageUrl)} 
+                      src={getAssetPath("/images/blog/render-vs-recorrido.png")} 
                       alt={post.title} 
                       className="absolute inset-0 w-full h-full object-cover"
                       style={{objectPosition: '50% 50%'}}
@@ -73,7 +63,7 @@ export default function BlogPage() {
                     </h2>
                     <p className="text-gray-600 mb-4 line-clamp-3">{post.excerpt}</p>
                     <div className="flex justify-between items-center text-sm text-gray-500">
-                      <span>{post.author}</span>
+                      <span>{content.author}</span>
                       <span>{post.date}</span>
                     </div>
                   </div>

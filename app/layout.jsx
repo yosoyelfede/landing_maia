@@ -1,6 +1,7 @@
 import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import { getAssetPath } from '../lib/assetUtils';
+import { LanguageProvider } from '../lib/LanguageContext';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 const plusJakarta = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-space-grotesk', display: 'swap' });
@@ -58,7 +59,9 @@ export default function RootLayout({ children }) {
         <link rel="apple-touch-icon" href={getAssetPath('/favicon.png')} />
       </head>
       <body className="antialiased bg-white text-gray-900 font-sans min-h-screen">
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

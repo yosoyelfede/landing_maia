@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect } from 'react';
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import Partners from "../components/Partners";
@@ -6,15 +9,28 @@ import TrustedBy from "../components/TrustedBy";
 import FinalCTA from "../components/FinalCTA";
 import Footer from "../components/Footer";
 import BlogSection from '../components/BlogSection';
-
-export const metadata = {
-  title: 'Maia - Convierte tus recorridos virtuales en herramientas de inteligencia comercial',
-  description: 'Transforma tus recorridos virtuales en herramientas de inteligencia comercial que captan leads y analizan comportamiento.',
-};
+import { useLanguage } from '../lib/LanguageContext';
+import translations from '../lib/translations';
+import LanguageSelector from '../components/LanguageSelector';
 
 export default function HomePage() {
+  const { language } = useLanguage();
+  const meta = translations.metadata[language];
+  
+  // Update the document title based on language
+  useEffect(() => {
+    document.title = meta.title;
+    
+    // Update meta description
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', meta.description);
+    }
+  }, [language, meta]);
+  
   return (
     <main className="space-y-0">
+      <LanguageSelector />
       <Navbar />
       <Hero />
       <Partners />

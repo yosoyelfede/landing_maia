@@ -1,6 +1,13 @@
+"use client";
+
 import Link from 'next/link';
+import { useLanguage } from '../lib/LanguageContext';
+import translations from '../lib/translations';
 
 export default function FAQCTA() {
+  const { language } = useLanguage();
+  const content = translations.faqCTA[language];
+  
   return (
     <section className="py-12 bg-gray-50 relative overflow-hidden">
       {/* Background pattern - Añadir el fondo con puntitos */}
@@ -14,10 +21,10 @@ export default function FAQCTA() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
               </svg>
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">¿Tienes dudas sobre Maia?</h3>
-            <p className="text-gray-600 mb-6">Revisa nuestra sección de preguntas frecuentes donde encontrarás respuestas a las consultas más comunes.</p>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">{content.heading}</h3>
+            <p className="text-gray-600 mb-6">{content.description}</p>
             <Link href="/preguntas-frecuentes" className="inline-flex items-center justify-center px-6 py-3 bg-primary-600 text-white rounded-lg text-lg font-medium hover:bg-primary-700 transition-colors duration-300">
-              Preguntas Frecuentes
+              {content.ctaButton}
             </Link>
           </div>
         </div>
