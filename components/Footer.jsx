@@ -18,7 +18,7 @@ export default function Footer() {
   return (
     <footer className="bg-gray-900 text-white py-20">
       <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-center mb-10">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10">
           <div className="mb-8 md:mb-0 md:flex-1">
             <Link href="/" className="flex items-center">
               <img
@@ -30,29 +30,27 @@ export default function Footer() {
             </Link>
           </div>
           
-          <div className="flex md:flex-1 justify-end items-center">
+          <div className="flex flex-col md:flex-1 md:justify-end w-full">
             {/* Navigation Links */}
-            <div className="flex flex-col md:flex-row md:items-center">
-              <nav className="flex flex-col md:flex-row items-center justify-between w-[520px]">
+            <div className="flex flex-col md:flex-row w-full">
+              <nav className="flex flex-col md:flex-row md:items-center md:justify-between w-full md:w-[520px]">
                 {navigation.map((item, index) => (
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="text-[16px] font-semibold text-white hover:text-primary-300 transition-colors duration-300 mb-2 md:mb-0 whitespace-nowrap"
-                    style={{ flex: '0 0 auto', textAlign: 'center' }}
+                    className="text-[16px] font-semibold text-white hover:text-primary-300 transition-colors duration-300 mb-3 md:mb-0 whitespace-nowrap text-left"
                   >
                     {item.name}
                   </Link>
                 ))}
               </nav>
-              <div className="flex items-center md:ml-8 gap-x-6 mt-2 md:mt-0">
+              <div className="flex items-center gap-x-6 mt-4 md:mt-0 md:ml-8">
                 <a 
                   href="mailto:fede@maiavr.cl" 
                   aria-label={accessibility.email}
                   className="text-white hover:text-primary-300 transition-colors"
-                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                 >
-                  <div style={{ transform: 'scale(1)', transformOrigin: 'center', height: '30px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div className="h-8 flex items-center justify-center">
                     <svg 
                       xmlns="http://www.w3.org/2000/svg" 
                       viewBox="0 0 24 24" 
@@ -61,8 +59,8 @@ export default function Footer() {
                       strokeWidth="2" 
                       strokeLinecap="round" 
                       strokeLinejoin="round" 
-                      width="30" 
-                      height="30"
+                      width="24" 
+                      height="24"
                     >
                       <rect x="2" y="4" width="20" height="16" rx="2"></rect>
                       <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
@@ -74,11 +72,10 @@ export default function Footer() {
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-white hover:text-primary-300 transition-colors"
-                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                 >
                   <span className="sr-only">{accessibility.linkedin}</span>
-                  <div style={{ height: '30px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6">
+                  <div className="h-8 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                     </svg>
                   </div>
@@ -129,7 +126,7 @@ export default function Footer() {
         </div>
         
         <div className="border-t border-gray-800 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
             <p className="text-sm text-gray-400">
               {footerText.copyright.replace('{year}', currentYear)}
             </p>
