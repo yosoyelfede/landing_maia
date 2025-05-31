@@ -12,27 +12,33 @@ export default function Partners() {
   const partners = [
     {
       name: "Altas Cumbres",
-      logo: "/logos/partners/altas-cumbres.svg"
+      logo: "/logos/partners/altas-cumbres.svg",
+      url: "https://altas-cumbres.cl/"
     },
     {
       name: "Exxacon",
-      logo: "/logos/partners/exxacon.svg"
+      logo: "/logos/partners/exxacon.svg",
+      url: "https://exxacon.cl/"
     },
     {
       name: "IFocus",
-      logo: "/logos/partners/ifocus.png"
+      logo: "/logos/partners/ifocus.png",
+      url: "https://www.ifocus.cl/"
     },
     {
       name: "Qiiip",
-      logo: "/logos/partners/logo-qiiip.png"
+      logo: "/logos/partners/logo-qiiip.png",
+      url: "https://qiiip.com/"
     },
     {
       name: "Fleep",
-      logo: "/logos/partners/Fleep.png"
+      logo: "/logos/partners/Fleep.png",
+      url: "https://www.fleep.cl/"
     },
     {
       name: "Galeria Inmobiliaria",
-      logo: "/logos/partners/galeriainmobiliaria.png"
+      logo: "/logos/partners/galeriainmobiliaria.png",
+      url: "https://galeriainmobiliaria.cl/"
     }
   ];
   
@@ -134,16 +140,20 @@ export default function Partners() {
           >
             <div className="flex items-center space-x-24 py-10 px-[100px]">
               {allPartners.map((partner, index) => (
-                <div 
+                <a 
                   key={`${partner.name}-${index}`}
+                  href={partner.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex-shrink-0 transition-all duration-300 filter grayscale opacity-60 hover:grayscale-0 hover:opacity-100 hover:scale-110"
+                  aria-label={`Visit ${partner.name} website`}
                 >
                   <img
                     src={getAssetPath(partner.logo)}
                     alt={partner.name}
                     className={`w-auto object-contain ${getHeight(partner.name)}`}
                   />
-                </div>
+                </a>
               ))}
             </div>
           </div>
