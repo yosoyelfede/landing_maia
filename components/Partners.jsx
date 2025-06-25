@@ -140,20 +140,24 @@ export default function Partners() {
           >
             <div className="flex items-center space-x-24 py-10 px-[100px]">
               {allPartners.map((partner, index) => (
-                <a 
+                <div 
                   key={`${partner.name}-${index}`}
-                  href={partner.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="flex-shrink-0 transition-all duration-300 filter grayscale opacity-60 hover:grayscale-0 hover:opacity-100 hover:scale-110"
-                  aria-label={`Visit ${partner.name} website`}
                 >
-                  <img
-                    src={getAssetPath(partner.logo)}
-                    alt={partner.name}
-                    className={`w-auto object-contain ${getHeight(partner.name)}`}
-                  />
-                </a>
+                  <a 
+                    href={partner.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Visit ${partner.name} website`}
+                    className="block"
+                  >
+                    <img
+                      src={getAssetPath(partner.logo)}
+                      alt={partner.name}
+                      className={`w-auto object-contain ${getHeight(partner.name)}`}
+                    />
+                  </a>
+                </div>
               ))}
             </div>
           </div>

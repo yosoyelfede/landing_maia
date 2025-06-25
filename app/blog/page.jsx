@@ -14,7 +14,45 @@ import translations from '../../lib/translations';
 export default function BlogPage() {
   const { language } = useLanguage();
   const content = translations.blog[language];
-  const blogPosts = content.posts;
+  // Sort posts to display newest first (based on the date field)
+  const blogPosts = [...content.posts].sort((a, b) => {
+    // Extract month and year from date strings
+    const getMonthYear = (dateStr) => {
+      const parts = dateStr.split(' ');
+      const month = parts[0];
+      const year = parseInt(parts[1]);
+      // Convert month names to numbers for comparison
+      const months = {
+        'Enero': 1, 'Febrero': 2, 'Marzo': 3, 'Abril': 4, 'Mayo': 5, 'Junio': 6,
+        'Julio': 7, 'Agosto': 8, 'Septiembre': 9, 'Octubre': 10, 'Noviembre': 11, 'Diciembre': 12,
+        'January': 1, 'February': 2, 'March': 3, 'April': 4, 'May': 5, 'June': 6,
+        'July': 7, 'August': 8, 'September': 9, 'October': 10, 'November': 11, 'December': 12
+      };
+      return { month: months[month] || 0, year };
+    };
+    
+    const dateA = getMonthYear(a.date);
+    const dateB = getMonthYear(b.date);
+    
+    // Compare years first
+    if (dateB.year !== dateA.year) {
+      return dateB.year - dateA.year;
+    }
+    // If same year, compare months
+    return dateB.month - dateA.month;
+  });
+  
+  // Helper function to get the correct image for each blog post
+  const getBlogImage = (slug) => {
+    switch(slug) {
+      case 'recorrido-inteligente':
+        return "/images/blog/recorrido-inteligente.png";
+      case 'render-vs-recorrido-virtual':
+        return "/images/blog/render-vs-recorrido.png";
+      default:
+        return "/images/blog/render-vs-recorrido.png";
+    }
+  };
   
   return (
     <main>
@@ -51,7 +89,7 @@ export default function BlogPage() {
                 <Link href={`/blog/${post.slug}`}>
                   <div className="h-64 relative overflow-hidden bg-gray-100">
                     <img 
-                      src={getAssetPath("/images/blog/render-vs-recorrido.png")} 
+                      src={getAssetPath(getBlogImage(post.slug))} 
                       alt={post.title} 
                       className="absolute inset-0 w-full h-full object-cover"
                       style={{objectPosition: '50% 50%'}}

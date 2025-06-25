@@ -46,7 +46,7 @@ export const metadata = {
     shortcut: getAssetPath('/favicon.png'),
     apple: getAssetPath('/favicon.png'),
   },
-  viewport: 'width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes',
+  viewport: 'width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0, user-scalable=yes',
 };
 
 export default function RootLayout({ children }) {
@@ -57,10 +57,17 @@ export default function RootLayout({ children }) {
         <link rel="icon" href={getAssetPath('/favicon.ico')} sizes="32x32" />
         <link rel="icon" href={getAssetPath('/favicon.png')} type="image/png" />
         <link rel="apple-touch-icon" href={getAssetPath('/favicon.png')} />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="HandheldFriendly" content="true" />
+        <meta name="MobileOptimized" content="width" />
       </head>
-      <body className="antialiased bg-white text-gray-900 font-sans min-h-screen">
+      <body className="antialiased bg-white text-gray-900 font-sans min-h-screen w-full overflow-x-hidden">
         <LanguageProvider>
-          {children}
+          <div className="w-full overflow-x-hidden max-w-[100vw]">
+            {children}
+          </div>
         </LanguageProvider>
       </body>
     </html>

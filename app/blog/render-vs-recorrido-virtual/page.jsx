@@ -49,7 +49,7 @@ export default function BlogPost() {
             "@type": "WebPage",
             "@id": "https://www.maiavr.cl/blog/render-vs-recorrido-virtual"
           },
-          "datePublished": "2024-05-10"
+          "datePublished": "2025-06-15"
         }` }} />
       </Head>
 
@@ -74,7 +74,7 @@ export default function BlogPost() {
               ¿Render o recorrido? Cuándo conviene usar cada uno para vender mejor
             </h1>
             <div className="flex justify-center gap-4 text-sm text-gray-200 font-medium">
-              <span>10 Mayo, 2024</span>
+              <span>Junio 2025</span>
               <span>·</span>
               <span>5 min de lectura</span>
             </div>
