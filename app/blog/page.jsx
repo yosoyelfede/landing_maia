@@ -61,12 +61,21 @@ export default function BlogPage() {
     const dateA = getMonthYear(a.date);
     const dateB = getMonthYear(b.date);
     
-    // Compare years first
+    // Compare years first (newest first)
     if (dateB.year !== dateA.year) {
       return dateB.year - dateA.year;
     }
-    // If same year, compare months
-    return dateB.month - dateA.month;
+    
+    // If same year, compare months (newest first)
+    if (dateB.month !== dateA.month) {
+      return dateB.month - dateA.month;
+    }
+    
+    // If same month and year, maintain order based on original array position
+    // (assumes posts later in array are newer, so reverse the order)
+    const indexA = content.posts.indexOf(a);
+    const indexB = content.posts.indexOf(b);
+    return indexB - indexA;
   });
   
   // Helper function to get the correct image for each blog post
@@ -80,6 +89,13 @@ export default function BlogPage() {
         return "/images/blog/render-vs-recorrido.png";
     }
   };
+
+  // Group posts into grids of 6 (3x2)
+  const postsPerGrid = 6;
+  const postGrids = [];
+  for (let i = 0; i < blogPosts.length; i += postsPerGrid) {
+    postGrids.push(blogPosts.slice(i, i + postsPerGrid));
+  }
   
   return (
     <main>
@@ -106,35 +122,79 @@ export default function BlogPage() {
         </div>
       </section>
       
-      {/* Posts section con fondo gris */}
+      {/* Posts section with horizontal scrolling grids */}
       <section className="py-4 md:py-6 bg-gray-50">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-1 gap-8 max-w-3xl mx-auto">
-            {blogPosts.map((post, index) => (
-              <article key={index} className="bg-white rounded-xl overflow-hidden border-2 border-gray-300 hover:border-gray-400 transition-colors duration-300">
-                <Link href={`/blog/${post.slug}`}>
-                  <div className="h-64 relative overflow-hidden bg-gray-100">
-                    <img 
-                      src={getAssetPath(getBlogImage(post.slug))} 
-                      alt={post.title} 
-                      className="absolute inset-0 w-full h-full object-cover"
-                      style={{objectPosition: '50% 50%'}}
-                    />
+          {/* Horizontal scroll container */}
+          <div className="overflow-x-auto overflow-y-hidden scrollbar-hide">
+            <div className="flex gap-8" style={{ width: `${postGrids.length * 100}%` }}>
+              {postGrids.map((grid, gridIndex) => (
+                <div 
+                  key={gridIndex} 
+                  className="flex-shrink-0" 
+                  style={{ width: `${100 / postGrids.length}%` }}
+                >
+                  {/* Dynamic grid based on number of posts in this grid */}
+                  <div className={`grid gap-6 max-w-6xl mx-auto ${
+                    grid.length === 1 ? 'grid-cols-1 md:grid-cols-1' :
+                    grid.length === 2 ? 'grid-cols-1 md:grid-cols-2' :
+                    grid.length === 3 ? 'grid-cols-1 md:grid-cols-3' :
+                    grid.length === 4 ? 'grid-cols-1 md:grid-cols-2' :
+                    grid.length === 5 ? 'grid-cols-1 md:grid-cols-3' :
+                    'grid-cols-1 md:grid-cols-3'
+                  } ${
+                    grid.length >= 4 ? 'md:grid-rows-2' : ''
+                  }`}>
+                    {grid.map((post, index) => (
+                      <article key={`${gridIndex}-${index}`} className="bg-white rounded-xl overflow-hidden border-2 border-gray-300 hover:border-gray-400 transition-all duration-300 hover:shadow-lg">
+                        <Link href={`/blog/${post.slug}`}>
+                          <div className="h-48 relative overflow-hidden bg-gray-100">
+                            <img 
+                              src={getAssetPath(getBlogImage(post.slug))} 
+                              alt={post.title} 
+                              className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                              style={{objectPosition: '50% 50%'}}
+                            />
+                          </div>
+                          <div className="p-4">
+                            <h2 className="text-lg font-bold mb-2 text-gray-900 hover:text-primary-600 transition-colors line-clamp-2">
+                              {post.title}
+                            </h2>
+                            <p className="text-gray-600 mb-3 line-clamp-2 text-sm">{post.excerpt}</p>
+                            <div className="flex justify-between items-center text-xs text-gray-500">
+                              <span>{content.author}</span>
+                              <span>{post.date}</span>
+                            </div>
+                          </div>
+                        </Link>
+                      </article>
+                    ))}
                   </div>
-                  <div className="p-6">
-                    <h2 className="text-xl font-bold mb-3 text-gray-900 hover:text-primary-600 transition-colors">
-                      {post.title}
-                    </h2>
-                    <p className="text-gray-600 mb-4 line-clamp-3">{post.excerpt}</p>
-                    <div className="flex justify-between items-center text-sm text-gray-500">
-                      <span>{content.author}</span>
-                      <span>{post.date}</span>
+                  
+                  {/* Grid indicator dots */}
+                  {postGrids.length > 1 && (
+                    <div className="flex justify-center mt-8 gap-2">
+                      {postGrids.map((_, dotIndex) => (
+                        <div
+                          key={dotIndex}
+                          className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                            gridIndex === dotIndex ? 'bg-primary-500 w-6' : 'bg-gray-300'
+                          }`}
+                        />
+                      ))}
                     </div>
-                  </div>
-                </Link>
-              </article>
-            ))}
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
+          
+          {/* Horizontal scroll indicators (only show if multiple grids) */}
+          {postGrids.length > 1 && (
+            <div className="text-center mt-4 text-sm text-gray-500">
+              {language === 'es' ? 'Desliza para ver más artículos' : 'Scroll to see more articles'}
+            </div>
+          )}
         </div>
       </section>
       
@@ -146,6 +206,28 @@ export default function BlogPage() {
       <FinalCTA />
       <TrustedBy />
       <Footer />
+      
+      <style jsx global>{`
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .line-clamp-2 {
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        .line-clamp-3 {
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+      `}</style>
     </main>
   );
 } 
