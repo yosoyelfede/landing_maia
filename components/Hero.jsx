@@ -1,11 +1,34 @@
 "use client";
 
+import { useState, useEffect } from 'react';
 import { useLanguage } from '../lib/LanguageContext';
 import translations from '../lib/translations';
 
 export default function Hero() {
   const { language } = useLanguage();
   const hero = translations.hero[language];
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Scroll detection to match navbar behavior
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 10); // Same threshold as navbar
+    };
+
+    // Add scroll event listener
+    window.addEventListener('scroll', handleScroll);
+    
+    // Clean up
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // Dynamic padding for the content - larger when navbar is large
+  const contentPadding = isScrolled
+    ? "pt-24 sm:pt-28 md:pt-32 pb-8" // Normal padding when scrolled (navbar is small)
+    : "pt-32 sm:pt-40 md:pt-48 pb-8"; // Extra padding when not scrolled (navbar is large)
   
   return (
     <section id="inicio" className="relative -mt-16 pt-16 pb-20 overflow-hidden bg-gradient-to-b from-gray-50 to-white min-h-screen flex flex-col justify-center">
@@ -17,7 +40,7 @@ export default function Hero() {
       <div className="absolute top-40 -right-28 w-80 h-80 bg-secondary-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float" style={{ animationDelay: '1.5s' }}></div>
       <div className="absolute bottom-40 left-1/4 w-64 h-64 bg-accent-100 rounded-full mix-blend-multiply filter blur-xl opacity-60 animate-float" style={{ animationDelay: '2.2s' }}></div>
       
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 md:pt-32 pb-8">
+      <div className={`relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${contentPadding} transition-all duration-500 ease-in-out`}>
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-gray-900 mb-8 animate-fade-in-up"
               dangerouslySetInnerHTML={{ 

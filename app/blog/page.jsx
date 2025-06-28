@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
@@ -13,6 +14,29 @@ import translations from '../../lib/translations';
 
 export default function BlogPage() {
   const { language } = useLanguage();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Scroll detection to match navbar behavior
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 10); // Same threshold as navbar
+    };
+
+    // Add scroll event listener
+    window.addEventListener('scroll', handleScroll);
+    
+    // Clean up
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // Dynamic padding for the header - larger when navbar is large
+  const headerPadding = isScrolled
+    ? "py-20 pb-8 md:py-24 md:pb-10" // Normal padding when scrolled (navbar is small)
+    : "py-28 pb-8 md:py-32 md:pb-10"; // Extra padding when not scrolled (navbar is large)
+
   const content = translations.blog[language];
   // Sort posts to display newest first (based on the date field)
   const blogPosts = [...content.posts].sort((a, b) => {
@@ -59,7 +83,7 @@ export default function BlogPage() {
       <Navbar />
       
       {/* Hero section con fondo similar al landing */}
-      <section className="relative py-20 pb-8 md:py-24 md:pb-10 overflow-hidden bg-gradient-to-b from-gray-50 to-white">
+      <section className={`relative ${headerPadding} overflow-hidden bg-gradient-to-b from-gray-50 to-white transition-all duration-500 ease-in-out`}>
         {/* Background pattern */}
         <div className="absolute inset-0 bg-dot-pattern opacity-50 pointer-events-none"></div>
         

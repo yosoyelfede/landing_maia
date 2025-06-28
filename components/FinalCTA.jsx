@@ -3,9 +3,15 @@
 import { useLanguage } from '../lib/LanguageContext';
 import translations from '../lib/translations';
 
-export default function FinalCTA() {
+export default function FinalCTA({ source = 'global' }) {
   const { language } = useLanguage();
+  
+  // Always use the global finalCTA for consistency
   const content = translations.finalCTA[language];
+  
+  const heading = content.heading;
+  const description = content.description;
+  const buttonText = content.ctaButton;
   
   return (
     <section className="py-20 relative overflow-hidden">
@@ -21,11 +27,11 @@ export default function FinalCTA() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
-            {content.heading}
+            {heading}
           </h2>
           
           <p className="text-lg sm:text-xl text-primary-100 mb-10">
-            {content.description}
+            {description}
           </p>
           
           <div className="flex justify-center">
@@ -33,7 +39,7 @@ export default function FinalCTA() {
               href="mailto:fede@maiavr.cl" 
               className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-secondary-200 text-primary-900 rounded-xl text-lg font-medium hover:bg-secondary-300 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
             >
-              {content.ctaButton}
+              {buttonText}
             </a>
           </div>
         </div>

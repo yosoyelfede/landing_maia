@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Dialog } from '@headlessui/react';
 import Link from 'next/link';
 import { getAssetPath } from '../lib/assetUtils';
@@ -9,6 +9,7 @@ import translations from '../lib/translations';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const { language, toggleLanguage } = useLanguage();
   
   // Get current navigation items based on language
@@ -16,10 +17,40 @@ export default function Navbar() {
   const accessibility = translations.accessibility[language];
   const languageToggleText = translations.languageToggle[language];
 
+  // Scroll detection
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 10); // Change state when scrolled more than 10px
+    };
+
+    // Add scroll event listener
+    window.addEventListener('scroll', handleScroll);
+    
+    // Clean up
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // Dynamic classes for logo size
+  const logoImageClasses = isScrolled
+    ? "h-10 sm:h-12 md:h-14 lg:h-16 w-auto transition-all duration-500 ease-in-out"
+    : "h-20 sm:h-24 md:h-28 lg:h-32 w-auto transition-all duration-500 ease-in-out";
+
+  const logoTextClasses = isScrolled
+    ? "text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 ml-2 leading-none transition-all duration-500 ease-in-out"
+    : "text-6xl sm:text-8xl md:text-10xl lg:text-12xl font-bold text-gray-900 ml-2 leading-none transition-all duration-500 ease-in-out";
+
+  // Dynamic navbar padding to accommodate larger logo
+  const navPadding = isScrolled
+    ? "py-1 md:py-2"
+    : "py-2 md:py-4";
+
   return (
     <header className="fixed inset-x-0 top-0 z-50 bg-white shadow-soft backdrop-blur-lg bg-opacity-80 w-full">
       <nav 
-        className="container flex items-center justify-between py-1 md:py-2 px-4 md:px-6" 
+        className={`container flex items-center justify-between ${navPadding} px-4 md:px-6 transition-all duration-500 ease-in-out`}
         aria-label="Global"
       >
         <div className="flex md:flex-1">
@@ -28,9 +59,9 @@ export default function Navbar() {
             <img
               src={getAssetPath("/logos/main/logo.png")}
               alt="Maia Logo"
-              className="h-10 sm:h-12 md:h-14 lg:h-16 w-auto transition-all duration-300"
+              className={logoImageClasses}
             />
-            <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 ml-2 leading-none">Maia</span>
+            <span className={logoTextClasses}>Maia</span>
           </Link>
         </div>
         <div className="flex lg:hidden">

@@ -7,6 +7,7 @@ import Footer from "../../components/Footer";
 import Button from '../../components/ui/Button';
 import TrustedBy from "../../components/TrustedBy";
 import FAQCTA from "../../components/FAQCTA";
+import FinalCTA from "../../components/FinalCTA";
 import { useLanguage } from '../../lib/LanguageContext';
 import translations from '../../lib/translations';
 
@@ -58,10 +59,32 @@ const scrollbarStyles = `
 export default function ComoFunciona() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [tourType, setTourType] = useState('needTour'); // 'needTour' or 'haveTour'
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const { language } = useLanguage();
   const content = translations.howItWorks[language];
   const steps = tourType === 'needTour' ? content.stepsNeedTour : content.stepsWithTour;
+
+  // Scroll detection to match navbar behavior
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 10); // Same threshold as navbar
+    };
+
+    // Add scroll event listener
+    window.addEventListener('scroll', handleScroll);
+    
+    // Clean up
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // Dynamic padding for the header - larger when navbar is large
+  const headerPadding = isScrolled
+    ? "pt-32 pb-16" // Normal padding when scrolled (navbar is small)
+    : "pt-40 sm:pt-48 pb-16"; // Extra padding when not scrolled (navbar is large)
 
   // Log the transformation for debugging (matching the console output)
   const original = content.title;
@@ -269,7 +292,7 @@ export default function ComoFunciona() {
         <div className="absolute top-40 -right-28 w-80 h-80 bg-secondary-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float" style={{ animationDelay: '1.5s' }}></div>
         
         <div className="relative z-10">
-          <div className="max-w-4xl mx-auto px-4 pt-32 pb-16 text-center">
+          <div className={`max-w-4xl mx-auto px-4 ${headerPadding} text-center transition-all duration-500 ease-in-out`}>
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-gray-900 mb-8 animate-fade-in-up">
               {language === 'es' ? (
                 <div dangerouslySetInnerHTML={{ 
@@ -681,38 +704,7 @@ export default function ComoFunciona() {
         </section>
 
         <FAQCTA />
-
-        <section className="py-20 relative overflow-hidden">
-          {/* Fondos y decoraciones */}
-          <div className="absolute inset-0 bg-primary-900/95 z-0"></div>
-          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-300/50 to-transparent"></div>
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-300/50 to-transparent"></div>
-          
-          {/* Círculos decorativos */}
-          <div className="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-secondary-500/20 mix-blend-overlay filter blur-3xl"></div>
-          <div className="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-primary-400/20 mix-blend-overlay filter blur-3xl"></div>
-          
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
-                {content.finalCTA.title}
-              </h2>
-              
-              <p className="text-lg sm:text-xl text-primary-100 mb-10">
-                {content.finalCTA.description}
-              </p>
-              
-              <div className="flex justify-center">
-                <a 
-                  href="mailto:fede@maiavr.cl" 
-                  className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-secondary-200 text-primary-900 rounded-xl text-lg font-medium hover:bg-secondary-300 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
-                >
-                  {content.finalCTA.button}
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
+        <FinalCTA />
       </div>
       
       <TrustedBy />

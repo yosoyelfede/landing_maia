@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { Accordion, AccordionItem } from '../../components/ui/accordion';
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
@@ -12,6 +13,28 @@ import translations from '../../lib/translations';
 export default function PreguntasFrecuentes() {
   const { language } = useLanguage();
   const content = translations.faq[language];
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Scroll detection to match navbar behavior
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsScrolled(scrollTop > 10); // Same threshold as navbar
+    };
+
+    // Add scroll event listener
+    window.addEventListener('scroll', handleScroll);
+    
+    // Clean up
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // Dynamic padding for the header - larger when navbar is large
+  const headerPadding = isScrolled
+    ? "pt-32 pb-16" // Normal padding when scrolled (navbar is small)
+    : "pt-40 sm:pt-48 pb-16"; // Extra padding when not scrolled (navbar is large)
   
   return (
     <>
@@ -24,7 +47,7 @@ export default function PreguntasFrecuentes() {
         <div className="absolute top-20 -left-28 w-96 h-96 bg-primary-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float"></div>
         <div className="absolute top-40 -right-28 w-80 h-80 bg-secondary-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float" style={{ animationDelay: '1.5s' }}></div>
         
-        <div className="max-w-4xl mx-auto px-4 pt-32 pb-16 relative z-10 text-center">
+        <div className={`max-w-4xl mx-auto px-4 ${headerPadding} relative z-10 text-center transition-all duration-500 ease-in-out`}>
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-gray-900 mb-8 animate-fade-in-up"
               dangerouslySetInnerHTML={{ __html: content.title }}>
           </h1>
