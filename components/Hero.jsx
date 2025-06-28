@@ -8,7 +8,7 @@ export default function Hero() {
   const hero = translations.hero[language];
   
   return (
-    <section id="inicio" className="relative py-20 overflow-hidden bg-gradient-to-b from-gray-50 to-white">
+    <section id="inicio" className="relative -mt-16 pt-16 pb-20 overflow-hidden bg-gradient-to-b from-gray-50 to-white min-h-screen flex flex-col justify-center">
       {/* Background pattern */}
       <div className="absolute inset-0 bg-dot-pattern opacity-50 pointer-events-none"></div>
       
@@ -17,12 +17,12 @@ export default function Hero() {
       <div className="absolute top-40 -right-28 w-80 h-80 bg-secondary-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float" style={{ animationDelay: '1.5s' }}></div>
       <div className="absolute bottom-40 left-1/4 w-64 h-64 bg-accent-100 rounded-full mix-blend-multiply filter blur-xl opacity-60 animate-float" style={{ animationDelay: '2.2s' }}></div>
       
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 md:pt-32 pb-8">
         <div className="text-center mb-16 max-w-3xl mx-auto">
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-gray-900 mb-8 animate-fade-in-up"
               dangerouslySetInnerHTML={{ 
-                __html: hero.heading.replace('<span>', '<span class="text-primary-500 relative"><span class="absolute bottom-1 left-0 w-full h-2 bg-secondary-200 opacity-50 -z-10"></span>') 
-                                 .replace('</span>', '</span>')
+                __html: hero.heading.replace('<span>', '<span class="text-primary-500 relative">') 
+                                 .replace('</span>', '<span class="absolute bottom-1 left-0 w-full h-2 bg-secondary-200 opacity-50 -z-10"></span></span>')
               }}>
           </h1>
           <p className="text-xl md:text-2xl font-normal text-gray-600 max-w-2xl mx-auto mb-10 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>

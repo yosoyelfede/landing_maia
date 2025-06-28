@@ -11,7 +11,7 @@ import Footer from "../components/Footer";
 import BlogSection from '../components/BlogSection';
 import { useLanguage } from '../lib/LanguageContext';
 import translations from '../lib/translations';
-import LanguageSelector from '../components/LanguageSelector';
+
 
 export default function HomePage() {
   const { language } = useLanguage();
@@ -29,8 +29,7 @@ export default function HomePage() {
   }, [language, meta]);
   
   return (
-    <main className="space-y-0">
-      <LanguageSelector />
+    <main className="space-y-0 !pt-0">
       <Navbar />
       <Hero />
       <Partners />

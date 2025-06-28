@@ -9,7 +9,7 @@ import TrustedBy from "../../components/TrustedBy";
 import FAQCTA from "../../components/FAQCTA";
 import { useLanguage } from '../../lib/LanguageContext';
 import translations from '../../lib/translations';
-import LanguageSelector from '../../components/LanguageSelector';
+
 
 // Add custom styles for hiding scrollbar
 const scrollbarStyles = `
@@ -57,14 +57,208 @@ const scrollbarStyles = `
 
 export default function ComoFunciona() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [tourType, setTourType] = useState('needTour'); // 'needTour' or 'haveTour'
+
   const { language } = useLanguage();
   const content = translations.howItWorks[language];
-  const steps = content.steps;
+  const steps = tourType === 'needTour' ? content.stepsNeedTour : content.stepsWithTour;
+
+  // Log the transformation for debugging (matching the console output)
+  const original = content.title;
+  let transformed = '';
+  if (language === 'es') {
+    transformed = content.title.replace('<span>', '<span class="text-primary-500 relative">') 
+                              .replace('</span>', '<span class="absolute bottom-1 left-0 w-full h-2 bg-secondary-200 opacity-50 -z-10"></span></span>');
+  } else {
+    transformed = content.title.replace('<span>', '<span class="text-primary-500 relative">') 
+                              .replace('</span>', '<span class="absolute bottom-1 left-0 w-full h-2 bg-secondary-200 opacity-50 -z-10"></span></span>');
+  }
+  console.log(`Language: ${language} Original: ${original} Transformed: ${transformed}`);
+
+  // Get comparison features as array for dynamic rendering with shortened content
+  const comparisonFeatures = [
+    {
+      icon: 'clock',
+      withoutMaia: { detail: language === 'es' ? 'Pierdes tiempo respondiendo' : 'You lose time answering' },
+      withMaia: { detail: language === 'es' ? 'Responde 24/7' : 'Responds 24/7 automatically' }
+    },
+    {
+      icon: 'search',
+      withoutMaia: { detail: language === 'es' ? 'No sabes quién está interesado' : 'You don\'t know who\'s interested' },
+      withMaia: { detail: language === 'es' ? 'Identifica clientes con intención' : 'Identifies clients with intention' }
+    },
+    {
+      icon: 'document',
+      withoutMaia: { detail: language === 'es' ? 'Formularios que nadie completa' : 'Forms nobody completes' },
+      withMaia: { detail: language === 'es' ? 'Captura datos en conversación' : 'Captures data in conversation' }
+    },
+    {
+      icon: 'home',
+      withoutMaia: { detail: language === 'es' ? 'Coordinar visitas toma horas' : 'Coordinating visits takes hours' },
+      withMaia: { detail: language === 'es' ? 'Agenda visitas por ti' : 'Schedules visits for you' }
+    },
+    {
+      icon: 'id-card',
+      withoutMaia: { detail: language === 'es' ? 'Leads fríos y sin contexto' : 'Cold leads without context' },
+      withMaia: { detail: language === 'es' ? 'Leads con datos reales' : 'Leads with real data' }
+    },
+    {
+      icon: 'repeat',
+      withoutMaia: { detail: language === 'es' ? 'Trabajo repetitivo' : 'Repetitive work' },
+      withMaia: { detail: language === 'es' ? 'Filtra y prioriza por ti' : 'Filters and prioritizes' }
+    },
+    {
+      icon: 'info',
+      withoutMaia: { detail: language === 'es' ? 'Información desordenada' : 'Disorganized information' },
+      withMaia: { detail: language === 'es' ? 'Historial claro de leads' : 'Clear history of leads' }
+    }
+  ];
+
+  // Icon mapping
+  const getIcon = (iconName) => {
+    const icons = {
+      clock: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5 md:w-7 md:h-7 text-blue-500">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+      user: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5 md:w-7 md:h-7 text-blue-500">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 717.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+        </svg>
+      ),
+      document: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5 md:w-7 md:h-7 text-blue-500">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+        </svg>
+      ),
+      home: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5 md:w-7 md:h-7 text-blue-500">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+        </svg>
+      ),
+      'id-card': (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5 md:w-7 md:h-7 text-blue-500">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5zm6-10.125a1.875 1.875 0 11-3.75 0 1.875 1.875 0 013.75 0z" />
+        </svg>
+      ),
+      repeat: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5 md:w-7 md:h-7 text-blue-500">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+        </svg>
+      ),
+      info: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5 md:w-7 md:h-7 text-blue-500">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+        </svg>
+      ),
+      search: (
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5 md:w-7 md:h-7 text-blue-500">
+          <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+        </svg>
+      )
+    };
+    return icons[iconName] || icons.info;
+  };
 
   return (
     <>
       <style jsx global>{scrollbarStyles}</style>
-      <LanguageSelector />
+      <style jsx>{`
+        .comparison-row-hover {
+          background: linear-gradient(135deg, rgba(79, 70, 229, 0.9), rgba(99, 102, 241, 0.9)) !important;
+          transition: all 0.3s ease !important;
+        }
+        
+        .comparison-row-hover span {
+          color: white !important;
+        }
+        
+        .icon-bubble-hover {
+          background: linear-gradient(135deg, #4F46E5, #6366F1) !important;
+          border-color: white !important;
+          transition: all 0.3s ease !important;
+          box-shadow: 0 8px 25px -5px rgba(79, 70, 229, 0.3) !important;
+        }
+        
+        .icon-bubble-hover svg {
+          color: white !important;
+          stroke: white !important;
+        }
+        
+        /* Override Tailwind text-blue-500 specifically */
+        .icon-bubble-hover svg.text-blue-500,
+        .icon-bubble-hover .text-blue-500 {
+          color: white !important;
+          stroke: white !important;
+        }
+        
+        .icon-bubble-hover svg * {
+          stroke: white !important;
+          fill: none !important;
+          color: white !important;
+        }
+        
+        .icon-bubble-hover svg path {
+          stroke: white !important;
+          fill: none !important;
+          stroke-width: 2 !important;
+        }
+        
+        .icon-bubble-hover svg circle {
+          stroke: white !important;
+          fill: none !important;
+          stroke-width: 2 !important;
+        }
+        
+        .icon-bubble-hover svg rect {
+          stroke: white !important;
+          fill: none !important;
+          stroke-width: 2 !important;
+        }
+        
+        .icon-bubble-hover svg line {
+          stroke: white !important;
+          stroke-width: 2 !important;
+        }
+        
+        .icon-bubble-hover svg polyline {
+          stroke: white !important;
+          fill: none !important;
+          stroke-width: 2 !important;
+        }
+        
+        .icon-bubble-hover svg polygon {
+          stroke: white !important;
+          fill: none !important;
+          stroke-width: 2 !important;
+        }
+        
+        .icon-bubble-hover svg ellipse {
+          stroke: white !important;
+          fill: none !important;
+          stroke-width: 2 !important;
+        }
+        
+        /* Force override of any blue colors - comprehensive targeting */
+        .icon-bubble-hover svg[stroke="currentColor"] {
+          stroke: white !important;
+        }
+        
+        .icon-bubble-hover svg *[stroke="currentColor"] {
+          stroke: white !important;
+        }
+        
+        /* Additional comprehensive override for Tailwind classes */
+        .comparison-row-hover .text-blue-500,
+        .floating-icon-row-hover .text-blue-500,
+        .icon-bubble-hover .text-blue-500 {
+          color: white !important;
+          stroke: white !important;
+        }
+        
+        /* Clean responsive design - no conflicting overrides */
+      `}</style>
       <Navbar />
       <div className="relative bg-gradient-to-b from-gray-50 to-white overflow-hidden">
         {/* Background pattern */}
@@ -74,16 +268,59 @@ export default function ComoFunciona() {
         <div className="absolute top-20 -left-28 w-96 h-96 bg-primary-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float"></div>
         <div className="absolute top-40 -right-28 w-80 h-80 bg-secondary-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float" style={{ animationDelay: '1.5s' }}></div>
         
-        <div className="max-w-4xl mx-auto px-4 pt-32 pb-16 relative z-10 text-center">
-          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-gray-900 mb-8 animate-fade-in-up"
-              dangerouslySetInnerHTML={{ __html: content.title }}>
-          </h1>
+        <div className="relative z-10">
+          <div className="max-w-4xl mx-auto px-4 pt-32 pb-16 text-center">
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-gray-900 mb-8 animate-fade-in-up">
+              {language === 'es' ? (
+                <div dangerouslySetInnerHTML={{ 
+                  __html: content.title.replace('<span>', '<span class="text-primary-500 relative">') 
+                                       .replace('</span>', '<span class="absolute bottom-1 left-0 w-full h-2 bg-secondary-200 opacity-50 -z-10"></span></span>')
+                }} />
+              ) : (
+                <div dangerouslySetInnerHTML={{ 
+                  __html: content.title.replace('<span>', '<span class="text-primary-500 relative">') 
+                                       .replace('</span>', '<span class="absolute bottom-1 left-0 w-full h-2 bg-secondary-200 opacity-50 -z-10"></span></span>')
+                }} />
+              )}
+            </h1>
           <p className="text-xl md:text-2xl font-normal text-gray-600 max-w-2xl mx-auto mb-16 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             {content.description}
           </p>
 
           <section className="mb-14">
             <h2 className="text-3xl sm:text-4xl font-display font-bold mb-6 text-gray-900 text-center">{content.processTitle}</h2>
+            
+            {/* Tour Type Selection Buttons */}
+            <div className="flex justify-center mb-8">
+              <div className="inline-flex bg-gray-100 rounded-xl p-1">
+                <button
+                  onClick={() => {
+                    setTourType('needTour');
+                    setActiveIndex(0);
+                  }}
+                  className={`px-6 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
+                    tourType === 'needTour'
+                      ? 'bg-primary-600 text-white shadow-md'
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
+                  {content.buttons.needTour}
+                </button>
+                <button
+                  onClick={() => {
+                    setTourType('haveTour');
+                    setActiveIndex(0);
+                  }}
+                  className={`px-6 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
+                    tourType === 'haveTour'
+                      ? 'bg-primary-600 text-white shadow-md'
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
+                  {content.buttons.haveTour}
+                </button>
+              </div>
+            </div>
             
             <div className="relative mx-0 md:mx-16">
               {/* Left arrow - positioned outside */}
@@ -207,6 +444,7 @@ export default function ComoFunciona() {
               </div>
             </div>
           </section>
+          </div>
         </div>
 
         <section className="py-20 bg-white relative overflow-hidden">
@@ -293,249 +531,144 @@ export default function ComoFunciona() {
             <h2 className="text-3xl sm:text-4xl font-display font-bold mb-12 text-gray-900 text-center">{content.whyUseMaia.title}</h2>
             
             <div className="max-w-7xl mx-auto mt-8">
-              {/* Comparison Table - Mobile Optimized with Standalone Columns */}
+              {/* Comparison Table - Completely Mobile Optimized */}
               <div className="px-2 sm:px-4 py-4 sm:py-6">
-                {/* Mobile scroll indicator - Movido arriba de la tabla */}
-                <div className="md:hidden mb-4 text-center text-gray-500">
-                  <span className="flex items-center justify-center">
-                    Desliza para comparar
-                  </span>
-                </div>
                 
-                <div className="relative overflow-x-auto pb-0 force-hide-scroll">
-                  {/* Flexbox wrapper for centering on large screens */}
-                  <div className="flex lg:justify-center">
-                    {/* Outer container for fixed first column effect */}
-                    <div className="flex min-w-full gap-4 sm:gap-6 md:gap-8 lg:min-w-0 lg:w-auto hide-scrollbar force-hide-scroll">
-                      {/* Features Column - Standalone */}
-                      <div className="sticky left-0 z-20 w-[150px] sm:w-[200px] md:w-[270px] lg:w-[300px] flex-shrink-0 bg-white rounded-2xl shadow-lg border-2 border-gray-300 overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                        {/* Header */}
-                        <div className="bg-white p-4 sm:p-6 md:p-8 flex items-center justify-center h-[80px] sm:h-[100px] md:h-[120px] border-b-2 border-gray-300">
-                          <h3 className="text-sm sm:text-base md:text-xl lg:text-2xl font-bold text-gray-600">{content.whyUseMaia.comparison.features}</h3>
-                        </div>
+                {/* Full responsive table for all devices */}
+                <div className="relative">
+                  {/* Flexbox wrapper for centering */}
+                  <div className="flex justify-center">
+                    {/* Outer container with gradient background */}
+                    <div className="relative bg-gradient-to-r from-red-200 to-green-200 rounded-xl sm:rounded-2xl shadow-lg border-2 border-gray-200 p-0 overflow-hidden w-full max-w-4xl mx-1 sm:mx-2">
+                      <div className="flex relative">
                         
-                        {/* Feature rows */}
-                        <div className="bg-gray-100/40 p-4 sm:p-6 md:p-8 flex items-center justify-start h-[140px] sm:h-[160px] md:h-[180px] border-b-2 border-gray-300">
-                          <div className="flex items-center">
-                            <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center mr-3 sm:mr-4">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5 md:w-7 md:h-7 text-blue-500">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-                              </svg>
-                            </div>
-                            <h3 className="font-bold text-gray-800 text-sm sm:text-base md:text-lg lg:text-xl">{content.whyUseMaia.comparison.dataCapture.title}</h3>
+                        {/* Sin Maia Column */}
+                        <div className="w-1/2 flex-shrink-0 bg-transparent overflow-hidden comparison-column">
+                          {/* Header */}
+                          <div className="bg-transparent px-2 py-3 sm:px-4 sm:py-4 md:px-5 md:py-5 flex items-center justify-center min-h-[45px] sm:min-h-[50px] md:min-h-[60px] border-b border-gray-200/30">
+                            <span className="font-bold text-xs sm:text-sm md:text-base lg:text-lg text-gray-900">Sin Maia</span>
                           </div>
-                        </div>
                         
-                        <div className="bg-white p-4 sm:p-6 md:p-8 flex items-center justify-start h-[140px] sm:h-[160px] md:h-[180px] border-b-2 border-gray-300">
-                          <div className="flex items-center">
-                            <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center mr-3 sm:mr-4">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5 md:w-7 md:h-7 text-blue-500">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                              </svg>
+                          {comparisonFeatures.map((feature, index) => (
+                            <div 
+                              key={index} 
+                              className={`comparison-row-${index} comparison-row px-1 py-2 sm:px-3 sm:py-3 md:px-4 md:py-4 min-h-[60px] sm:min-h-[65px] md:min-h-[75px] ${index < comparisonFeatures.length - 1 ? 'border-b border-gray-200/20' : ''} bg-transparent cursor-pointer flex items-center`}
+                              onMouseEnter={() => {
+                                // Apply hover to all cells in this row
+                                document.querySelectorAll(`.comparison-row-${index}`).forEach(el => {
+                                  el.classList.add('comparison-row-hover');
+                                });
+                                // Apply hover to icon bubble in floating container
+                                document.querySelectorAll(`.floating-icon-row-${index} .icon-bubble`).forEach(el => {
+                                  el.classList.add('icon-bubble-hover');
+                                });
+                              }}
+                              onMouseLeave={() => {
+                                // Remove hover from all cells in this row
+                                document.querySelectorAll(`.comparison-row-${index}`).forEach(el => {
+                                  el.classList.remove('comparison-row-hover');
+                                });
+                                // Remove hover from icon bubble in floating container
+                                document.querySelectorAll(`.floating-icon-row-${index} .icon-bubble`).forEach(el => {
+                                  el.classList.remove('icon-bubble-hover');
+                                });
+                              }}
+                            >
+                              <div className="flex items-center justify-center h-full w-full pr-2 sm:pr-4 md:pr-6">
+                                <span className="text-[0.6rem] leading-[0.75rem] sm:text-[0.75rem] sm:leading-tight md:text-sm md:leading-normal lg:text-base lg:leading-normal text-gray-900 font-medium text-center break-words hyphens-auto overflow-wrap-anywhere max-w-full">{feature.withoutMaia.detail}</span>
+                              </div>
                             </div>
-                            <h3 className="font-bold text-gray-800 text-sm sm:text-base md:text-lg lg:text-xl">{content.whyUseMaia.comparison.information.title}</h3>
-                          </div>
+                          ))}
                         </div>
-                        
-                        <div className="bg-gray-100/40 p-4 sm:p-6 md:p-8 flex items-center justify-start h-[140px] sm:h-[160px] md:h-[180px] border-b-2 border-gray-300">
-                          <div className="flex items-center">
-                            <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center mr-3 sm:mr-4">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5 md:w-7 md:h-7 text-blue-500">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 15.75l-2.489-2.489m0 0a3.375 3.375 0 10-4.773-4.773 3.375 3.375 0 004.774 4.774zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                              </svg>
-                            </div>
-                            <h3 className="font-bold text-gray-800 text-sm sm:text-base md:text-lg lg:text-xl">{content.whyUseMaia.comparison.userExperience.title}</h3>
-                          </div>
-                        </div>
-                        
-                        <div className="bg-white p-4 sm:p-6 md:p-8 flex items-center justify-start h-[140px] sm:h-[160px] md:h-[180px] border-b-2 border-gray-300">
-                          <div className="flex items-center">
-                            <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center mr-3 sm:mr-4">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5 md:w-7 md:h-7 text-blue-500">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
-                              </svg>
-                            </div>
-                            <h3 className="font-bold text-gray-800 text-sm sm:text-base md:text-lg lg:text-xl">{content.whyUseMaia.comparison.conversion.title}</h3>
-                          </div>
-                        </div>
-                        
-                        <div className="bg-gray-100/40 p-4 sm:p-6 md:p-8 flex items-center justify-start h-[140px] sm:h-[160px] md:h-[180px]">
-                          <div className="flex items-center">
-                            <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center mr-3 sm:mr-4">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 sm:w-5 sm:h-5 md:w-7 md:h-7 text-blue-500">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
-                              </svg>
-                            </div>
-                            <h3 className="font-bold text-gray-800 text-sm sm:text-base md:text-lg lg:text-xl">{content.whyUseMaia.comparison.actionableInfo.title}</h3>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* Sin Maia Column - Standalone */}
-                      <div className="w-[170px] sm:w-[250px] md:w-[300px] lg:w-[350px] flex-shrink-0 bg-white rounded-2xl shadow-lg border-2 border-gray-300 overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                        {/* Header */}
-                        <div className="bg-gray-100 p-4 sm:p-6 md:p-8 flex items-center justify-center h-[80px] sm:h-[100px] md:h-[120px] border-b-2 border-gray-300">
-                          <span className="font-bold text-sm sm:text-base md:text-xl lg:text-2xl text-gray-700">{content.whyUseMaia.comparison.withoutMaia}</span>
-                        </div>
-                        
-                        {/* Row 1 - Captura de datos */}
-                        <div className="bg-gray-100/40 p-4 sm:p-6 md:p-8 h-[140px] sm:h-[160px] md:h-[180px] border-b-2 border-gray-300">
-                          <div className="flex flex-col items-center h-full">
-                            <div className="bg-white px-3 py-2 sm:px-4 sm:py-3 rounded-lg text-gray-600 text-xs sm:text-sm md:text-base lg:text-lg border border-gray-200 w-full text-center font-medium mb-4 sm:mb-6">
-                              {content.whyUseMaia.comparison.dataCapture.withoutMaia.header}
-                            </div>
-                            <div className="flex items-center justify-center">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 mr-2 text-red-500 flex-shrink-0">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                              </svg>
-                              <span className="text-xs sm:text-sm md:text-base lg:text-lg text-red-500 font-medium">{content.whyUseMaia.comparison.dataCapture.withoutMaia.detail}</span>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        {/* Row 2 - Información obtenida */}
-                        <div className="bg-white p-4 sm:p-6 md:p-8 h-[140px] sm:h-[160px] md:h-[180px] border-b-2 border-gray-300">
-                          <div className="flex flex-col items-center h-full">
-                            <div className="bg-white px-3 py-2 sm:px-4 sm:py-3 rounded-lg text-gray-600 text-xs sm:text-sm md:text-base lg:text-lg border border-gray-200 w-full text-center font-medium mb-4 sm:mb-6">
-                              {content.whyUseMaia.comparison.information.withoutMaia.header}
-                            </div>
-                            <div className="flex items-center justify-center">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 mr-2 text-red-500 flex-shrink-0">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-                              </svg>
-                              <span className="text-xs sm:text-sm md:text-base lg:text-lg text-red-500 font-medium">{content.whyUseMaia.comparison.information.withoutMaia.detail}</span>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        {/* Row 3 - Experiencia del usuario */}
-                        <div className="bg-gray-100/40 p-4 sm:p-6 md:p-8 h-[140px] sm:h-[160px] md:h-[180px] border-b-2 border-gray-300">
-                          <div className="flex flex-col items-center h-full">
-                            <div className="bg-white px-3 py-2 sm:px-4 sm:py-3 rounded-lg text-gray-600 text-xs sm:text-sm md:text-base lg:text-lg border border-gray-200 w-full text-center font-medium mb-4 sm:mb-6">
-                              {content.whyUseMaia.comparison.userExperience.withoutMaia.header}
-                            </div>
-                            <div className="flex items-center justify-center">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 mr-2 text-red-500 flex-shrink-0">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M15.182 16.318A4.486 4.486 0 0012.016 15a4.486 4.486 0 00-3.198 1.318M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
-                              </svg>
-                              <span className="text-xs sm:text-sm md:text-base lg:text-lg text-red-500 font-medium text-center">{content.whyUseMaia.comparison.userExperience.withoutMaia.detail}</span>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        {/* Row 4 - Conversión */}
-                        <div className="bg-white p-4 sm:p-6 md:p-8 h-[140px] sm:h-[160px] md:h-[180px] border-b-2 border-gray-300">
-                          <div className="flex flex-col items-center h-full">
-                            <div className="bg-white px-3 py-2 sm:px-4 sm:py-3 rounded-lg text-gray-600 text-xs sm:text-sm md:text-base lg:text-lg border border-gray-200 w-full text-center font-medium mb-4 sm:mb-6">
-                              {content.whyUseMaia.comparison.conversion.withoutMaia.header}
-                            </div>
-                            <div className="flex items-center justify-center">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 mr-2 text-red-500 flex-shrink-0">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
-                              </svg>
-                              <span className="text-xs sm:text-sm md:text-base lg:text-lg text-red-500 font-medium">{content.whyUseMaia.comparison.conversion.withoutMaia.detail}</span>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        {/* Row 5 - Información accionable */}
-                        <div className="bg-gray-100/40 p-4 sm:p-6 md:p-8 h-[140px] sm:h-[160px] md:h-[180px]">
-                          <div className="flex flex-col items-center h-full">
-                            <div className="bg-white px-3 py-2 sm:px-4 sm:py-3 rounded-lg text-gray-600 text-xs sm:text-sm md:text-base lg:text-lg border border-gray-200 w-full text-center font-medium mb-4 sm:mb-6">
-                              {content.whyUseMaia.comparison.actionableInfo.withoutMaia.header}
-                            </div>
-                            <div className="flex items-center justify-center">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 mr-2 text-red-500 flex-shrink-0">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75a2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
-                              </svg>
-                              <span className="text-xs sm:text-sm md:text-base lg:text-lg text-red-500 font-medium text-center">{content.whyUseMaia.comparison.actionableInfo.withoutMaia.detail}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
 
-                      {/* Con Maia Column - Standalone */}
-                      <div className="w-[170px] sm:w-[250px] md:w-[300px] lg:w-[350px] flex-shrink-0 bg-[#4F46E5]/95 rounded-2xl shadow-lg border-2 border-gray-300 overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                        {/* Header */}
-                        <div className="bg-[#4F46E5] p-4 sm:p-6 md:p-8 flex items-center justify-center h-[80px] sm:h-[100px] md:h-[120px] border-b-2 border-gray-300">
-                          <div className="flex items-center">
-                            <span className="font-bold text-sm sm:text-base md:text-xl lg:text-2xl mr-2 sm:mr-3 text-white">{content.whyUseMaia.comparison.withMaia}</span>
-                            <img src="/logos/main/logo.png" alt="Maia Logo" className="h-6 sm:h-8 md:h-10 lg:h-12 object-contain" />
-                          </div>
-                        </div>
-                        
-                        {/* Row 1 - Captura de datos */}
-                        <div className="bg-indigo-800 p-4 sm:p-6 md:p-8 h-[140px] sm:h-[160px] md:h-[180px] border-b-2 border-gray-300">
-                          <div className="flex flex-col items-center h-full">
-                            <div className="bg-white px-3 py-2 sm:px-4 sm:py-3 rounded-lg text-primary-700 text-xs sm:text-sm md:text-base lg:text-lg border border-primary-100 w-full text-center font-medium mb-4 sm:mb-6">
-                              {content.whyUseMaia.comparison.dataCapture.withMaia.header}
-                            </div>
-                            <div className="flex items-center justify-center">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 mr-2 text-green-400 flex-shrink-0">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                              </svg>
-                              <span className="text-xs sm:text-sm md:text-base lg:text-lg text-green-400 font-medium text-center">{content.whyUseMaia.comparison.dataCapture.withMaia.detail}</span>
+                        {/* Con Maia Column */}
+                        <div className="w-1/2 flex-shrink-0 bg-transparent overflow-hidden comparison-column">
+                          {/* Header */}
+                          <div className="bg-transparent px-2 py-3 sm:px-4 sm:py-4 md:px-5 md:py-5 flex items-center justify-center min-h-[45px] sm:min-h-[50px] md:min-h-[60px] border-b border-gray-200/30">
+                            <div className="flex items-center">
+                              <span className="font-bold text-xs sm:text-sm md:text-base lg:text-lg mr-1 sm:mr-2 text-gray-900">Con Maia</span>
+                              <img src="/logos/main/logo.png" alt="Maia Logo" className="h-3 sm:h-4 md:h-5 lg:h-6 object-contain" />
                             </div>
                           </div>
+                        
+                          {comparisonFeatures.map((feature, index) => (
+                            <div 
+                              key={index} 
+                              className={`comparison-row-${index} comparison-row px-1 py-2 sm:px-3 sm:py-3 md:px-4 md:py-4 min-h-[60px] sm:min-h-[65px] md:min-h-[75px] ${index < comparisonFeatures.length - 1 ? 'border-b border-gray-200/20' : ''} bg-transparent cursor-pointer flex items-center`}
+                              onMouseEnter={() => {
+                                // Apply hover to all cells in this row
+                                document.querySelectorAll(`.comparison-row-${index}`).forEach(el => {
+                                  el.classList.add('comparison-row-hover');
+                                });
+                                // Apply hover to icon bubble in floating container
+                                document.querySelectorAll(`.floating-icon-row-${index} .icon-bubble`).forEach(el => {
+                                  el.classList.add('icon-bubble-hover');
+                                });
+                              }}
+                              onMouseLeave={() => {
+                                // Remove hover from all cells in this row
+                                document.querySelectorAll(`.comparison-row-${index}`).forEach(el => {
+                                  el.classList.remove('comparison-row-hover');
+                                });
+                                // Remove hover from icon bubble in floating container
+                                document.querySelectorAll(`.floating-icon-row-${index} .icon-bubble`).forEach(el => {
+                                  el.classList.remove('icon-bubble-hover');
+                                });
+                              }}
+                            >
+                              <div className="flex items-center justify-center h-full w-full pl-2 sm:pl-4 md:pl-6">
+                                <span className="text-[0.6rem] leading-[0.75rem] sm:text-[0.75rem] sm:leading-tight md:text-sm md:leading-normal lg:text-base lg:leading-normal text-gray-900 font-medium text-center break-words hyphens-auto overflow-wrap-anywhere max-w-full">{feature.withMaia.detail}</span>
+                              </div>
+                            </div>
+                          ))}
                         </div>
                         
-                        {/* Row 2 - Información obtenida */}
-                        <div className="bg-indigo-600 p-4 sm:p-6 md:p-8 h-[140px] sm:h-[160px] md:h-[180px] border-b-2 border-gray-300">
-                          <div className="flex flex-col items-center h-full">
-                            <div className="bg-white px-3 py-2 sm:px-4 sm:py-3 rounded-lg text-primary-700 text-xs sm:text-sm md:text-base lg:text-lg border border-primary-100 w-full text-center font-medium mb-4 sm:mb-6">
-                              {content.whyUseMaia.comparison.information.withMaia.header}
-                            </div>
-                            <div className="flex items-center justify-center">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 mr-2 text-green-400 flex-shrink-0">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                              </svg>
-                              <span className="text-xs sm:text-sm md:text-base lg:text-lg text-green-400 font-medium text-center">{content.whyUseMaia.comparison.information.withMaia.detail}</span>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        {/* Row 3 - Experiencia del usuario */}
-                        <div className="bg-indigo-800 p-4 sm:p-6 md:p-8 h-[140px] sm:h-[160px] md:h-[180px] border-b-2 border-gray-300">
-                          <div className="flex flex-col items-center h-full">
-                            <div className="bg-white px-3 py-2 sm:px-4 sm:py-3 rounded-lg text-primary-700 text-xs sm:text-sm md:text-base lg:text-lg border border-primary-100 w-full text-center font-medium mb-4 sm:mb-6">
-                              {content.whyUseMaia.comparison.userExperience.withMaia.header}
-                            </div>
-                            <div className="flex items-center justify-center">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 mr-2 text-green-400 flex-shrink-0">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M15.182 15.182a4.5 4.5 0 01-6.364 0M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
-                              </svg>
-                              <span className="text-xs sm:text-sm md:text-base lg:text-lg text-green-400 font-medium text-center">{content.whyUseMaia.comparison.userExperience.withMaia.detail}</span>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        {/* Row 4 - Conversión */}
-                        <div className="bg-indigo-600 p-4 sm:p-6 md:p-8 h-[140px] sm:h-[160px] md:h-[180px] border-b-2 border-gray-300">
-                          <div className="flex flex-col items-center h-full">
-                            <div className="bg-white px-3 py-2 sm:px-4 sm:py-3 rounded-lg text-primary-700 text-xs sm:text-sm md:text-base lg:text-lg border border-primary-100 w-full text-center font-medium mb-4 sm:mb-6">
-                              {content.whyUseMaia.comparison.conversion.withMaia.header}
-                            </div>
-                            <div className="flex items-center justify-center">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 mr-2 text-green-400 flex-shrink-0">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6L9 12.75l4.286-4.286a11.948 11.948 0 014.306 6.43l.776 2.898m0 0l2.182-5.837" />
-                              </svg>
-                              <span className="text-xs sm:text-sm md:text-base lg:text-lg text-green-400 font-medium text-center">{content.whyUseMaia.comparison.conversion.withMaia.detail}</span>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        {/* Row 5 - Información accionable */}
-                        <div className="bg-indigo-800 p-4 sm:p-6 md:p-8 h-[140px] sm:h-[160px] md:h-[180px]">
-                          <div className="flex flex-col items-center h-full">
-                            <div className="bg-white px-3 py-2 sm:px-4 sm:py-3 rounded-lg text-primary-700 text-xs sm:text-sm md:text-base lg:text-lg border border-primary-100 w-full text-center font-medium mb-4 sm:mb-6">
-                              {content.whyUseMaia.comparison.actionableInfo.withMaia.header}
-                            </div>
-                            <div className="flex items-center justify-center">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 mr-2 text-green-400 flex-shrink-0">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
-                              </svg>
-                              <span className="text-xs sm:text-sm md:text-base lg:text-lg text-green-400 font-medium text-center">{content.whyUseMaia.comparison.actionableInfo.withMaia.detail}</span>
-                            </div>
+                        {/* Floating Icons - positioned absolutely in the center */}
+                        <div className="absolute inset-0 z-30 pointer-events-none">
+                          <div className="flex flex-col h-full">
+                            {/* Header spacer - match exact header height and padding */}
+                            <div className="min-h-[45px] sm:min-h-[50px] md:min-h-[60px] px-2 py-3 sm:px-4 sm:py-4 md:px-5 md:py-5 border-b border-transparent"></div>
+                            
+                            {/* Icon rows */}
+                            {comparisonFeatures.map((feature, index) => (
+                              <div 
+                                key={index} 
+                                className={`floating-icon-row-${index} min-h-[60px] sm:min-h-[65px] md:min-h-[75px] px-1 py-2 sm:px-3 sm:py-3 md:px-4 md:py-4 flex items-center justify-center cursor-pointer pointer-events-auto ${index < comparisonFeatures.length - 1 ? 'border-b border-transparent' : ''}`}
+                                onMouseEnter={() => {
+                                  // Apply hover to all row cells in this row
+                                  document.querySelectorAll(`.comparison-row-${index}`).forEach(el => {
+                                    el.classList.add('comparison-row-hover');
+                                  });
+                                  // Apply hover to icon bubble
+                                  document.querySelectorAll(`.floating-icon-row-${index} .icon-bubble`).forEach(el => {
+                                    el.classList.add('icon-bubble-hover');
+                                  });
+                                }}
+                                onMouseLeave={() => {
+                                  // Remove hover from all row cells in this row
+                                  document.querySelectorAll(`.comparison-row-${index}`).forEach(el => {
+                                    el.classList.remove('comparison-row-hover');
+                                  });
+                                  // Remove hover from icon bubble
+                                  document.querySelectorAll(`.floating-icon-row-${index} .icon-bubble`).forEach(el => {
+                                    el.classList.remove('icon-bubble-hover');
+                                  });
+                                }}
+                                onTouchStart={() => {
+                                  // For touch devices - apply hover effect on touch
+                                  document.querySelectorAll(`.comparison-row-${index}`).forEach(el => {
+                                    el.classList.add('comparison-row-hover');
+                                  });
+                                  document.querySelectorAll(`.floating-icon-row-${index} div[class*="w-"]`).forEach(el => {
+                                    el.classList.add('icon-bubble-hover');
+                                  });
+                                }}
+                              >
+                                <div className="icon-bubble w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 rounded-full bg-white shadow-xl border-2 border-gray-200 flex items-center justify-center z-40">
+                                  {getIcon(feature.icon)}
+                                </div>
+                              </div>
+                            ))}
                           </div>
                         </div>
                       </div>

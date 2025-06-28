@@ -5,7 +5,7 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import TrustedBy from "../../components/TrustedBy";
 import FinalCTA from "../../components/FinalCTA";
-import LanguageSelector from '../../components/LanguageSelector';
+
 import { useLanguage } from '../../lib/LanguageContext';
 import translations from '../../lib/translations';
 
@@ -15,7 +15,6 @@ export default function PreguntasFrecuentes() {
   
   return (
     <>
-      <LanguageSelector />
       <Navbar />
       <div className="relative bg-gradient-to-b from-gray-50 to-white overflow-hidden">
         {/* Background pattern */}

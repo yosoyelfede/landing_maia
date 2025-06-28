@@ -7,7 +7,7 @@ import { getAssetPath } from '../../lib/assetUtils';
 import FinalCTA from '../../components/FinalCTA';
 import TrustedBy from '../../components/TrustedBy';
 import FAQCTA from '../../components/FAQCTA';
-import LanguageSelector from '../../components/LanguageSelector';
+
 import { useLanguage } from '../../lib/LanguageContext';
 import translations from '../../lib/translations';
 
@@ -56,7 +56,6 @@ export default function BlogPage() {
   
   return (
     <main>
-      <LanguageSelector />
       <Navbar />
       
       {/* Hero section con fondo similar al landing */}
