@@ -58,7 +58,7 @@ export default function Hero() {
           {/* CTA mejorado con efectos de hover */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
             <a 
-              href="mailto:fede@maiavr.cl" 
+              href="mailto:manuel@maiavr.cl?subject=¡Quiero%20probar%20Maia!&body=Me%20interesa%20saber%20más%20y%20probar%20Maia,%20quiero%20agendar%20una%20demo" 
               className="inline-flex items-center justify-center px-8 py-4 bg-primary-600 text-white rounded-xl text-lg font-medium transition-all duration-300 shadow-soft hover:shadow-strong transform hover:-translate-y-1 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2"
             >
               {hero.cta}

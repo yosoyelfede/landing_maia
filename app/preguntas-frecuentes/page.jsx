@@ -34,10 +34,10 @@ export default function PreguntasFrecuentes() {
     };
   }, []);
 
-  // Dynamic padding for the header - adjusted for new navbar size
+  // Dynamic padding for the header - increased significantly to match blog page title position
   const headerPadding = isScrolled
-    ? "py-20 pb-8 md:py-24 md:pb-10" // Normal padding when scrolled (navbar is normal size)
-    : "py-24 pb-8 md:py-28 md:pb-10"; // Extra padding when not scrolled (navbar is slightly larger)
+    ? "py-32 pb-8 md:py-36 md:pb-10" // Normal padding when scrolled (navbar is normal size)
+    : "py-36 pb-8 md:py-40 md:pb-10"; // Extra padding when not scrolled (navbar is slightly larger)
   
   return (
     <>

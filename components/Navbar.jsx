@@ -95,7 +95,7 @@ export default function Navbar() {
           </div>
           <div className="flex items-center gap-x-2 xl:gap-x-3">
             <a 
-              href="mailto:fede@maiavr.cl" 
+              href="mailto:manuel@maiavr.cl?subject=¡Quiero%20probar%20Maia!&body=Me%20interesa%20saber%20más%20y%20probar%20Maia,%20quiero%20agendar%20una%20demo" 
               aria-label={accessibility.email}
               className="text-gray-700 hover:text-primary-600 transition-colors"
               style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
@@ -222,7 +222,7 @@ export default function Navbar() {
                   
                   <div className="flex items-center justify-start gap-x-3 py-3 mt-2 -mx-3 px-3">
                     <a 
-                      href="mailto:fede@maiavr.cl" 
+                      href="mailto:manuel@maiavr.cl?subject=¡Quiero%20probar%20Maia!&body=Me%20interesa%20saber%20más%20y%20probar%20Maia,%20quiero%20agendar%20una%20demo" 
                       aria-label={accessibility.email}
                       className="text-gray-700 hover:text-primary-600 transition-colors"
                       onClick={() => setMobileMenuOpen(false)}

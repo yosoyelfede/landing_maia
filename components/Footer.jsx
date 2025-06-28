@@ -46,7 +46,7 @@ export default function Footer() {
               </nav>
               <div className="flex items-center gap-x-4 mt-4 lg:mt-0 lg:ml-4 xl:ml-8">
                 <a 
-                  href="mailto:fede@maiavr.cl" 
+                  href="mailto:manuel@maiavr.cl?subject=¡Quiero%20probar%20Maia!&body=Me%20interesa%20saber%20más%20y%20probar%20Maia,%20quiero%20agendar%20una%20demo" 
                   aria-label={accessibility.email}
                   className="text-white hover:text-primary-300 transition-colors"
                 >

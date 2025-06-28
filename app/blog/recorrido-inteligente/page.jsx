@@ -122,7 +122,7 @@ export default function BlogPost() {
           <div className="bg-gradient-to-r from-primary-50 to-secondary-50 rounded-2xl p-8 text-center">
             <h3 className="text-2xl font-bold mb-4">¿Quieres una demostración de Maia?</h3>
             <a 
-              href="mailto:fede@maiavr.cl"
+              href="mailto:manuel@maiavr.cl?subject=¡Quiero%20probar%20Maia!&body=Me%20interesa%20saber%20más%20y%20probar%20Maia,%20quiero%20agendar%20una%20demo"
               className="inline-block px-6 py-3 bg-primary-600 text-white font-medium rounded-lg hover:bg-primary-700 transition-colors"
             >
               Contacta con nosotros
