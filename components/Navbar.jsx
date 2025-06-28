@@ -24,6 +24,9 @@ export default function Navbar() {
       setIsScrolled(scrollTop > 10); // Change state when scrolled more than 10px
     };
 
+    // Set initial state based on current scroll position
+    handleScroll();
+
     // Add scroll event listener
     window.addEventListener('scroll', handleScroll);
     
@@ -33,14 +36,14 @@ export default function Navbar() {
     };
   }, []);
 
-  // Dynamic classes for logo size
+  // Dynamic classes for logo size - more conservative scaling
   const logoImageClasses = isScrolled
     ? "h-10 sm:h-12 md:h-14 lg:h-16 w-auto transition-all duration-500 ease-in-out"
-    : "h-20 sm:h-24 md:h-28 lg:h-32 w-auto transition-all duration-500 ease-in-out";
+    : "h-14 sm:h-16 md:h-18 lg:h-20 w-auto transition-all duration-500 ease-in-out";
 
   const logoTextClasses = isScrolled
     ? "text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 ml-2 leading-none transition-all duration-500 ease-in-out"
-    : "text-6xl sm:text-8xl md:text-10xl lg:text-12xl font-bold text-gray-900 ml-2 leading-none transition-all duration-500 ease-in-out";
+    : "text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 ml-2 leading-none transition-all duration-500 ease-in-out";
 
   // Dynamic navbar padding to accommodate larger logo
   const navPadding = isScrolled

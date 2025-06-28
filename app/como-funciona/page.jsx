@@ -72,6 +72,9 @@ export default function ComoFunciona() {
       setIsScrolled(scrollTop > 10); // Same threshold as navbar
     };
 
+    // Set initial state based on current scroll position
+    handleScroll();
+
     // Add scroll event listener
     window.addEventListener('scroll', handleScroll);
     
@@ -81,10 +84,10 @@ export default function ComoFunciona() {
     };
   }, []);
 
-  // Dynamic padding for the header - larger when navbar is large
+  // Dynamic padding for the header - adjusted for new navbar size
   const headerPadding = isScrolled
-    ? "pt-32 pb-16" // Normal padding when scrolled (navbar is small)
-    : "pt-40 sm:pt-48 pb-16"; // Extra padding when not scrolled (navbar is large)
+    ? "py-20 pb-8 md:py-24 md:pb-10" // Normal padding when scrolled (navbar is normal size)
+    : "py-24 pb-8 md:py-28 md:pb-10"; // Extra padding when not scrolled (navbar is slightly larger)
 
   // Log the transformation for debugging (matching the console output)
   const original = content.title;

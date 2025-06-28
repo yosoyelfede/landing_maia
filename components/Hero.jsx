@@ -16,6 +16,9 @@ export default function Hero() {
       setIsScrolled(scrollTop > 10); // Same threshold as navbar
     };
 
+    // Set initial state based on current scroll position
+    handleScroll();
+
     // Add scroll event listener
     window.addEventListener('scroll', handleScroll);
     
@@ -25,10 +28,10 @@ export default function Hero() {
     };
   }, []);
 
-  // Dynamic padding for the content - larger when navbar is large
+  // Dynamic padding for the content - adjusted for new navbar size
   const contentPadding = isScrolled
-    ? "pt-24 sm:pt-28 md:pt-32 pb-8" // Normal padding when scrolled (navbar is small)
-    : "pt-32 sm:pt-40 md:pt-48 pb-8"; // Extra padding when not scrolled (navbar is large)
+    ? "pt-24 md:pt-28" // Normal padding when scrolled (navbar is normal size)
+    : "pt-28 md:pt-32"; // Extra padding when not scrolled (navbar is slightly larger)
   
   return (
     <section id="inicio" className="relative -mt-16 pt-16 pb-20 overflow-hidden bg-gradient-to-b from-gray-50 to-white min-h-screen flex flex-col justify-center">
