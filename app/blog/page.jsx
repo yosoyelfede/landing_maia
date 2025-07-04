@@ -81,6 +81,8 @@ export default function BlogPage() {
   // Helper function to get the correct image for each blog post
   const getBlogImage = (slug) => {
     switch(slug) {
+      case 'recorridos-que-venden':
+        return "/images/blog/recorridos-que-venden.png";
       case 'recorrido-inteligente':
         return "/images/blog/recorrido-inteligente.png";
       case 'render-vs-recorrido-virtual':

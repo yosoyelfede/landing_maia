@@ -42,6 +42,16 @@ export default function BlogSection() {
     const posts = [];
     
     // Add each blog post with its slug
+    if (content.blogPosts.recorridosQueVenden) {
+      posts.push({
+        slug: 'recorridos-que-venden',
+        title: content.blogPosts.recorridosQueVenden.title,
+        description: content.blogPosts.recorridosQueVenden.description,
+        date: 'Julio 2025', // This should match the date in blog.posts
+        image: "/images/blog/recorridos-que-venden.png"
+      });
+    }
+    
     if (content.blogPosts.recorridoInteligente) {
       posts.push({
         slug: 'recorrido-inteligente',

@@ -34,7 +34,7 @@ export default function BlogPost() {
               ¿Qué es un recorrido inteligente? (Y por qué tu equipo de ventas lo necesita urgentemente)
             </h1>
             <div className="flex justify-center gap-4 text-sm text-gray-200 font-medium">
-              <span>18 Junio, 2025</span>
+              <span>Junio 2025</span>
               <span>·</span>
               <span>4 min de lectura</span>
             </div>
