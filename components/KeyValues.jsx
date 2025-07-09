@@ -11,7 +11,7 @@ export default function KeyValues() {
   
   return (
     <section id="features" className="py-20 bg-gray-50 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-display font-bold mb-6 text-gray-900"
               dangerouslySetInnerHTML={{ 
@@ -34,7 +34,7 @@ export default function KeyValues() {
         </div>
 
         {/* Feature 1 - Imagen a la izquierda */}
-        <div className="grid md:grid-cols-2 gap-12 items-center mb-24 rounded-2xl overflow-hidden bg-white border-2 border-gray-300 transition-all duration-300 hover:bg-secondary-200 hover:bg-opacity-50 hover:border-gray-400">
+        <div className="grid md:grid-cols-2 gap-0 items-center mb-24 rounded-2xl overflow-hidden bg-white border-2 border-gray-300 transition-all duration-300 hover:bg-secondary-200 hover:bg-opacity-50 hover:border-gray-400">
           <div className="relative h-full min-h-[400px] md:min-h-[500px] bg-gray-100">
             <img 
               src={getAssetPath("/images/feature/feature-1.jpg")} 
@@ -67,7 +67,7 @@ export default function KeyValues() {
         </div>
 
         {/* Feature 2 - Imagen a la derecha */}
-        <div className="grid md:grid-cols-2 gap-12 items-center mb-24 rounded-2xl overflow-hidden bg-white border-2 border-gray-300 transition-all duration-300 hover:bg-secondary-200 hover:bg-opacity-50 hover:border-gray-400">
+        <div className="grid md:grid-cols-2 gap-0 items-center mb-24 rounded-2xl overflow-hidden bg-white border-2 border-gray-300 transition-all duration-300 hover:bg-secondary-200 hover:bg-opacity-50 hover:border-gray-400">
           <div className="order-1 md:order-2 relative h-full min-h-[400px] md:min-h-[500px] bg-gray-100">
             <img 
               src={getAssetPath("/images/feature/feature-2.jpg")} 
@@ -100,7 +100,7 @@ export default function KeyValues() {
         </div>
 
         {/* Feature 3 - Imagen a la izquierda */}
-        <div className="grid md:grid-cols-2 gap-12 items-center rounded-2xl overflow-hidden bg-white border-2 border-gray-300 transition-all duration-300 hover:bg-secondary-200 hover:bg-opacity-50 hover:border-gray-400">
+        <div className="grid md:grid-cols-2 gap-0 items-center rounded-2xl overflow-hidden bg-white border-2 border-gray-300 transition-all duration-300 hover:bg-secondary-200 hover:bg-opacity-50 hover:border-gray-400">
           <div className="relative h-full min-h-[400px] md:min-h-[500px] bg-gray-100">
             <img 
               src={getAssetPath("/images/feature/feature-3.jpg")} 
