@@ -42,6 +42,16 @@ export default function BlogSection() {
     const posts = [];
     
     // Add each blog post with its slug
+    if (content.blogPosts.paraQueSirveUnRecorridoVirtual) {
+      posts.push({
+        slug: 'para-que-sirve-un-recorrido-virtual',
+        title: content.blogPosts.paraQueSirveUnRecorridoVirtual.title,
+        description: content.blogPosts.paraQueSirveUnRecorridoVirtual.description,
+        date: 'Julio 2025', // This should match the date in blog.posts
+        image: "/images/blog/para-que-sirve-un-recorrido-virtual.png"
+      });
+    }
+    
     if (content.blogPosts.recorridosQueVenden) {
       posts.push({
         slug: 'recorridos-que-venden',
@@ -95,11 +105,20 @@ export default function BlogSection() {
         return dateB.year - dateA.year;
       }
       // If same year, compare months
-      return dateB.month - dateA.month;
+      if (dateB.month !== dateA.month) {
+        return dateB.month - dateA.month;
+      }
+      
+      // If same month and year, maintain original array order
+      // (posts earlier in array are newer)
+      return posts.indexOf(a) - posts.indexOf(b);
     });
   };
   
   const sortedPosts = getBlogPosts();
+  
+  // Limit to only the 3 most recent posts for the landing page
+  const recentPosts = sortedPosts.slice(0, 3);
   
   return (
     <>
@@ -121,7 +140,7 @@ export default function BlogSection() {
             <div className="relative">
               {/* Desktop view - grid layout with no scrolling */}
               <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {sortedPosts.map((post, index) => (
+                {recentPosts.map((post, index) => (
                   <div key={index} className="bg-white rounded-xl overflow-hidden border-2 border-gray-300 transition-all hover:border-gray-400 h-full">
                     <Link href={`/blog/${post.slug}`}>
                       <div className="flex flex-col h-full">
@@ -190,10 +209,10 @@ export default function BlogSection() {
                       if (isHorizontalSwipe && isSignificantMove) {
                         if (distanceX > 0) {
                           // Swiped left - show next
-                          setActiveIndex(prev => prev === sortedPosts.length - 1 ? 0 : prev + 1);
+                          setActiveIndex(prev => prev === recentPosts.length - 1 ? 0 : prev + 1);
                         } else {
                           // Swiped right - show previous
-                          setActiveIndex(prev => prev === 0 ? sortedPosts.length - 1 : prev - 1);
+                          setActiveIndex(prev => prev === 0 ? recentPosts.length - 1 : prev - 1);
                         }
                       }
                     }
@@ -205,7 +224,7 @@ export default function BlogSection() {
                     e.currentTarget.dataset.isSwiping = "false";
                   }}
                 >
-                  {sortedPosts.map((post, index) => (
+                  {recentPosts.map((post, index) => (
                     <div 
                       key={index} 
                       className={`bg-white rounded-xl overflow-hidden border-2 border-gray-300 transition-all duration-500 ${
@@ -244,9 +263,9 @@ export default function BlogSection() {
             </div>
             
             {/* Dots indicators - only for mobile */}
-            {sortedPosts.length > 1 && (
+            {recentPosts.length > 1 && (
               <div className="flex justify-center mt-8 gap-2 md:hidden">
-                {sortedPosts.map((_, index) => (
+                {recentPosts.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setActiveIndex(index)}

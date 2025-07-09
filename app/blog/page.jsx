@@ -72,15 +72,17 @@ export default function BlogPage() {
     }
     
     // If same month and year, maintain order based on original array position
-    // (assumes posts later in array are newer, so reverse the order)
+    // (posts earlier in array are newer)
     const indexA = content.posts.indexOf(a);
     const indexB = content.posts.indexOf(b);
-    return indexB - indexA;
+    return indexA - indexB;
   });
   
   // Helper function to get the correct image for each blog post
   const getBlogImage = (slug) => {
     switch(slug) {
+      case 'para-que-sirve-un-recorrido-virtual':
+        return "/images/blog/para-que-sirve-un-recorrido-virtual.png";
       case 'recorridos-que-venden':
         return "/images/blog/recorridos-que-venden.png";
       case 'recorrido-inteligente':
