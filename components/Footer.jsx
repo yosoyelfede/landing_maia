@@ -18,7 +18,7 @@ export default function Footer() {
   return (
     <footer className="bg-gray-900 text-white py-12 md:py-16 lg:py-20 w-full overflow-hidden">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-10">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-3.5">
           <div className="mb-8 lg:mb-0 lg:flex-1">
             <Link href="/" className="flex items-center">
               <img
@@ -32,23 +32,28 @@ export default function Footer() {
           
           <div className="flex flex-col lg:flex-1 lg:justify-end w-full">
             {/* Navigation Links */}
-            <div className="flex flex-col lg:flex-row w-full">
-              <nav className="grid grid-cols-2 sm:grid-cols-3 lg:flex lg:flex-row lg:items-center lg:justify-between w-full lg:w-[400px] xl:w-[520px] gap-y-3 gap-x-2">
+            <div className="flex flex-col lg:flex-row w-full lg:justify-end">
+              <div className="flex flex-col lg:flex-row lg:items-center gap-y-3 gap-x-4">
+                {/* All navigation links in one container */}
                 {navigation.map((item, index) => (
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="text-[13px] sm:text-[14px] xl:text-[16px] font-semibold text-white hover:text-primary-300 transition-colors duration-300 whitespace-nowrap text-left"
+                    className={`text-[13px] sm:text-[14px] xl:text-[16px] font-semibold transition-colors duration-300 whitespace-nowrap text-left relative after:absolute after:-bottom-1 after:left-0 after:w-full after:h-2 after:bg-secondary-200 after:opacity-50 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 ${
+                      item.name === 'Demo' 
+                        ? 'text-primary-500 hover:text-white' 
+                        : 'text-white hover:text-primary-500'
+                    }`}
                   >
                     {item.name}
                   </Link>
                 ))}
-              </nav>
-              <div className="flex items-center gap-x-4 mt-4 lg:mt-0 lg:ml-4 xl:ml-8">
+                
+                {/* Icons aligned with navigation */}
                 <a 
                   href="mailto:manuel@maiavr.cl?subject=¡Quiero%20probar%20Maia!&body=Me%20interesa%20saber%20más%20y%20probar%20Maia,%20quiero%20agendar%20una%20demo" 
                   aria-label={accessibility.email}
-                  className="text-white hover:text-primary-300 transition-colors"
+                  className="text-white hover:text-primary-500 transition-colors"
                 >
                   <div className="h-8 flex items-center justify-center">
                     <svg 
@@ -72,7 +77,7 @@ export default function Footer() {
                   href="https://www.linkedin.com/company/maiacl" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-white hover:text-primary-300 transition-colors"
+                  className="text-white hover:text-primary-500 transition-colors"
                 >
                   <span className="sr-only">{accessibility.linkedin}</span>
                   <div className="h-8 flex items-center justify-center">
@@ -81,7 +86,7 @@ export default function Footer() {
                     </svg>
                   </div>
                 </a>
-                {/* Language Toggle Button */}
+                {/* Language Toggle Button - rightmost element */}
                 <button
                   onClick={toggleLanguage}
                   className="flex items-center justify-center text-primary-900 bg-secondary-200 px-1.5 xl:px-2 py-1 rounded-lg transition-colors hover:bg-secondary-300"

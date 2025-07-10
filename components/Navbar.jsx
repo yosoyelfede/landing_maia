@@ -80,24 +80,25 @@ export default function Navbar() {
           </button>
         </div>
         <div className="hidden lg:flex lg:items-center lg:gap-x-4 xl:gap-x-10">
-          {/* Navigation container with responsive spacing */}
-          <div className="hidden lg:flex items-center justify-between lg:w-[400px] xl:w-[520px]">
+          {/* Navigation container with uniform spacing to match footer */}
+          <div className="hidden lg:flex lg:items-center lg:gap-x-4">
             {navigation.map((item, index) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className={`text-[14px] xl:text-[16px] font-semibold text-gray-900 hover:text-primary-600 transition-colors duration-300 ${item.name === 'Cómo funciona' || item.name === 'How it works' ? 'whitespace-nowrap' : ''}`}
-                style={{ flex: '0 0 auto', textAlign: 'center' }}
+                className={`text-[14px] xl:text-[16px] font-semibold transition-colors duration-300 whitespace-nowrap relative after:absolute after:-bottom-1 after:left-0 after:w-full after:h-2 after:bg-secondary-200 after:opacity-50 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 ${
+                  item.name === 'Demo' 
+                    ? 'text-primary-500 hover:text-gray-900' 
+                    : 'text-gray-900 hover:text-primary-500'
+                }`}
               >
                 {item.name}
               </Link>
             ))}
-          </div>
-          <div className="flex items-center gap-x-2 xl:gap-x-3">
             <a 
               href="mailto:manuel@maiavr.cl?subject=¡Quiero%20probar%20Maia!&body=Me%20interesa%20saber%20más%20y%20probar%20Maia,%20quiero%20agendar%20una%20demo" 
               aria-label={accessibility.email}
-              className="text-gray-700 hover:text-primary-600 transition-colors"
+              className="text-gray-700 hover:text-primary-500 transition-colors"
               style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             >
               <div style={{ transform: 'scale(0.9)', transformOrigin: 'center', height: '30px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -121,7 +122,7 @@ export default function Navbar() {
               href="https://www.linkedin.com/company/maiacl" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-gray-700 hover:text-primary-600 transition-colors"
+              className="text-gray-700 hover:text-primary-500 transition-colors"
               style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             >
               <span className="sr-only">{accessibility.linkedin}</span>
@@ -131,7 +132,7 @@ export default function Navbar() {
                 </svg>
               </div>
             </a>
-            {/* Language Toggle Button */}
+            {/* Language Toggle Button - rightmost element */}
             <button
               onClick={toggleLanguage}
               className="flex items-center justify-center text-primary-900 bg-secondary-200 px-1.5 xl:px-2 py-1 rounded-lg transition-colors hover:bg-secondary-300"
@@ -213,7 +214,11 @@ export default function Navbar() {
                     <Link
                       key={item.name}
                       href={item.href}
-                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                      className={`-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 hover:bg-gray-50 relative after:absolute after:-bottom-1 after:left-3 after:right-3 after:h-2 after:bg-secondary-200 after:opacity-50 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 ${
+                        item.name === 'Demo' 
+                          ? 'text-primary-500' 
+                          : 'text-gray-900'
+                      }`}
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       {item.name}
@@ -224,7 +229,7 @@ export default function Navbar() {
                     <a 
                       href="mailto:manuel@maiavr.cl?subject=¡Quiero%20probar%20Maia!&body=Me%20interesa%20saber%20más%20y%20probar%20Maia,%20quiero%20agendar%20una%20demo" 
                       aria-label={accessibility.email}
-                      className="text-gray-700 hover:text-primary-600 transition-colors"
+                      className="text-gray-700 hover:text-primary-500 transition-colors"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       <div className="flex items-center">
@@ -249,7 +254,7 @@ export default function Navbar() {
                       href="https://www.linkedin.com/company/maiacl" 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="text-gray-700 hover:text-primary-600 transition-colors"
+                      className="text-gray-700 hover:text-primary-500 transition-colors"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       <span className="sr-only">{accessibility.linkedin}</span>
