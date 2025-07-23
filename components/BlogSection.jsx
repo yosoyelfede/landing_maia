@@ -42,12 +42,22 @@ export default function BlogSection() {
     const posts = [];
     
     // Add each blog post with its slug
+    if (content.blogPosts.nadieQuiereDejarSusDatos) {
+      posts.push({
+        slug: 'nadie-quiere-dejar-sus-datos',
+        title: content.blogPosts.nadieQuiereDejarSusDatos.title,
+        description: content.blogPosts.nadieQuiereDejarSusDatos.description,
+        date: '17 Julio 2025', // This should match the date in blog.posts
+        image: "/images/blog/nadie-quiere-dejar-sus-datos.jpg"
+      });
+    }
+    
     if (content.blogPosts.paraQueSirveUnRecorridoVirtual) {
       posts.push({
         slug: 'para-que-sirve-un-recorrido-virtual',
         title: content.blogPosts.paraQueSirveUnRecorridoVirtual.title,
         description: content.blogPosts.paraQueSirveUnRecorridoVirtual.description,
-        date: 'Julio 2025', // This should match the date in blog.posts
+        date: '10 Julio 2025', // This should match the date in blog.posts
         image: "/images/blog/para-que-sirve-un-recorrido-virtual.png"
       });
     }
@@ -57,7 +67,7 @@ export default function BlogSection() {
         slug: 'recorridos-que-venden',
         title: content.blogPosts.recorridosQueVenden.title,
         description: content.blogPosts.recorridosQueVenden.description,
-        date: 'Julio 2025', // This should match the date in blog.posts
+        date: '3 Julio 2025', // This should match the date in blog.posts
         image: "/images/blog/recorridos-que-venden.png"
       });
     }
@@ -67,7 +77,7 @@ export default function BlogSection() {
         slug: 'recorrido-inteligente',
         title: content.blogPosts.recorridoInteligente.title,
         description: content.blogPosts.recorridoInteligente.description,
-        date: 'Junio 2025', // This should match the date in blog.posts
+        date: '19 Junio 2025', // This should match the date in blog.posts
         image: "/images/blog/recorrido-inteligente.png"
       });
     }
@@ -77,39 +87,70 @@ export default function BlogSection() {
         slug: 'render-vs-recorrido-virtual',
         title: content.blogPosts.renderVsVirtualTour.title,
         description: content.blogPosts.renderVsVirtualTour.description,
-        date: 'Junio 2025', // This should match the date in blog.posts
+        date: '26 Junio 2025', // This should match the date in blog.posts
         image: "/images/blog/render-vs-recorrido.png"
       });
     }
     
     // Sort posts by date (newest first)
     return posts.sort((a, b) => {
-      // Extract month and year
-      const getMonthYear = (dateStr) => {
+      // Extract day, month and year from date strings
+      const getDateComponents = (dateStr) => {
         const parts = dateStr.split(' ');
-        const month = parts[0];
-        const year = parseInt(parts[1]);
-        // Convert month names to numbers
+        // Handle both formats: "17 Julio 2025" and "July 17, 2025"
+        let day, month, year;
+        
+        if (parts.length === 3) {
+          // Format: "17 Julio 2025"
+          day = parseInt(parts[0]);
+          month = parts[1];
+          year = parseInt(parts[2]);
+        } else if (parts.length === 4) {
+          // Format: "July 17, 2025"
+          month = parts[0];
+          day = parseInt(parts[1].replace(',', ''));
+          year = parseInt(parts[3]);
+        } else {
+          // Fallback for old format: "Julio 2025"
+          day = 1;
+          month = parts[0];
+          year = parseInt(parts[1]);
+        }
+        
+        // Convert month names to numbers for comparison
         const months = {
           'Enero': 1, 'Febrero': 2, 'Marzo': 3, 'Abril': 4, 'Mayo': 5, 'Junio': 6,
-          'Julio': 7, 'Agosto': 8, 'Septiembre': 9, 'Octubre': 10, 'Noviembre': 11, 'Diciembre': 12
+          'Julio': 7, 'Agosto': 8, 'Septiembre': 9, 'Octubre': 10, 'Noviembre': 11, 'Diciembre': 12,
+          'January': 1, 'February': 2, 'March': 3, 'April': 4, 'May': 5, 'June': 6,
+          'July': 7, 'August': 8, 'September': 9, 'October': 10, 'November': 11, 'December': 12
         };
-        return { month: months[month] || 0, year };
+        
+        return { 
+          day: day || 1, 
+          month: months[month] || 0, 
+          year: year || 0 
+        };
       };
       
-      const dateA = getMonthYear(a.date);
-      const dateB = getMonthYear(b.date);
+      const dateA = getDateComponents(a.date);
+      const dateB = getDateComponents(b.date);
       
-      // Compare years first
+      // Compare years first (newest first)
       if (dateB.year !== dateA.year) {
         return dateB.year - dateA.year;
       }
-      // If same year, compare months
+      
+      // If same year, compare months (newest first)
       if (dateB.month !== dateA.month) {
         return dateB.month - dateA.month;
       }
       
-      // If same month and year, maintain original array order
+      // If same month and year, compare days (newest first)
+      if (dateB.day !== dateA.day) {
+        return dateB.day - dateA.day;
+      }
+      
+      // If same day, month and year, maintain order based on original array position
       // (posts earlier in array are newer)
       return posts.indexOf(a) - posts.indexOf(b);
     });

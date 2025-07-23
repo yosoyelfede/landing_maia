@@ -43,11 +43,29 @@ export default function BlogPage() {
   const content = translations.blog[language];
   // Sort posts to display newest first (based on the date field)
   const blogPosts = [...content.posts].sort((a, b) => {
-    // Extract month and year from date strings
-    const getMonthYear = (dateStr) => {
+    // Extract day, month and year from date strings
+    const getDateComponents = (dateStr) => {
       const parts = dateStr.split(' ');
-      const month = parts[0];
-      const year = parseInt(parts[1]);
+      // Handle both formats: "17 Julio 2025" and "July 17, 2025"
+      let day, month, year;
+      
+      if (parts.length === 3) {
+        // Format: "17 Julio 2025"
+        day = parseInt(parts[0]);
+        month = parts[1];
+        year = parseInt(parts[2]);
+      } else if (parts.length === 4) {
+        // Format: "July 17, 2025"
+        month = parts[0];
+        day = parseInt(parts[1].replace(',', ''));
+        year = parseInt(parts[3]);
+      } else {
+        // Fallback for old format: "Julio 2025"
+        day = 1;
+        month = parts[0];
+        year = parseInt(parts[1]);
+      }
+      
       // Convert month names to numbers for comparison
       const months = {
         'Enero': 1, 'Febrero': 2, 'Marzo': 3, 'Abril': 4, 'Mayo': 5, 'Junio': 6,
@@ -55,11 +73,16 @@ export default function BlogPage() {
         'January': 1, 'February': 2, 'March': 3, 'April': 4, 'May': 5, 'June': 6,
         'July': 7, 'August': 8, 'September': 9, 'October': 10, 'November': 11, 'December': 12
       };
-      return { month: months[month] || 0, year };
+      
+      return { 
+        day: day || 1, 
+        month: months[month] || 0, 
+        year: year || 0 
+      };
     };
     
-    const dateA = getMonthYear(a.date);
-    const dateB = getMonthYear(b.date);
+    const dateA = getDateComponents(a.date);
+    const dateB = getDateComponents(b.date);
     
     // Compare years first (newest first)
     if (dateB.year !== dateA.year) {
@@ -71,7 +94,12 @@ export default function BlogPage() {
       return dateB.month - dateA.month;
     }
     
-    // If same month and year, maintain order based on original array position
+    // If same month and year, compare days (newest first)
+    if (dateB.day !== dateA.day) {
+      return dateB.day - dateA.day;
+    }
+    
+    // If same day, month and year, maintain order based on original array position
     // (posts earlier in array are newer)
     const indexA = content.posts.indexOf(a);
     const indexB = content.posts.indexOf(b);
@@ -81,6 +109,8 @@ export default function BlogPage() {
   // Helper function to get the correct image for each blog post
   const getBlogImage = (slug) => {
     switch(slug) {
+      case 'nadie-quiere-dejar-sus-datos':
+        return "/images/blog/nadie-quiere-dejar-sus-datos.jpg";
       case 'para-que-sirve-un-recorrido-virtual':
         return "/images/blog/para-que-sirve-un-recorrido-virtual.png";
       case 'recorridos-que-venden':

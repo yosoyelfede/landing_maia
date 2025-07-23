@@ -1,6 +1,13 @@
 export default function BlogPreview() {
   const blogPosts = [
     {
+      title: "El gran problema de los formularios: por qué nadie quiere dejar sus datos",
+      excerpt: "Los formularios están quedando obsoletos. Descubre por qué no funcionan y cómo capturar datos de manera natural, sin fricción, dentro de un recorrido inteligente.",
+      author: "Fede Antunovic",
+      date: "Julio 2025",
+      imageUrl: "/images/blog/nadie-quiere-dejar-sus-datos.jpg"
+    },
+    {
       title: "¿Qué tan cerca estamos del modelado 3D automático en inmobiliarias?",
       excerpt: "En los últimos años, tecnologías como Gaussian Splatting y las nubes de puntos han transformado la forma en que capturamos y representamos espacios tridimensionales en el sector inmobiliario.",
       author: "Manuel José Fernández",
