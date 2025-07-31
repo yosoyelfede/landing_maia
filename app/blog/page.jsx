@@ -109,6 +109,8 @@ export default function BlogPage() {
   // Helper function to get the correct image for each blog post
   const getBlogImage = (slug) => {
     switch(slug) {
+      case 'leads-no-calificados':
+        return "/images/blog/leads-no-calificados.jpg";
       case 'nadie-quiere-dejar-sus-datos':
         return "/images/blog/nadie-quiere-dejar-sus-datos.jpg";
       case 'para-que-sirve-un-recorrido-virtual':

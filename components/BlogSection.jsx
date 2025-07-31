@@ -42,6 +42,16 @@ export default function BlogSection() {
     const posts = [];
     
     // Add each blog post with its slug
+    if (content.blogPosts.leadsNoCalificados) {
+      posts.push({
+        slug: 'leads-no-calificados',
+        title: content.blogPosts.leadsNoCalificados.title,
+        description: content.blogPosts.leadsNoCalificados.description,
+        date: '24 Julio 2025', // This should match the date in blog.posts
+        image: "/images/blog/leads-no-calificados.jpg"
+      });
+    }
+    
     if (content.blogPosts.nadieQuiereDejarSusDatos) {
       posts.push({
         slug: 'nadie-quiere-dejar-sus-datos',
