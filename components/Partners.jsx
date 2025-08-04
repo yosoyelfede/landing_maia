@@ -39,6 +39,31 @@ export default function Partners() {
       name: "Galeria Inmobiliaria",
       logo: "/logos/partners/galeriainmobiliaria.png",
       url: "https://galeriainmobiliaria.cl/"
+    },
+    {
+      name: "All In House",
+      logo: "/logos/partners/all-in-house.png",
+      url: "https://allinhouse.cl/"
+    },
+    {
+      name: "Inovo",
+      logo: "/logos/partners/inovo.png",
+      url: "https://inovo.cl/"
+    },
+    {
+      name: "Ileon",
+      logo: "/logos/partners/ileon.png",
+      url: "https://ileon.cl/"
+    },
+    {
+      name: "Aitue",
+      logo: "/logos/partners/aitue.png",
+      url: "https://aitue.cl/"
+    },
+    {
+      name: "Itrio",
+      logo: "/logos/partners/itrio.png",
+      url: "https://itrio.cl/"
     }
   ];
   
@@ -52,12 +77,17 @@ export default function Partners() {
   
   const getHeight = (partnerName) => {
     switch(partnerName) {
-      case "Altas Cumbres": return "h-[121px] sm:h-[121px] max-sm:h-[79px]";
-      case "Galeria Inmobiliaria": return "h-[117px] sm:h-[117px] max-sm:h-[76px]";
-      case "IFocus": return "h-[170px] sm:h-[170px] max-sm:h-[110px]";
-      case "Qiiip": return "h-[75px] sm:h-[75px] max-sm:h-[49px]";
-      case "Fleep": return "h-[85px] sm:h-[85px] max-sm:h-[55px]";
-      default: return "h-[70px] sm:h-[70px] max-sm:h-[45px]";
+      case "Altas Cumbres": return "h-[110px] sm:h-[110px] max-sm:h-[72px]";
+      case "Galeria Inmobiliaria": return "h-[105px] sm:h-[105px] max-sm:h-[68px]";
+      case "IFocus": return "h-[190px] sm:h-[190px] max-sm:h-[124px]";
+      case "Qiiip": return "h-[70px] sm:h-[70px] max-sm:h-[45px]";
+      case "Fleep": return "h-[80px] sm:h-[80px] max-sm:h-[52px]";
+      case "All In House": return "h-[85px] sm:h-[85px] max-sm:h-[55px]";
+      case "Inovo": return "h-[113px] sm:h-[113px] max-sm:h-[74px]";
+      case "Ileon": return "h-[65px] sm:h-[65px] max-sm:h-[42px]";
+      case "Aitue": return "h-[140px] sm:h-[140px] max-sm:h-[90px]";
+      case "Itrio": return "h-[75px] sm:h-[75px] max-sm:h-[49px]";
+      default: return "h-[75px] sm:h-[75px] max-sm:h-[49px]";
     }
   };
   
@@ -133,23 +163,23 @@ export default function Partners() {
           {/* Contenedor de desplazamiento */}
           <div 
             ref={scrollRef}
-            className="flex items-center overflow-x-scroll no-scrollbar"
+            className="flex items-center justify-center overflow-x-scroll no-scrollbar"
             onMouseEnter={() => { isPausedRef.current = true; }}
             onMouseLeave={() => { isPausedRef.current = false; }}
             style={{ scrollBehavior: 'auto', msOverflowStyle: 'none', scrollbarWidth: 'none' }}
           >
-            <div className="flex items-center space-x-24 py-10 px-[100px]">
+            <div className="flex items-center justify-center space-x-24 py-10 px-[100px]">
               {allPartners.map((partner, index) => (
                 <div 
                   key={`${partner.name}-${index}`}
-                  className="flex-shrink-0 transition-all duration-300 filter grayscale opacity-60 hover:grayscale-0 hover:opacity-100 hover:scale-110"
+                  className="flex items-center justify-center flex-shrink-0 transition-all duration-300 filter grayscale opacity-60 hover:grayscale-0 hover:opacity-100 hover:scale-110"
                 >
                   <a 
                     href={partner.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Visit ${partner.name} website`}
-                    className="block"
+                    className="flex items-center justify-center"
                   >
                     <img
                       src={getAssetPath(partner.logo)}

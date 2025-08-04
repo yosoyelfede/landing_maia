@@ -64,7 +64,6 @@ export default function Navbar() {
               alt="Maia Logo"
               className={logoImageClasses}
             />
-            <span className={logoTextClasses}>Maia</span>
           </Link>
         </div>
         <div className="flex lg:hidden">
@@ -194,7 +193,6 @@ export default function Navbar() {
                   alt="Maia Logo"
                   className="h-10 w-auto"
                 />
-                <span className="text-3xl font-bold text-gray-900 ml-2 leading-none">Maia</span>
               </Link>
               <button
                 type="button"

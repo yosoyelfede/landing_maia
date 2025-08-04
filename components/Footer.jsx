@@ -26,7 +26,6 @@ export default function Footer() {
                 alt="Maia Logo"
                 className="h-12 sm:h-14 md:h-16 lg:h-20 w-auto"
               />
-              <span className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white ml-2 leading-none">Maia</span>
             </Link>
           </div>
           
