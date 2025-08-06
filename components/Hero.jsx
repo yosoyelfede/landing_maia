@@ -77,7 +77,7 @@ export default function Hero() {
                 </div>
               </div>
               <iframe 
-                src={`https://maiavr.s3.sa-east-1.amazonaws.com/lift/3d.html?t=${Date.now()}`}
+                src="https://maiavr.s3.sa-east-1.amazonaws.com/lift/3d.html"
                 width="100%"
                 height="600"
                 style={{ borderRadius: '8px' }}

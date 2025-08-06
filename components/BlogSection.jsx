@@ -42,6 +42,16 @@ export default function BlogSection() {
     const posts = [];
     
     // Add each blog post with its slug
+    if (content.blogPosts.metricasRecorridoVirtual) {
+      posts.push({
+        slug: 'metricas-recorrido-virtual',
+        title: content.blogPosts.metricasRecorridoVirtual.title,
+        description: content.blogPosts.metricasRecorridoVirtual.description,
+        date: '31 Julio 2025', // This should match the date in blog.posts
+        image: "/images/blog/metricas-recorrido-virtual.jpg"
+      });
+    }
+    
     if (content.blogPosts.leadsNoCalificados) {
       posts.push({
         slug: 'leads-no-calificados',

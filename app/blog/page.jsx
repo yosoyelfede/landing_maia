@@ -109,6 +109,8 @@ export default function BlogPage() {
   // Helper function to get the correct image for each blog post
   const getBlogImage = (slug) => {
     switch(slug) {
+      case 'metricas-recorrido-virtual':
+        return "/images/blog/metricas-recorrido-virtual.jpg";
       case 'leads-no-calificados':
         return "/images/blog/leads-no-calificados.jpg";
       case 'nadie-quiere-dejar-sus-datos':
