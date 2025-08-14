@@ -280,25 +280,14 @@ export default function SimpleAdminDashboard() {
     if (!shouldContinue) return;
     
     try {
-      const { getBlogPosts } = await import('../../lib/clientDb');
-      const posts = getBlogPosts();
-      
-      if (posts.length === 0) {
-        alert('No posts to publish. Create some posts first!');
-        return;
-      }
-
-      // Sort posts by date (newest first) before publishing
-      const sortedPosts = sortPostsByDate(posts, true);
-
       console.log('=== PUBLISHING POSTS ===');
-      console.log('Posts being published:', sortedPosts.map(p => ({ title: p.title, slug: p.slug })));
-      console.log('Number of posts to publish:', sortedPosts.length);
+      console.log('Posts being published:', sortedCmsPosts.map(p => ({ title: p.title, slug: p.slug })));
+      console.log('Number of posts to publish:', sortedCmsPosts.length);
 
 
 
       // Prepare posts for publishing (normalize data)
-      const normalizedPosts = sortedPosts.map(post => ({
+      const normalizedPosts = sortedCmsPosts.map(post => ({
         ...post,
         date: post.date || new Date().toLocaleDateString('es-ES', {
           year: 'numeric',
@@ -344,8 +333,9 @@ export default function SimpleAdminDashboard() {
       console.log('Payload:', {
         postsCount: processedPosts.length,
         posts: processedPosts.map(p => ({ title: p.title, slug: p.slug })),
-        forceReplace: true,
-        action: 'replace_all'
+        diff: diff,
+        action: 'apply_diff',
+        currentPublishedCount: currentPublishedPosts.length
       });
 
       // Get publish configuration from environment or use defaults
