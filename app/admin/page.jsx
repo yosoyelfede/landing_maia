@@ -5,6 +5,7 @@ import RichTextEditor from '../../components/RichTextEditor';
 import { sortPostsByDate } from '../../lib/dateUtils';
 
 export default function SimpleAdminDashboard() {
+  // Force cache refresh - timestamp: 2025-08-14 13:30:00
   const [posts, setPosts] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editingPost, setEditingPost] = useState(null);
@@ -37,12 +38,36 @@ export default function SimpleAdminDashboard() {
     try {
       const { getBlogPosts } = await import('../../lib/clientDb');
       const posts = getBlogPosts();
+      
+      console.log('=== DEBUGGING SORTING ISSUE ===');
+      console.log('Raw posts from localStorage:', posts);
+      
+      // Test date parsing for each post
+      posts.forEach((post, index) => {
+        const parsedDate = parseDate(post.createdAt || post.date);
+        console.log(`Post ${index + 1}: "${post.title}"`);
+        console.log(`  - Date field: "${post.date}"`);
+        console.log(`  - CreatedAt field: "${post.createdAt}"`);
+        console.log(`  - Parsed date: ${parsedDate.toISOString()}`);
+        console.log(`  - Is valid: ${!isNaN(parsedDate.getTime())}`);
+      });
+      
       // Sort posts by date (newest first) for consistent display
       const sortedPosts = sortPostsByDate(posts, true);
       
-      // Debug: Log the sorting results
-      console.log('Posts before sorting:', posts.map(p => ({ title: p.title, date: p.date, createdAt: p.createdAt })));
-      console.log('Posts after sorting:', sortedPosts.map(p => ({ title: p.title, date: p.date, createdAt: p.createdAt })));
+      console.log('=== SORTING RESULTS ===');
+      console.log('Posts before sorting:', posts.map(p => ({ 
+        title: p.title, 
+        date: p.date, 
+        createdAt: p.createdAt,
+        parsedDate: parseDate(p.createdAt || p.date).toISOString()
+      })));
+      console.log('Posts after sorting:', sortedPosts.map(p => ({ 
+        title: p.title, 
+        date: p.date, 
+        createdAt: p.createdAt,
+        parsedDate: parseDate(p.createdAt || p.date).toISOString()
+      })));
       
       setPosts(sortedPosts);
     } catch (error) {
