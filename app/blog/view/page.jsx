@@ -153,8 +153,8 @@ function BlogPostViewerContent() {
   useEffect(() => {
     const loadPost = async () => {
       try {
-        // Fetch from the published JSON file
-        const response = await fetch('/data/blog-posts.json');
+        // Fetch from the published JSON file with cache busting
+        const response = await fetch('/data/blog-posts.json?t=' + Date.now());
         if (response.ok) {
           const publishedPosts = await response.json();
           const foundPost = publishedPosts.find(p => p.slug === slug);

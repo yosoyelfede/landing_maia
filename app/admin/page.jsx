@@ -318,16 +318,17 @@ export default function SimpleAdminDashboard() {
         return processedPost;
       });
 
-      // Prepare the payload with diff information
-      const payload = {
-        posts: processedPosts,
-        images: images,
-        diff: diff, // Include the diff information
-        timestamp: new Date().toISOString(), // Force cache refresh
-        action: 'apply_diff', // New action to apply diff
-        totalPosts: processedPosts.length, // Send count for verification
-        currentPublishedCount: currentPublishedPosts.length // For verification
-      };
+                      // Prepare the payload with diff information
+                const payload = {
+                  posts: processedPosts,
+                  images: images,
+                  diff: diff, // Include the diff information
+                  timestamp: new Date().toISOString(), // Force cache refresh
+                  version: Date.now(), // Add version for cache busting
+                  action: 'apply_diff', // New action to apply diff
+                  totalPosts: processedPosts.length, // Send count for verification
+                  currentPublishedCount: currentPublishedPosts.length // For verification
+                };
 
       console.log('=== PUBLISH PAYLOAD ===');
       console.log('Payload:', {
@@ -365,9 +366,10 @@ export default function SimpleAdminDashboard() {
         console.log('Result:', result);
         
         // Verify the publish by checking the live JSON file after a short delay
-        setTimeout(async () => {
-          try {
-            const verifyResponse = await fetch('/data/blog-posts.json?t=' + Date.now());
+                          setTimeout(async () => {
+                    try {
+                      const verifyTimestamp = Date.now();
+                      const verifyResponse = await fetch(`/data/blog-posts.json?t=${verifyTimestamp}&v=${verifyTimestamp}`);
             if (verifyResponse.ok) {
               const livePosts = await verifyResponse.json();
               console.log('=== VERIFICATION ===');
@@ -463,8 +465,9 @@ export default function SimpleAdminDashboard() {
     try {
       console.log('=== IMPORTING PUBLISHED POSTS ===');
       
-      // Fetch published posts from the JSON file
-      const response = await fetch('/data/blog-posts.json?t=' + Date.now());
+      // Fetch published posts from the JSON file with aggressive cache busting
+      const timestamp = Date.now();
+      const response = await fetch(`/data/blog-posts.json?t=${timestamp}&v=${timestamp}`);
       if (!response.ok) {
         throw new Error('Failed to fetch published posts');
       }

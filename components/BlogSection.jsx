@@ -45,8 +45,8 @@ export default function BlogSection() {
   useEffect(() => {
     const loadPosts = async () => {
       try {
-        // First try to fetch from the published JSON file
-        const response = await fetch('/data/blog-posts.json');
+        // First try to fetch from the published JSON file with cache busting
+        const response = await fetch('/data/blog-posts.json?t=' + Date.now());
         if (response.ok) {
           const publishedPosts = await response.json();
           if (publishedPosts && publishedPosts.length > 0) {
