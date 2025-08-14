@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import RichTextEditor from '../../components/RichTextEditor';
-import { sortPostsByDate } from '../../lib/dateUtils';
+import { sortPostsByDate, parseDate } from '../../lib/dateUtils';
 
 export default function SimpleAdminDashboard() {
   // Force cache refresh - timestamp: 2025-08-14 13:30:00
