@@ -261,6 +261,10 @@ export default function SimpleAdminDashboard() {
       // Sort posts by date (newest first) before publishing
       const sortedPosts = sortPostsByDate(posts, true);
 
+      console.log('=== PUBLISHING POSTS ===');
+      console.log('Posts being published:', sortedPosts.map(p => ({ title: p.title, slug: p.slug })));
+      console.log('Number of posts to publish:', sortedPosts.length);
+
       // Prepare posts for publishing (normalize data)
       const normalizedPosts = sortedPosts.map(post => ({
         ...post,
@@ -293,11 +297,23 @@ export default function SimpleAdminDashboard() {
         return processedPost;
       });
 
-      // Prepare the payload
+      // Prepare the payload - ensure we're completely replacing all published posts
       const payload = {
         posts: processedPosts,
-        images: images
+        images: images,
+        forceReplace: true, // Signal to completely replace the JSON file
+        timestamp: new Date().toISOString(), // Force cache refresh
+        action: 'replace_all', // Explicit action to replace all posts
+        totalPosts: processedPosts.length // Send count for verification
       };
+
+      console.log('=== PUBLISH PAYLOAD ===');
+      console.log('Payload:', {
+        postsCount: processedPosts.length,
+        posts: processedPosts.map(p => ({ title: p.title, slug: p.slug })),
+        forceReplace: true,
+        action: 'replace_all'
+      });
 
       // Get publish configuration from environment or use defaults
       const publishUrl = 'https://maia-cms-publisher.vercel.app/api/publish';
@@ -322,7 +338,34 @@ export default function SimpleAdminDashboard() {
       const result = await response.json();
       
       if (result.ok) {
-        alert('✅ Successfully published to live site! Your changes will be live in a few minutes.');
+        console.log('=== PUBLISH SUCCESS ===');
+        console.log('Result:', result);
+        
+        // Verify the publish by checking the live JSON file after a short delay
+        setTimeout(async () => {
+          try {
+            const verifyResponse = await fetch('/data/blog-posts.json?t=' + Date.now());
+            if (verifyResponse.ok) {
+              const livePosts = await verifyResponse.json();
+              console.log('=== VERIFICATION ===');
+              console.log('Live posts count:', livePosts.length);
+              console.log('Expected count:', processedPosts.length);
+              console.log('Live posts:', livePosts.map(p => ({ title: p.title, slug: p.slug })));
+              
+              if (livePosts.length === processedPosts.length) {
+                alert('✅ Successfully published to live site! Verification passed.');
+              } else {
+                alert('⚠️ Published but verification failed. Live site may not reflect all changes.');
+              }
+            } else {
+              console.log('Could not verify publish - JSON file not accessible');
+              alert('✅ Successfully published to live site! Your changes will be live in a few minutes.');
+            }
+          } catch (verifyError) {
+            console.log('Verification error:', verifyError);
+            alert('✅ Successfully published to live site! Your changes will be live in a few minutes.');
+          }
+        }, 2000);
       } else {
         throw new Error('Publish failed');
       }
@@ -379,6 +422,50 @@ export default function SimpleAdminDashboard() {
     } catch (error) {
       console.error('Import error:', error);
       alert(`❌ Import failed: ${error.message}`);
+    }
+  };
+
+  const handleClearPublishedPosts = async () => {
+    if (!confirm('This will clear ALL published posts from the live site. This action cannot be undone. Continue?')) return;
+    
+    try {
+      // Send an empty posts array to clear all published posts
+      const payload = {
+        posts: [],
+        images: [],
+        forceReplace: true,
+        action: 'clear_all',
+        timestamp: new Date().toISOString()
+      };
+
+      const publishUrl = 'https://maia-cms-publisher.vercel.app/api/publish';
+      const publishKey = 'WSmq5yDkBCzePpuYlA';
+
+      const response = await fetch(publishUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Publish-Key': publishKey,
+          'Origin': window.location.origin
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `HTTP ${response.status}`);
+      }
+
+      const result = await response.json();
+      
+      if (result.ok) {
+        alert('✅ Successfully cleared all published posts from the live site!');
+      } else {
+        throw new Error('Clear operation failed');
+      }
+    } catch (error) {
+      console.error('Clear error:', error);
+      alert(`❌ Clear failed: ${error.message}`);
     }
   };
 
@@ -501,18 +588,27 @@ export default function SimpleAdminDashboard() {
           </svg>
           Import Published Posts
         </button>
-        <button
-          onClick={() => {
-            loadPosts();
-            alert('Posts refreshed!');
-          }}
-          className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center gap-2"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-          </svg>
-          Refresh Posts
-        </button>
+                  <button
+            onClick={() => {
+              loadPosts();
+              alert('Posts refreshed!');
+            }}
+            className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center gap-2"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            Refresh Posts
+          </button>
+          <button
+            onClick={handleClearPublishedPosts}
+            className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 flex items-center gap-2"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+            Clear Published Posts
+          </button>
         <button
           onClick={async () => {
             const { getBlogPosts } = await import('../../lib/clientDb');
