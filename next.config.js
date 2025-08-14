@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Temporarily disabled for GitHub Pages compatibility
-  // output: 'export',
+  output: 'export',
   images: {
     unoptimized: true,
   },
