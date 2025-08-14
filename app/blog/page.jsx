@@ -15,6 +15,8 @@ import translations from '../../lib/translations';
 export default function BlogPage() {
   const { language } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [blogPosts, setBlogPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // Scroll detection to match navbar behavior
   useEffect(() => {
@@ -35,80 +37,122 @@ export default function BlogPage() {
     };
   }, []);
 
+  // Load blog posts from published JSON file
+  useEffect(() => {
+    const loadPosts = async () => {
+      try {
+        // First try to fetch from the published JSON file
+        const response = await fetch('/data/blog-posts.json');
+        if (response.ok) {
+          const publishedPosts = await response.json();
+          if (publishedPosts && publishedPosts.length > 0) {
+            // Sort by date (newest first)
+            const sortedPosts = publishedPosts.sort((a, b) => {
+              const dateA = new Date(a.date || 0);
+              const dateB = new Date(b.date || 0);
+              return dateB - dateA;
+            });
+            setBlogPosts(sortedPosts);
+            setLoading(false);
+            return;
+          }
+        }
+        
+                // Fallback to static posts from translations
+        const content = translations.blog[language];
+        const staticPosts = [...content.posts].sort((a, b) => {
+          // Extract day, month and year from date strings
+          const getDateComponents = (dateStr) => {
+            const parts = dateStr.split(' ');
+            // Handle both formats: "17 Julio 2025" and "July 17, 2025"
+            let day, month, year;
+            
+            if (parts.length === 3) {
+              // Format: "17 Julio 2025"
+              day = parseInt(parts[0]);
+              month = parts[1];
+              year = parseInt(parts[2]);
+            } else if (parts.length === 4) {
+              // Format: "July 17, 2025"
+              month = parts[0];
+              day = parseInt(parts[1].replace(',', ''));
+              year = parseInt(parts[3]);
+            } else {
+              // Fallback for old format: "Julio 2025"
+              day = 1;
+              month = parts[0];
+              year = parseInt(parts[1]);
+            }
+            
+            // Convert month names to numbers for comparison
+            const months = {
+              'Enero': 1, 'Febrero': 2, 'Marzo': 3, 'Abril': 4, 'Mayo': 5, 'Junio': 6,
+              'Julio': 7, 'Agosto': 8, 'Septiembre': 9, 'Octubre': 10, 'Noviembre': 11, 'Diciembre': 12,
+              'January': 1, 'February': 2, 'March': 3, 'April': 4, 'May': 5, 'June': 6,
+              'July': 7, 'August': 8, 'September': 9, 'October': 10, 'November': 11, 'December': 12
+            };
+            
+            return { 
+              day: day || 1, 
+              month: months[month] || 0, 
+              year: year || 0 
+            };
+          };
+          
+          const dateA = getDateComponents(a.date);
+          const dateB = getDateComponents(b.date);
+          
+          // Compare years first (newest first)
+          if (dateB.year !== dateA.year) {
+            return dateB.year - dateA.year;
+          }
+          
+          // If same year, compare months (newest first)
+          if (dateB.month !== dateA.month) {
+            return dateB.month - dateA.month;
+          }
+          
+          // If same month and year, compare days (newest first)
+          if (dateB.day !== dateA.day) {
+            return dateB.day - dateA.day;
+          }
+          
+          // If same day, month and year, maintain order based on original array position
+          // (posts earlier in array are newer)
+          const indexA = content.posts.indexOf(a);
+          const indexB = content.posts.indexOf(b);
+          return indexA - indexB;
+        });
+        
+        setBlogPosts(staticPosts);
+      } catch (error) {
+        console.error('Error loading blog posts:', error);
+        // Fallback to empty array
+        setBlogPosts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadPosts();
+  }, [language]);
+
   // Dynamic padding for the header - adjusted for new navbar size
   const headerPadding = isScrolled
     ? "py-20 pb-8 md:py-24 md:pb-10" // Normal padding when scrolled (navbar is normal size)
     : "py-24 pb-8 md:py-28 md:pb-10"; // Extra padding when not scrolled (navbar is slightly larger)
 
   const content = translations.blog[language];
-  // Sort posts to display newest first (based on the date field)
-  const blogPosts = [...content.posts].sort((a, b) => {
-    // Extract day, month and year from date strings
-    const getDateComponents = (dateStr) => {
-      const parts = dateStr.split(' ');
-      // Handle both formats: "17 Julio 2025" and "July 17, 2025"
-      let day, month, year;
-      
-      if (parts.length === 3) {
-        // Format: "17 Julio 2025"
-        day = parseInt(parts[0]);
-        month = parts[1];
-        year = parseInt(parts[2]);
-      } else if (parts.length === 4) {
-        // Format: "July 17, 2025"
-        month = parts[0];
-        day = parseInt(parts[1].replace(',', ''));
-        year = parseInt(parts[3]);
-      } else {
-        // Fallback for old format: "Julio 2025"
-        day = 1;
-        month = parts[0];
-        year = parseInt(parts[1]);
-      }
-      
-      // Convert month names to numbers for comparison
-      const months = {
-        'Enero': 1, 'Febrero': 2, 'Marzo': 3, 'Abril': 4, 'Mayo': 5, 'Junio': 6,
-        'Julio': 7, 'Agosto': 8, 'Septiembre': 9, 'Octubre': 10, 'Noviembre': 11, 'Diciembre': 12,
-        'January': 1, 'February': 2, 'March': 3, 'April': 4, 'May': 5, 'June': 6,
-        'July': 7, 'August': 8, 'September': 9, 'October': 10, 'November': 11, 'December': 12
-      };
-      
-      return { 
-        day: day || 1, 
-        month: months[month] || 0, 
-        year: year || 0 
-      };
-    };
-    
-    const dateA = getDateComponents(a.date);
-    const dateB = getDateComponents(b.date);
-    
-    // Compare years first (newest first)
-    if (dateB.year !== dateA.year) {
-      return dateB.year - dateA.year;
-    }
-    
-    // If same year, compare months (newest first)
-    if (dateB.month !== dateA.month) {
-      return dateB.month - dateA.month;
-    }
-    
-    // If same month and year, compare days (newest first)
-    if (dateB.day !== dateA.day) {
-      return dateB.day - dateA.day;
-    }
-    
-    // If same day, month and year, maintain order based on original array position
-    // (posts earlier in array are newer)
-    const indexA = content.posts.indexOf(a);
-    const indexB = content.posts.indexOf(b);
-    return indexA - indexB;
-  });
   
   // Helper function to get the correct image for each blog post
-  const getBlogImage = (slug) => {
-    switch(slug) {
+  const getBlogImage = (post) => {
+    // If the post has an imageUrl from the CMS, use it
+    if (post.imageUrl) {
+      return post.imageUrl;
+    }
+    
+    // Otherwise, use the static mapping for existing posts
+    switch(post.slug) {
       case 'que-deberia-hacer-una-inmobiliaria':
         return "/images/blog/que-deberia-hacer-una-inmobiliaria.jpg";
       case 'metricas-recorrido-virtual':
@@ -129,6 +173,18 @@ export default function BlogPage() {
         return "/images/blog/render-vs-recorrido.png";
     }
   };
+
+  // Show loading state
+  if (loading) {
+    return (
+      <main>
+        <Navbar />
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <div className="text-xl">Loading blog posts...</div>
+        </div>
+      </main>
+    );
+  }
 
   // Group posts into grids of 6 (3x2)
   const postsPerGrid = 6;
@@ -187,26 +243,34 @@ export default function BlogPage() {
                   }`}>
                     {grid.map((post, index) => (
                       <article key={`${gridIndex}-${index}`} className="bg-white rounded-xl overflow-hidden border-2 border-gray-300 hover:border-gray-400 transition-all duration-300 hover:shadow-lg">
-                        <Link href={`/blog/${post.slug}`}>
-                          <div className="h-48 relative overflow-hidden bg-gray-100">
-                            <img 
-                              src={getAssetPath(getBlogImage(post.slug))} 
-                              alt={post.title} 
-                              className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                              style={{objectPosition: '50% 50%'}}
-                            />
+                        <div className="h-48 relative overflow-hidden bg-gray-100">
+                          <img 
+                            src={getAssetPath(getBlogImage(post))} 
+                            alt={post.title} 
+                            className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                            style={{objectPosition: '50% 50%'}}
+                          />
+                        </div>
+                        <div className="p-4">
+                          <h2 className="text-lg font-bold mb-2 text-gray-900 line-clamp-2">
+                            {post.title}
+                          </h2>
+                          <p className="text-gray-600 mb-3 line-clamp-2 text-sm">{post.excerpt}</p>
+                          <div className="flex justify-between items-center text-xs text-gray-500">
+                            <span>{post.author || content.author}</span>
+                            <span>{post.date}</span>
                           </div>
-                          <div className="p-4">
-                            <h2 className="text-lg font-bold mb-2 text-gray-900 hover:text-primary-600 transition-colors line-clamp-2">
-                              {post.title}
-                            </h2>
-                            <p className="text-gray-600 mb-3 line-clamp-2 text-sm">{post.excerpt}</p>
-                            <div className="flex justify-between items-center text-xs text-gray-500">
-                              <span>{content.author}</span>
-                              <span>{post.date}</span>
+                          {post.content && post.content.includes('export default') && (
+                            <div className="mt-3 p-2 bg-yellow-50 border border-yellow-200 rounded text-xs text-yellow-800">
+                              <div className="flex items-center gap-1">
+                                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span>Code Component</span>
+                              </div>
                             </div>
-                          </div>
-                        </Link>
+                          )}
+                        </div>
                       </article>
                     ))}
                   </div>
