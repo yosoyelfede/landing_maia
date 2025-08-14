@@ -461,8 +461,10 @@ export default function SimpleAdminDashboard() {
     if (!confirm('This will import all published posts into the CMS. Continue?')) return;
     
     try {
+      console.log('=== IMPORTING PUBLISHED POSTS ===');
+      
       // Fetch published posts from the JSON file
-      const response = await fetch('/data/blog-posts.json');
+      const response = await fetch('/data/blog-posts.json?t=' + Date.now());
       if (!response.ok) {
         throw new Error('Failed to fetch published posts');
       }
@@ -474,33 +476,48 @@ export default function SimpleAdminDashboard() {
         return;
       }
 
+      console.log('Published posts to import:', publishedPosts.map(p => ({ title: p.title, slug: p.slug })));
+
       // Get CMS functions
       const { getBlogPosts, createBlogPost, deleteBlogPost } = await import('../../lib/clientDb');
       
-      // Clear all existing posts first
+      // Get current CMS posts
       const currentPosts = getBlogPosts();
-      currentPosts.forEach(post => {
-        deleteBlogPost(post.slug);
-      });
+      console.log('Current CMS posts:', currentPosts.map(p => ({ title: p.title, slug: p.slug })));
       
-      // Import all published posts
+      // Create a set of existing slugs to avoid duplicates
+      const existingSlugs = new Set(currentPosts.map(post => post.slug));
+      
+      // Import only posts that don't already exist in CMS
       let importedCount = 0;
+      let skippedCount = 0;
+      
       for (const post of publishedPosts) {
-        // Add createdAt and updatedAt if they don't exist
-        const postToImport = {
-          ...post,
-          createdAt: post.createdAt || new Date().toISOString(),
-          updatedAt: post.updatedAt || new Date().toISOString()
-        };
-        
-        createBlogPost(postToImport);
-        importedCount++;
+        if (!existingSlugs.has(post.slug)) {
+          // Add createdAt and updatedAt if they don't exist
+          const postToImport = {
+            ...post,
+            createdAt: post.createdAt || new Date().toISOString(),
+            updatedAt: post.updatedAt || new Date().toISOString()
+          };
+          
+          createBlogPost(postToImport);
+          importedCount++;
+          console.log(`✅ Imported: "${post.title}"`);
+        } else {
+          skippedCount++;
+          console.log(`⏭️ Skipped (already exists): "${post.title}"`);
+        }
       }
       
       // Reload posts to show the imported ones
       loadPosts();
       
-      alert(`✅ Successfully imported ${importedCount} posts into the CMS!`);
+      if (importedCount > 0) {
+        alert(`✅ Successfully imported ${importedCount} new posts into the CMS! (${skippedCount} already existed)`);
+      } else {
+        alert(`ℹ️ No new posts to import. All ${skippedCount} published posts already exist in the CMS.`);
+      }
     } catch (error) {
       console.error('Import error:', error);
       alert(`❌ Import failed: ${error.message}`);
@@ -654,6 +671,19 @@ export default function SimpleAdminDashboard() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
           Check localStorage
+        </button>
+        
+        <button
+          onClick={() => {
+            const { testDateParsing } = require('../../lib/dateUtils');
+            testDateParsing();
+          }}
+          className="px-6 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 flex items-center gap-2"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Test Date Parsing
         </button>
         </div>
 
