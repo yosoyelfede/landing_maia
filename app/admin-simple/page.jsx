@@ -254,8 +254,8 @@ export default function SimpleAdminDashboard() {
       };
 
       // Get publish configuration from environment or use defaults
-      const publishUrl = process.env.NEXT_PUBLIC_PUBLISH_URL || 'https://maia-cms-publisher.vercel.app/api/publish';
-      const publishKey = process.env.NEXT_PUBLIC_PUBLISH_KEY || 'WSmq5yDkBCzePpuYlA';
+      const publishUrl = 'https://maia-cms-publisher.vercel.app/api/publish';
+      const publishKey = 'WSmq5yDkBCzePpuYlA';
 
       // Send to Vercel function
       const response = await fetch(publishUrl, {
@@ -551,6 +551,13 @@ export default function SimpleAdminDashboard() {
                   <RichTextEditor
                     content={formData.content}
                     onChange={(content) => setFormData({ ...formData, content })}
+                    onImageUpload={(dataUrl, fileName) => {
+                      // When an image is uploaded in the rich text editor, update the featured image
+                      if (!formData.imageUrl || formData.imageUrl === '/images/blog/default.jpg') {
+                        setFormData({ ...formData, imageUrl: dataUrl });
+                        setUploadedImages(prev => [...prev, { name: fileName, url: dataUrl }]);
+                      }
+                    }}
                   />
                                  ) : (
                    <div className="space-y-4">
@@ -632,6 +639,69 @@ export default function BlogPost() {
                        </div>
                      </div>
                      
+                     {/* Image Upload for Code Mode */}
+                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                       <div className="flex items-start gap-2 mb-3">
+                         <svg className="w-5 h-5 text-blue-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                         </svg>
+                         <div>
+                           <h4 className="text-sm font-medium text-blue-800 mb-1">Upload Images for Code Mode</h4>
+                           <p className="text-sm text-blue-700 mb-3">
+                             Upload images here and reference them in your code using the provided data URLs.
+                           </p>
+                         </div>
+                       </div>
+                       
+                       <div className="space-y-3">
+                         <div className="flex items-center gap-2">
+                           <input
+                             type="file"
+                             accept="image/*"
+                             onChange={(e) => {
+                               const file = e.target.files[0];
+                               if (file) {
+                                 const reader = new FileReader();
+                                 reader.onload = (e) => {
+                                   const dataUrl = e.target.result;
+                                   // Update the imageUrl field
+                                   if (!formData.imageUrl || formData.imageUrl === '/images/blog/default.jpg') {
+                                     setFormData({ ...formData, imageUrl: dataUrl });
+                                   }
+                                   // Add to uploaded images
+                                   setUploadedImages(prev => [...prev, { name: file.name, url: dataUrl }]);
+                                 };
+                                 reader.readAsDataURL(file);
+                               }
+                             }}
+                             className="text-sm"
+                           />
+                           <span className="text-xs text-gray-500">Upload image for featured image</span>
+                         </div>
+                         
+                         {uploadedImages.length > 0 && (
+                           <div className="space-y-2">
+                             <p className="text-xs font-medium text-gray-700">Uploaded Images (copy these URLs to use in your code):</p>
+                             {uploadedImages.map((img, index) => (
+                               <div key={index} className="flex items-center gap-2 p-2 bg-white rounded border">
+                                 <img src={img.url} alt={img.name} className="w-8 h-8 object-cover rounded" />
+                                 <span className="text-xs text-gray-600 flex-1 truncate">{img.name}</span>
+                                 <button
+                                   type="button"
+                                   onClick={() => {
+                                     navigator.clipboard.writeText(img.url);
+                                   }}
+                                   className="text-xs text-blue-600 hover:text-blue-700"
+                                 >
+                                   Copy URL
+                                 </button>
+                               </div>
+                             ))}
+                           </div>
+                         )}
+                       </div>
+                     </div>
+                     
                      <textarea
                        value={formData.content}
                        onChange={(e) => setFormData({ ...formData, content: e.target.value })}
@@ -642,7 +712,7 @@ export default function BlogPost() {
                      
                      <div className="text-xs text-gray-500 space-y-1">
                        <p>💡 <strong>Tip:</strong> Include a metadata object in your component with title, excerpt, author, date, language, and slug.</p>
-                       <p>💡 <strong>Images:</strong> Use the rich text editor to upload images, then reference them in your code.</p>
+                       <p>💡 <strong>Images:</strong> Upload images above and copy the data URLs to use in your code, or use the rich text editor.</p>
                        <p>💡 <strong>Full Support:</strong> You can use any Next.js components, React hooks, and Tailwind CSS classes.</p>
                      </div>
                    </div>

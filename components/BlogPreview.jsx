@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { getAssetPath } from '../lib/assetUtils';
 
 export default function BlogPreview() {
   const [blogPosts, setBlogPosts] = useState([]);
@@ -92,7 +93,7 @@ export default function BlogPreview() {
           <article className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
             <div className="h-60 relative overflow-hidden">
               <img 
-                src={featuredPost.imageUrl || '/images/blog/default.jpg'} 
+                src={getAssetPath(featuredPost.imageUrl || '/images/blog/default.jpg')} 
                 alt={featuredPost.title} 
                 className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
               />

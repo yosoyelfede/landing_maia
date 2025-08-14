@@ -170,7 +170,7 @@ export default function BlogPage() {
       case 'render-vs-recorrido-virtual':
         return "/images/blog/render-vs-recorrido.png";
       default:
-        return "/images/blog/render-vs-recorrido.png";
+        return "/images/blog/default.jpg";
     }
   };
 
@@ -260,16 +260,7 @@ export default function BlogPage() {
                             <span>{post.author || content.author}</span>
                             <span>{post.date}</span>
                           </div>
-                          {post.content && post.content.includes('export default') && (
-                            <div className="mt-3 p-2 bg-yellow-50 border border-yellow-200 rounded text-xs text-yellow-800">
-                              <div className="flex items-center gap-1">
-                                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                <span>Code Component</span>
-                              </div>
-                            </div>
-                          )}
+
                         </div>
                       </article>
                     ))}

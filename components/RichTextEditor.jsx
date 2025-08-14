@@ -4,10 +4,11 @@ import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Image from '@tiptap/extension-image';
 import Link from '@tiptap/extension-link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const MenuBar = ({ editor, onImageUpload }) => {
   const [imageUrl, setImageUrl] = useState('');
+  const fileInputRef = useRef(null);
 
   if (!editor) {
     return null;
@@ -28,6 +29,11 @@ const MenuBar = ({ editor, onImageUpload }) => {
       reader.onload = (e) => {
         const dataUrl = e.target.result;
         editor.chain().focus().setImage({ src: dataUrl }).run();
+        
+        // Notify parent component about the uploaded image
+        if (onImageUpload) {
+          onImageUpload(dataUrl, file.name);
+        }
       };
       reader.readAsDataURL(file);
     }
@@ -99,6 +105,7 @@ const MenuBar = ({ editor, onImageUpload }) => {
         
         <div className="flex items-center gap-2 ml-4">
           <input
+            ref={fileInputRef}
             type="file"
             accept="image/*"
             onChange={uploadImage}
@@ -133,7 +140,7 @@ const MenuBar = ({ editor, onImageUpload }) => {
   );
 };
 
-export default function RichTextEditor({ content, onChange }) {
+export default function RichTextEditor({ content, onChange, onImageUpload }) {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -183,7 +190,7 @@ export default function RichTextEditor({ content, onChange }) {
 
   return (
     <div className="border border-gray-300 rounded-lg overflow-hidden">
-      <MenuBar editor={editor} />
+      <MenuBar editor={editor} onImageUpload={onImageUpload} />
       <EditorContent 
         editor={editor} 
         className="prose max-w-none p-4 min-h-[400px] focus:outline-none"
