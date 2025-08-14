@@ -242,7 +242,7 @@ export default function BlogPage() {
                     grid.length >= 4 ? 'md:grid-rows-2' : ''
                   }`}>
                     {grid.map((post, index) => (
-                      <article key={`${gridIndex}-${index}`} className="bg-white rounded-xl overflow-hidden border-2 border-gray-300 hover:border-gray-400 transition-all duration-300 hover:shadow-lg">
+                      <article key={`${gridIndex}-${index}`} className="bg-white rounded-xl overflow-hidden border-2 border-gray-300 hover:border-gray-400 transition-all duration-300 hover:shadow-lg cursor-pointer" onClick={() => window.open(`/blog/view?slug=${post.slug}`, '_blank')}>
                         <div className="h-48 relative overflow-hidden bg-gray-100">
                           <img 
                             src={getAssetPath(getBlogImage(post))} 
@@ -252,7 +252,7 @@ export default function BlogPage() {
                           />
                         </div>
                         <div className="p-4">
-                          <h2 className="text-lg font-bold mb-2 text-gray-900 line-clamp-2">
+                          <h2 className="text-lg font-bold mb-2 text-gray-900 line-clamp-2 hover:text-primary-600 transition-colors">
                             {post.title}
                           </h2>
                           <p className="text-gray-600 mb-3 line-clamp-2 text-sm">{post.excerpt}</p>
