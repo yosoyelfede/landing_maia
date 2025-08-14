@@ -339,37 +339,33 @@ export default function SimpleAdminDashboard() {
         return;
       }
 
-      // Get current CMS posts
-      const { getBlogPosts, createBlogPost } = await import('../../lib/clientDb');
+      // Get CMS functions
+      const { getBlogPosts, createBlogPost, deleteBlogPost } = await import('../../lib/clientDb');
+      
+      // Clear all existing posts first
       const currentPosts = getBlogPosts();
+      currentPosts.forEach(post => {
+        deleteBlogPost(post.slug);
+      });
       
-      // Create a set of existing slugs to avoid duplicates
-      const existingSlugs = new Set(currentPosts.map(post => post.slug));
-      
-      // Import posts that don't already exist in CMS
+      // Import all published posts
       let importedCount = 0;
       for (const post of publishedPosts) {
-        if (!existingSlugs.has(post.slug)) {
-          // Add createdAt and updatedAt if they don't exist
-          const postToImport = {
-            ...post,
-            createdAt: post.createdAt || new Date().toISOString(),
-            updatedAt: post.updatedAt || new Date().toISOString()
-          };
-          
-          createBlogPost(postToImport);
-          importedCount++;
-        }
+        // Add createdAt and updatedAt if they don't exist
+        const postToImport = {
+          ...post,
+          createdAt: post.createdAt || new Date().toISOString(),
+          updatedAt: post.updatedAt || new Date().toISOString()
+        };
+        
+        createBlogPost(postToImport);
+        importedCount++;
       }
       
       // Reload posts to show the imported ones
       loadPosts();
       
-      if (importedCount > 0) {
-        alert(`✅ Successfully imported ${importedCount} posts into the CMS!`);
-      } else {
-        alert('All published posts are already in the CMS.');
-      }
+      alert(`✅ Successfully imported ${importedCount} posts into the CMS!`);
     } catch (error) {
       console.error('Import error:', error);
       alert(`❌ Import failed: ${error.message}`);
@@ -486,15 +482,27 @@ export default function SimpleAdminDashboard() {
               Import Data
             </label>
           </div>
-          <button
-            onClick={handleImportPublishedPosts}
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-            </svg>
-            Import Published Posts
-          </button>
+                  <button
+          onClick={handleImportPublishedPosts}
+          className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+          </svg>
+          Import Published Posts
+        </button>
+        <button
+          onClick={() => {
+            loadPosts();
+            alert('Posts refreshed!');
+          }}
+          className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center gap-2"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          Refresh Posts
+        </button>
         </div>
 
         {/* Form */}
