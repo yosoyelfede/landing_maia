@@ -1,18 +1,5 @@
 [
   {
-    "title": "My Amazing Blog Post",
-    "excerpt": "This is a brief description of the post that will appear in previews.",
-    "content": "// Blog Post Component - All metadata included\nexport default function BlogPost() {\n  // Metadata - this will be extracted automatically\n  const metadata = {\n    title: \"My Amazing Blog Post\",\n    excerpt: \"This is a brief description of the post that will appear in previews.\",\n    author: \"Your Name\",\n    date: \"13 de agosto de 2025\",\n    language: \"es\",\n    imageUrl: \"/images/blog/default.jpg\", // You can upload images in the rich text editor\n    slug: \"my-amazing-blog-post\"\n  };\n\n  return (\n    <article className=\"prose prose-lg max-w-none\">\n      <header className=\"mb-8\">\n        <h1 className=\"text-4xl font-bold text-gray-900 mb-4\">\n          {metadata.title}\n        </h1>\n        <div className=\"flex items-center gap-4 text-gray-600 mb-4\">\n          <span>By {metadata.author}</span>\n          <span>{metadata.date}</span>\n        </div>\n        <p className=\"text-xl text-gray-600 leading-relaxed\">\n          {metadata.excerpt}\n        </p>\n      </header>\n\n      {/* Your content here */}\n      <div className=\"space-y-6\">\n        <p>This is your main content. You can use any Next.js components and Tailwind CSS classes.</p>\n        \n        <div className=\"bg-blue-50 p-6 rounded-lg\">\n          <h2 className=\"text-2xl font-bold text-gray-900 mb-4\">Custom Section</h2>\n          <p>You can create any layout you want with full Next.js functionality!</p>\n        </div>\n\n        <h2>Features</h2>\n        <ul>\n          <li>Full Next.js component support</li>\n          <li>React hooks and state management</li>\n          <li>Tailwind CSS styling</li>\n          <li>Custom layouts and components</li>\n        </ul>\n      </div>\n    </article>\n  );\n}",
-    "author": "Your Name",
-    "imageUrl": "/images/blog/render-vs-recorrido.png",
-    "slug": "my-amazing-blog-post",
-    "language": "es",
-    "date": "13 de agosto de 2025",
-    "id": "1755140555924",
-    "createdAt": "2025-08-14T03:02:35.924Z",
-    "updatedAt": "2025-08-14T12:30:00.000Z"
-  },
-  {
     "title": "Qué debería hacer hoy una inmobiliaria para vender mejor (si parte desde cero)",
     "excerpt": "Blueprint práctico para inmobiliarias que empiezan desde cero: combina impacto visual, recorridos virtuales con IA, un sitio que convierta y análisis de datos para vender más y mejor.",
     "content": "<p><strong>Resumen:</strong><br />Si hoy una inmobiliaria tuviera que comenzar desde cero, tendría la oportunidad de diseñar su estrategia comercial sin las limitaciones de sistemas antiguos. La clave está en combinar herramientas digitales modernas, datos en tiempo real y una ejecución enfocada en la conversión.</p><hr /><h2>1. Define un embudo de ventas claro y medible</h2><ul><li>Entiende cuántos contactos necesitas para cerrar una venta</li><li>Mide cada etapa: visitas, interesados, leads calificados, cierres</li><li>Usa un CRM desde el día uno para registrar y analizar</li></ul><h2>2. Ofrece experiencias visuales y accesibles</h2><ul><li>Renders para la etapa inicial de preventa</li><li>Recorridos virtuales interactivos con IA para guiar y captar leads</li><li>Fotografías y videos reales en la etapa de entrega</li></ul><h2>3. Automatiza el seguimiento</h2><ul><li>Bots o asistentes AI para responder 24/7</li><li>Emails y mensajes automáticos personalizados</li><li>Alertas para el equipo comercial con leads calientes</li></ul><h2>4. Centraliza la data de tus campañas</h2><ul><li>Unifica información de redes, portales y sitio web</li><li>Identifica canales que traen leads de calidad, no solo volumen</li><li>Ajusta presupuesto en base a datos, no a intuición</li></ul><h2>5. Optimiza tu sitio web como canal de ventas</h2><ul><li>Que cargue rápido, se vea bien en móvil y tenga llamadas a la acción claras</li><li>Formulario simple o reemplazado por chat inteligente</li><li>Integración directa con tu CRM</li></ul><h2>Conclusión</h2><p>Comenzar desde cero te da libertad para construir una estrategia sin herencias ineficientes. Una inmobiliaria moderna debe unir marketing visual, inteligencia artificial y gestión de datos para vender más con menos esfuerzo.</p>",
@@ -20,7 +7,10 @@
     "slug": "que-deberia-hacer-una-inmobiliaria",
     "language": "es",
     "date": "12 Agosto 2025",
-    "imageUrl": "/images/blog/que-deberia-hacer-una-inmobiliaria.jpg"
+    "imageUrl": "/images/blog/que-deberia-hacer-una-inmobiliaria.jpg",
+    "createdAt": "2025-08-14T20:16:50.053Z",
+    "updatedAt": "2025-08-14T20:16:50.053Z",
+    "id": "1755202610053"
   },
   {
     "title": "5 métricas clave que puedes obtener desde un recorrido virtual con IA",
@@ -30,7 +20,10 @@
     "slug": "metricas-recorrido-virtual",
     "language": "es",
     "date": "6 Agosto 2025",
-    "imageUrl": "/images/blog/metricas-recorrido-virtual.jpg"
+    "imageUrl": "/images/blog/metricas-recorrido-virtual.jpg",
+    "createdAt": "2025-08-14T20:16:50.053Z",
+    "updatedAt": "2025-08-14T20:16:50.053Z",
+    "id": "1755202610053"
   },
   {
     "title": "Leads no calificados: cómo filtrar interesados reales sin perder oportunidades",
@@ -40,7 +33,10 @@
     "slug": "leads-no-calificados",
     "language": "es",
     "date": "30 Julio 2025",
-    "imageUrl": "/images/blog/leads-no-calificados.jpg"
+    "imageUrl": "/images/blog/leads-no-calificados.jpg",
+    "createdAt": "2025-08-14T20:16:50.053Z",
+    "updatedAt": "2025-08-14T20:16:50.053Z",
+    "id": "1755202610053"
   },
   {
     "title": "El gran problema de los formularios: por qué nadie quiere dejar sus datos",
@@ -50,7 +46,10 @@
     "slug": "nadie-quiere-dejar-sus-datos",
     "language": "es",
     "date": "23 Julio 2025",
-    "imageUrl": "/images/blog/nadie-quiere-dejar-sus-datos.jpg"
+    "imageUrl": "/images/blog/nadie-quiere-dejar-sus-datos.jpg",
+    "createdAt": "2025-08-14T20:16:50.053Z",
+    "updatedAt": "2025-08-14T20:16:50.053Z",
+    "id": "1755202610053"
   },
   {
     "title": "¿Para qué sirve realmente un recorrido virtual inmobiliario?",
@@ -60,7 +59,10 @@
     "slug": "para-que-sirve-un-recorrido-virtual",
     "language": "es",
     "date": "16 Julio 2025",
-    "imageUrl": "/images/blog/para-que-sirve-un-recorrido-virtual.png"
+    "imageUrl": "/images/blog/para-que-sirve-un-recorrido-virtual.png",
+    "createdAt": "2025-08-14T20:16:50.053Z",
+    "updatedAt": "2025-08-14T20:16:50.053Z",
+    "id": "1755202610053"
   },
   {
     "title": "¿Y si tus recorridos virtuales no estuvieran vendiendo?",
@@ -70,17 +72,10 @@
     "slug": "recorridos-que-venden",
     "language": "es",
     "date": "9 Julio 2025",
-    "imageUrl": "/images/blog/recorridos-que-venden.png"
-  },
-  {
-    "title": "¿Render o recorrido? Cuándo conviene usar cada uno para vender mejor",
-    "excerpt": "Los renders son ideales para destacar atributos visuales en etapas tempranas, mientras que los recorridos virtuales son más efectivos cuando se quiere generar conexión emocional y captar leads calificados.",
-    "content": "<p><strong>Resumen:</strong><br />Cada herramienta tiene su momento ideal. Los renders para etapas tempranas, los recorridos para conexión emocional y captura de leads.</p><hr /><h2>¿Cuándo usar renders?</h2><p>Los renders son ideales para:</p><ul><li>Etapas tempranas de desarrollo</li><li>Mostrar conceptos y diseños</li><li>Destacar atributos visuales específicos</li><li>Presentaciones a inversores</li><li>Marketing preventa</li></ul><h2>¿Cuándo usar recorridos virtuales?</h2><p>Los recorridos virtuales son mejores para:</p><ul><li>Generar conexión emocional</li><li>Capturar leads calificados</li><li>Proporcionar experiencia inmersiva</li><li>Responder preguntas específicas</li><li>Facilitar la toma de decisiones</li></ul><h2>Estrategia combinada</h2><p>La estrategia ideal combina ambas herramientas:</p><ul><li>Renders para marketing inicial</li><li>Recorridos para conversión</li><li>Ambas para diferentes etapas del embudo</li></ul><h2>Conclusión</h2><p>No es render O recorrido, es render Y recorrido. Cada uno tiene su momento y propósito en la estrategia de ventas.</p>",
-    "author": "Maia",
-    "slug": "render-vs-recorrido-virtual",
-    "language": "es",
-    "date": "25 Junio 2025",
-    "imageUrl": "/images/blog/render-vs-recorrido.png"
+    "imageUrl": "/images/blog/recorridos-que-venden.png",
+    "createdAt": "2025-08-14T20:16:50.053Z",
+    "updatedAt": "2025-08-14T20:16:50.053Z",
+    "id": "1755202610053"
   },
   {
     "title": "¿Qué es un recorrido inteligente? (Y por qué tu equipo de ventas lo necesita urgentemente)",
@@ -90,6 +85,22 @@
     "slug": "recorrido-inteligente",
     "language": "es",
     "date": "2 Julio 2025",
-    "imageUrl": "/images/blog/recorrido-inteligente.png"
+    "imageUrl": "/images/blog/recorrido-inteligente.png",
+    "createdAt": "2025-08-14T20:16:50.052Z",
+    "updatedAt": "2025-08-14T20:16:50.052Z",
+    "id": "1755202610052"
+  },
+  {
+    "title": "¿Render o recorrido? Cuándo conviene usar cada uno para vender mejor",
+    "excerpt": "Los renders son ideales para destacar atributos visuales en etapas tempranas, mientras que los recorridos virtuales son más efectivos cuando se quiere generar conexión emocional y captar leads calificados.",
+    "content": "<p><strong>Resumen:</strong><br />Cada herramienta tiene su momento ideal. Los renders para etapas tempranas, los recorridos para conexión emocional y captura de leads.</p><hr /><h2>¿Cuándo usar renders?</h2><p>Los renders son ideales para:</p><ul><li>Etapas tempranas de desarrollo</li><li>Mostrar conceptos y diseños</li><li>Destacar atributos visuales específicos</li><li>Presentaciones a inversores</li><li>Marketing preventa</li></ul><h2>¿Cuándo usar recorridos virtuales?</h2><p>Los recorridos virtuales son mejores para:</p><ul><li>Generar conexión emocional</li><li>Capturar leads calificados</li><li>Proporcionar experiencia inmersiva</li><li>Responder preguntas específicas</li><li>Facilitar la toma de decisiones</li></ul><h2>Estrategia combinada</h2><p>La estrategia ideal combina ambas herramientas:</p><ul><li>Renders para marketing inicial</li><li>Recorridos para conversión</li><li>Ambas para diferentes etapas del embudo</li></ul><h2>Conclusión</h2><p>No es render O recorrido, es render Y recorrido. Cada uno tiene su momento y propósito en la estrategia de ventas.</p>",
+    "author": "Maia",
+    "slug": "render-vs-recorrido-virtual",
+    "language": "es",
+    "date": "25 Junio 2025",
+    "imageUrl": "/images/blog/render-vs-recorrido.png",
+    "createdAt": "2025-08-14T20:16:50.053Z",
+    "updatedAt": "2025-08-14T20:16:50.053Z",
+    "id": "1755202610053"
   }
 ]
