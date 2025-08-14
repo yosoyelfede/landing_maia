@@ -39,6 +39,40 @@ export default function BlogSection() {
   const [blogPosts, setBlogPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Helper function to parse dates in various formats
+  const parseDate = (dateStr) => {
+    if (!dateStr) return new Date(0);
+    
+    // First try to parse as ISO date
+    const isoDate = new Date(dateStr);
+    if (!isNaN(isoDate.getTime())) {
+      return isoDate;
+    }
+    
+    // If that fails, try to parse Spanish date format
+    const parts = dateStr.split(' ');
+    if (parts.length === 3) {
+      // Format: "12 Agosto 2025"
+      const day = parseInt(parts[0]);
+      const month = parts[1];
+      const year = parseInt(parts[2]);
+      
+      // Convert month names to numbers
+      const months = {
+        'Enero': 0, 'Febrero': 1, 'Marzo': 2, 'Abril': 3, 'Mayo': 4, 'Junio': 5,
+        'Julio': 6, 'Agosto': 7, 'Septiembre': 8, 'Octubre': 9, 'Noviembre': 10, 'Diciembre': 11
+      };
+      
+      const monthNum = months[month];
+      if (monthNum !== undefined && !isNaN(day) && !isNaN(year)) {
+        return new Date(year, monthNum, day);
+      }
+    }
+    
+    // Fallback to epoch time if parsing fails
+    return new Date(0);
+  };
+
   useEffect(() => {
     const loadPosts = async () => {
       try {
@@ -47,10 +81,10 @@ export default function BlogSection() {
         if (response.ok) {
           const publishedPosts = await response.json();
           if (publishedPosts && publishedPosts.length > 0) {
-            // Sort by date (newest first)
+            // Sort by date (newest first) using proper date parsing
             const sortedPosts = publishedPosts.sort((a, b) => {
-              const dateA = new Date(a.date || a.createdAt || 0);
-              const dateB = new Date(b.date || b.createdAt || 0);
+              const dateA = parseDate(a.createdAt || a.date);
+              const dateB = parseDate(b.createdAt || b.date);
               return dateB - dateA;
             });
             setBlogPosts(sortedPosts);
