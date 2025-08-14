@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import RichTextEditor from '../../components/RichTextEditor';
+import { sortPostsByDate } from '../../lib/dateUtils';
 
 export default function SimpleAdminDashboard() {
   const [posts, setPosts] = useState([]);
@@ -36,7 +37,9 @@ export default function SimpleAdminDashboard() {
     try {
       const { getBlogPosts } = await import('../../lib/clientDb');
       const posts = getBlogPosts();
-      setPosts(posts);
+      // Sort posts by date (newest first) for consistent display
+      const sortedPosts = sortPostsByDate(posts, true);
+      setPosts(sortedPosts);
     } catch (error) {
       console.error('Error loading posts:', error);
       setPosts([]);
