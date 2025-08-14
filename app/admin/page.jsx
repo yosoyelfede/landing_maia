@@ -36,11 +36,19 @@ export default function SimpleAdminDashboard() {
 
   const loadPosts = async () => {
     try {
+      console.log('=== LOAD POSTS CALLED ===');
       const { getBlogPosts } = await import('../../lib/clientDb');
       const posts = getBlogPosts();
       
       console.log('=== DEBUGGING SORTING ISSUE ===');
       console.log('Raw posts from localStorage:', posts);
+      console.log('Number of posts found:', posts.length);
+      
+      if (posts.length === 0) {
+        console.log('No posts found in localStorage!');
+        setPosts([]);
+        return;
+      }
       
       // Test date parsing for each post
       posts.forEach((post, index) => {
@@ -69,7 +77,9 @@ export default function SimpleAdminDashboard() {
         parsedDate: parseDate(p.createdAt || p.date).toISOString()
       })));
       
+      console.log('Setting posts state with:', sortedPosts.length, 'posts');
       setPosts(sortedPosts);
+      console.log('Posts state should now be updated');
     } catch (error) {
       console.error('Error loading posts:', error);
       setPosts([]);
@@ -502,6 +512,20 @@ export default function SimpleAdminDashboard() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
           </svg>
           Refresh Posts
+        </button>
+        <button
+          onClick={async () => {
+            const { getBlogPosts } = await import('../../lib/clientDb');
+            const posts = getBlogPosts();
+            console.log('Manual localStorage check:', posts);
+            alert(`Found ${posts.length} posts in localStorage. Check console for details.`);
+          }}
+          className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 flex items-center gap-2"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          Check localStorage
         </button>
         </div>
 
