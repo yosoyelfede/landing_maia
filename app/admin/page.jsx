@@ -39,6 +39,11 @@ export default function SimpleAdminDashboard() {
       const posts = getBlogPosts();
       // Sort posts by date (newest first) for consistent display
       const sortedPosts = sortPostsByDate(posts, true);
+      
+      // Debug: Log the sorting results
+      console.log('Posts before sorting:', posts.map(p => ({ title: p.title, date: p.date, createdAt: p.createdAt })));
+      console.log('Posts after sorting:', sortedPosts.map(p => ({ title: p.title, date: p.date, createdAt: p.createdAt })));
+      
       setPosts(sortedPosts);
     } catch (error) {
       console.error('Error loading posts:', error);
@@ -218,8 +223,11 @@ export default function SimpleAdminDashboard() {
         return;
       }
 
+      // Sort posts by date (newest first) before publishing
+      const sortedPosts = sortPostsByDate(posts, true);
+
       // Prepare posts for publishing (normalize data)
-      const normalizedPosts = posts.map(post => ({
+      const normalizedPosts = sortedPosts.map(post => ({
         ...post,
         date: post.date || new Date().toLocaleDateString('es-ES', {
           year: 'numeric',
