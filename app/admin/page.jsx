@@ -247,7 +247,37 @@ export default function SimpleAdminDashboard() {
   };
 
   const handlePublish = async () => {
-    if (!confirm('This will publish all posts to your live site. Continue?')) return;
+    // First, fetch current published posts to compare
+    let currentPublishedPosts = [];
+    try {
+      const response = await fetch('/data/blog-posts.json?t=' + Date.now());
+      if (response.ok) {
+        currentPublishedPosts = await response.json();
+      }
+    } catch (error) {
+      console.log('Could not fetch current published posts for comparison');
+    }
+
+    // Get CMS posts
+    const { getBlogPosts } = await import('../../lib/clientDb');
+    const cmsPosts = getBlogPosts();
+    
+    if (cmsPosts.length === 0) {
+      alert('No posts to publish. Create some posts first!');
+      return;
+    }
+
+    // Sort CMS posts by date (newest first)
+    const sortedCmsPosts = sortPostsByDate(cmsPosts, true);
+
+    // Generate diff to show user what will change
+    const diff = generatePostDiff(currentPublishedPosts, sortedCmsPosts);
+    
+    // Show diff preview to user
+    const diffMessage = formatDiffMessage(diff);
+    const shouldContinue = confirm(`Publishing will make the following changes:\n\n${diffMessage}\n\nContinue?`);
+    
+    if (!shouldContinue) return;
     
     try {
       const { getBlogPosts } = await import('../../lib/clientDb');
@@ -264,6 +294,8 @@ export default function SimpleAdminDashboard() {
       console.log('=== PUBLISHING POSTS ===');
       console.log('Posts being published:', sortedPosts.map(p => ({ title: p.title, slug: p.slug })));
       console.log('Number of posts to publish:', sortedPosts.length);
+
+
 
       // Prepare posts for publishing (normalize data)
       const normalizedPosts = sortedPosts.map(post => ({
@@ -297,14 +329,15 @@ export default function SimpleAdminDashboard() {
         return processedPost;
       });
 
-      // Prepare the payload - ensure we're completely replacing all published posts
+      // Prepare the payload with diff information
       const payload = {
         posts: processedPosts,
         images: images,
-        forceReplace: true, // Signal to completely replace the JSON file
+        diff: diff, // Include the diff information
         timestamp: new Date().toISOString(), // Force cache refresh
-        action: 'replace_all', // Explicit action to replace all posts
-        totalPosts: processedPosts.length // Send count for verification
+        action: 'apply_diff', // New action to apply diff
+        totalPosts: processedPosts.length, // Send count for verification
+        currentPublishedCount: currentPublishedPosts.length // For verification
       };
 
       console.log('=== PUBLISH PAYLOAD ===');
@@ -375,6 +408,65 @@ export default function SimpleAdminDashboard() {
     }
   };
 
+  // Generate diff between published and CMS posts
+  const generatePostDiff = (publishedPosts, cmsPosts) => {
+    const publishedSlugs = new Set(publishedPosts.map(p => p.slug));
+    const cmsSlugs = new Set(cmsPosts.map(p => p.slug));
+    
+    const added = cmsPosts.filter(post => !publishedSlugs.has(post.slug));
+    const removed = publishedPosts.filter(post => !cmsSlugs.has(post.slug));
+    const modified = [];
+    
+    // Check for modifications (same slug but different content)
+    for (const cmsPost of cmsPosts) {
+      const publishedPost = publishedPosts.find(p => p.slug === cmsPost.slug);
+      if (publishedPost && JSON.stringify(cmsPost) !== JSON.stringify(publishedPost)) {
+        modified.push({
+          slug: cmsPost.slug,
+          title: cmsPost.title,
+          oldTitle: publishedPost.title
+        });
+      }
+    }
+    
+    return { added, removed, modified };
+  };
+
+  // Format diff message for user
+  const formatDiffMessage = (diff) => {
+    let message = '';
+    
+    if (diff.added.length > 0) {
+      message += `➕ ADD ${diff.added.length} post(s):\n`;
+      diff.added.forEach(post => {
+        message += `  • "${post.title}"\n`;
+      });
+      message += '\n';
+    }
+    
+    if (diff.removed.length > 0) {
+      message += `❌ REMOVE ${diff.removed.length} post(s):\n`;
+      diff.removed.forEach(post => {
+        message += `  • "${post.title}"\n`;
+      });
+      message += '\n';
+    }
+    
+    if (diff.modified.length > 0) {
+      message += `✏️ MODIFY ${diff.modified.length} post(s):\n`;
+      diff.modified.forEach(post => {
+        message += `  • "${post.oldTitle}" → "${post.title}"\n`;
+      });
+      message += '\n';
+    }
+    
+    if (diff.added.length === 0 && diff.removed.length === 0 && diff.modified.length === 0) {
+      message = 'No changes detected - posts are already up to date.';
+    }
+    
+    return message;
+  };
+
   const handleImportPublishedPosts = async () => {
     if (!confirm('This will import all published posts into the CMS. Continue?')) return;
     
@@ -425,49 +517,7 @@ export default function SimpleAdminDashboard() {
     }
   };
 
-  const handleClearPublishedPosts = async () => {
-    if (!confirm('This will clear ALL published posts from the live site. This action cannot be undone. Continue?')) return;
-    
-    try {
-      // Send an empty posts array to clear all published posts
-      const payload = {
-        posts: [],
-        images: [],
-        forceReplace: true,
-        action: 'clear_all',
-        timestamp: new Date().toISOString()
-      };
 
-      const publishUrl = 'https://maia-cms-publisher.vercel.app/api/publish';
-      const publishKey = 'WSmq5yDkBCzePpuYlA';
-
-      const response = await fetch(publishUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Publish-Key': publishKey,
-          'Origin': window.location.origin
-        },
-        body: JSON.stringify(payload)
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || `HTTP ${response.status}`);
-      }
-
-      const result = await response.json();
-      
-      if (result.ok) {
-        alert('✅ Successfully cleared all published posts from the live site!');
-      } else {
-        throw new Error('Clear operation failed');
-      }
-    } catch (error) {
-      console.error('Clear error:', error);
-      alert(`❌ Clear failed: ${error.message}`);
-    }
-  };
 
   if (!isAuthenticated) {
     return (
@@ -600,15 +650,7 @@ export default function SimpleAdminDashboard() {
             </svg>
             Refresh Posts
           </button>
-          <button
-            onClick={handleClearPublishedPosts}
-            className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 flex items-center gap-2"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-            </svg>
-            Clear Published Posts
-          </button>
+
         <button
           onClick={async () => {
             const { getBlogPosts } = await import('../../lib/clientDb');
