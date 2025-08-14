@@ -24,7 +24,8 @@ export default function SimpleAdminDashboard() {
   useEffect(() => {
     // Check if user is authenticated (simple password check)
     const savedPassword = localStorage.getItem('maia_admin_password');
-    if (savedPassword === 'maia2024') {
+    const adminPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'maia2024';
+    if (savedPassword === adminPassword) {
       setIsAuthenticated(true);
     }
     
@@ -44,7 +45,8 @@ export default function SimpleAdminDashboard() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (password === 'maia2024') {
+    const adminPassword = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'maia2024';
+    if (password === adminPassword) {
       localStorage.setItem('maia_admin_password', password);
       setIsAuthenticated(true);
     } else {
@@ -251,12 +253,16 @@ export default function SimpleAdminDashboard() {
         images: images
       };
 
+      // Get publish configuration from environment or use defaults
+      const publishUrl = process.env.NEXT_PUBLIC_PUBLISH_URL || 'https://maia-cms-publisher.vercel.app/api/publish';
+      const publishKey = process.env.NEXT_PUBLIC_PUBLISH_KEY || 'WSmq5yDkBCzePpuYlA';
+
       // Send to Vercel function
-      const response = await fetch('https://maia-cms-publisher.vercel.app/api/publish', {
+      const response = await fetch(publishUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-Publish-Key': 'WSmq5yDkBCzePpuYlA',
+          'X-Publish-Key': publishKey,
           'Origin': window.location.origin
         },
         body: JSON.stringify(payload)
