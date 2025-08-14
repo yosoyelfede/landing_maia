@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // Temporarily disabled for CMS functionality
+  // output: 'export',
   images: {
     unoptimized: true,
   },

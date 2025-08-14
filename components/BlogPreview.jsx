@@ -1,37 +1,80 @@
-export default function BlogPreview() {
-  const blogPosts = [
-    {
-      title: "El gran problema de los formularios: por qué nadie quiere dejar sus datos",
-      excerpt: "Los formularios están quedando obsoletos. Descubre por qué no funcionan y cómo capturar datos de manera natural, sin fricción, dentro de un recorrido inteligente.",
-      author: "Fede Antunovic",
-      date: "Julio 2025",
-      imageUrl: "/images/blog/nadie-quiere-dejar-sus-datos.jpg"
-    },
-    {
-      title: "¿Qué tan cerca estamos del modelado 3D automático en inmobiliarias?",
-      excerpt: "En los últimos años, tecnologías como Gaussian Splatting y las nubes de puntos han transformado la forma en que capturamos y representamos espacios tridimensionales en el sector inmobiliario.",
-      author: "Manuel José Fernández",
-      date: "Junio 2024",
-      imageUrl: "/images/blog/modelado-3d.jpg"
-    },
-    {
-      title: "Reemplaza tus formularios por lenguaje natural",
-      excerpt: "La mayoría de las inmobiliarias sigue usando formularios como puerta de entrada: Nombre, correo, RUT… y a veces, algo de información financiera. Pero esa información es apenas una parte...",
-      author: "Fede Antunovic",
-      date: "Mayo 2024",
-      imageUrl: "/images/blog/lenguaje-natural.jpg"
-    },
-    {
-      title: "Los planos y renders estáticos se quedaron en el pasado",
-      excerpt: "Una de las situaciones más difíciles para un comprador es evaluar una propiedad que aún no existe físicamente. No hay piloto, no hay sala de ventas lista. Solo planos y renders.",
-      author: "Fede Antunovic",
-      date: "Abril 2024",
-      imageUrl: "/images/blog/planos-renders.jpg"
-    }
-  ];
+'use client';
 
-  // Solo usamos el primer artículo
+import { useState, useEffect } from 'react';
+
+export default function BlogPreview() {
+  const [blogPosts, setBlogPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadPosts = async () => {
+      try {
+        // First try to fetch from the published JSON file
+        const response = await fetch('/data/blog-posts.json');
+        if (response.ok) {
+          const publishedPosts = await response.json();
+          if (publishedPosts && publishedPosts.length > 0) {
+            // Sort by date (newest first)
+            const sortedPosts = publishedPosts.sort((a, b) => {
+              const dateA = new Date(a.date || 0);
+              const dateB = new Date(b.date || 0);
+              return dateB - dateA;
+            });
+            setBlogPosts(sortedPosts);
+            setLoading(false);
+            return;
+          }
+        }
+        
+        // Fallback to localStorage if no published posts
+        const { getBlogPosts } = await import('../lib/clientDb');
+        const posts = getBlogPosts();
+        setBlogPosts(posts);
+      } catch (error) {
+        console.error('Error loading blog posts:', error);
+        setBlogPosts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadPosts();
+  }, []);
+
+  // Get the most recent post
   const featuredPost = blogPosts[0];
+
+  if (loading) {
+    return (
+      <section className="py-12 bg-gray-200">
+        <div className="container mx-auto px-6">
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="animate-pulse">
+              <div className="h-8 bg-gray-300 rounded mb-4"></div>
+              <div className="h-4 bg-gray-300 rounded w-3/4 mx-auto"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (!featuredPost) {
+    return (
+      <section className="py-12 bg-gray-200">
+        <div className="container mx-auto px-6">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-4 text-gray-900">
+              Novedades
+            </h2>
+            <p className="text-xl text-gray-600">
+              No hay artículos disponibles en este momento
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-12 bg-gray-200">
@@ -49,7 +92,7 @@ export default function BlogPreview() {
           <article className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
             <div className="h-60 relative overflow-hidden">
               <img 
-                src={featuredPost.imageUrl} 
+                src={featuredPost.imageUrl || '/images/blog/default.jpg'} 
                 alt={featuredPost.title} 
                 className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
               />
