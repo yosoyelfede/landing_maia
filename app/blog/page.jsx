@@ -37,19 +37,19 @@ export default function BlogPage() {
     };
   }, []);
 
-  // Load blog posts from published JSON file
+  // Load blog posts from published JSON file first, then fallback to static posts
   useEffect(() => {
     const loadPosts = async () => {
       try {
-        // First try to fetch from the published JSON file
+        // First try to fetch from the published JSON file (contains all posts)
         const response = await fetch('/data/blog-posts.json');
         if (response.ok) {
           const publishedPosts = await response.json();
           if (publishedPosts && publishedPosts.length > 0) {
             // Sort by date (newest first)
             const sortedPosts = publishedPosts.sort((a, b) => {
-              const dateA = new Date(a.date || 0);
-              const dateB = new Date(b.date || 0);
+              const dateA = new Date(a.createdAt || a.date || 0);
+              const dateB = new Date(b.createdAt || b.date || 0);
               return dateB - dateA;
             });
             setBlogPosts(sortedPosts);
@@ -58,7 +58,7 @@ export default function BlogPage() {
           }
         }
         
-                // Fallback to static posts from translations
+        // Fallback to static posts from translations
         const content = translations.blog[language];
         const staticPosts = [...content.posts].sort((a, b) => {
           // Extract day, month and year from date strings
