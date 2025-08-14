@@ -2,7 +2,6 @@ import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import { getAssetPath } from '../lib/assetUtils';
 import { LanguageProvider } from '../lib/LanguageContext';
-import SessionProvider from '../components/SessionProvider';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 const plusJakarta = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-space-grotesk', display: 'swap' });
@@ -65,13 +64,11 @@ export default function RootLayout({ children }) {
         <meta name="MobileOptimized" content="width" />
       </head>
       <body className="antialiased bg-white text-gray-900 font-sans min-h-screen w-full overflow-x-hidden">
-        <SessionProvider>
-          <LanguageProvider>
-            <div className="w-full overflow-x-hidden max-w-[100vw]">
-              {children}
-            </div>
-          </LanguageProvider>
-        </SessionProvider>
+        <LanguageProvider>
+          <div className="w-full overflow-x-hidden max-w-[100vw]">
+            {children}
+          </div>
+        </LanguageProvider>
       </body>
     </html>
   );
