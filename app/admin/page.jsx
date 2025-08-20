@@ -373,7 +373,6 @@ export default function SimpleAdminDashboard() {
           date: dateMatch ? dateMatch[1] : '',
           content: content
         };
-      }
       
     } catch (error) {
       console.error('Error extracting metadata:', error);
