@@ -326,8 +326,6 @@ export default function SimpleAdminDashboard() {
       const blogPostMatch = code.match(/BlogPost\s*\(\s*{([\s\S]*?)}\s*\)/);
       console.log('🔧 EXTRACT DEBUG: BlogPost match result:', blogPostMatch ? 'FOUND' : 'NOT FOUND');
       if (blogPostMatch) {
-      console.log('🔧 EXTRACT DEBUG: BlogPost match result:', blogPostMatch ? 'FOUND' : 'NOT FOUND');
-      if (blogPostMatch) {
         const propsStr = blogPostMatch[1];
         
         // Extract props
