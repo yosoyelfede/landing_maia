@@ -338,6 +338,11 @@ export default function SimpleAdminDashboard() {
         let content = '';
         if (contentMatch) {
           content = contentMatch[1].trim();
+          console.log('🔧 EXTRACT DEBUG: Content extracted length:', content.length);
+          console.log('🔧 EXTRACT DEBUG: Content preview:', content.substring(0, 200));
+        } else {
+          console.log('🔧 EXTRACT DEBUG: No content match found');
+          console.log('🔧 EXTRACT DEBUG: Props string preview:', propsStr.substring(0, 500));
         }
         
         return {
@@ -410,6 +415,10 @@ export default function SimpleAdminDashboard() {
 
   const convertMarkdownToHtml = (markdown) => {
     try {
+      console.log('🔧 MARKDOWN DEBUG: Converting markdown to HTML');
+      console.log('🔧 MARKDOWN DEBUG: Input length:', markdown.length);
+      console.log('🔧 MARKDOWN DEBUG: Input preview:', markdown.substring(0, 200));
+      
       let html = markdown;
       
       // Convert headers
