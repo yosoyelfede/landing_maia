@@ -125,17 +125,65 @@ export default function SimpleAdminDashboard() {
       
       // If in code mode, extract metadata from the component code
       if (editorMode === 'code' && formData.content) {
+        console.log('🔧 FORM SUBMIT DEBUG: Extracting metadata from code mode...');
         const extractedMetadata = extractMetadataFromCode(formData.content);
         if (extractedMetadata) {
+          console.log('🔧 FORM SUBMIT DEBUG: Extracted metadata:', extractedMetadata);
+          
+          // Update form data with extracted metadata
           finalFormData = {
             ...finalFormData,
-            ...extractedMetadata,
+            title: extractedMetadata.title || finalFormData.title,
+            excerpt: extractedMetadata.excerpt || finalFormData.excerpt,
+            author: extractedMetadata.author || finalFormData.author || 'Maia',
+            language: extractedMetadata.language || finalFormData.language || 'es',
+            slug: extractedMetadata.slug || finalFormData.slug || generateSlug(extractedMetadata.title || finalFormData.title),
+            imageUrl: extractedMetadata.imageUrl || finalFormData.imageUrl || '/images/blog/default-placeholder.jpg',
             date: new Date().toLocaleDateString('es-ES', {
               year: 'numeric',
               month: 'long',
               day: 'numeric'
             })
           };
+          
+          // Convert content to rich text
+          if (extractedMetadata.content) {
+            finalFormData.content = convertMarkdownToHtml(extractedMetadata.content);
+            console.log('✅ FORM SUBMIT DEBUG: Content converted to rich text');
+          }
+          
+          console.log('✅ FORM SUBMIT DEBUG: Final form data:', finalFormData);
+        }
+      }
+      
+      // Also check if content is Next.js code even in rich text mode
+      if (editorMode === 'rich' && formData.content && 
+          formData.content.includes('export default function') && 
+          (formData.content.includes('const metadata') || formData.content.includes('metadata =') || formData.content.includes('BlogPost('))) {
+        
+        console.log('🔧 FORM SUBMIT DEBUG: Detected Next.js code in rich text mode, extracting metadata...');
+        const extractedMetadata = extractMetadataFromCode(formData.content);
+        if (extractedMetadata) {
+          console.log('🔧 FORM SUBMIT DEBUG: Extracted metadata from rich text mode:', extractedMetadata);
+          
+          // Update form data with extracted metadata
+          finalFormData = {
+            ...finalFormData,
+            title: extractedMetadata.title || finalFormData.title,
+            excerpt: extractedMetadata.excerpt || finalFormData.excerpt,
+            author: extractedMetadata.author || finalFormData.author || 'Maia',
+            language: extractedMetadata.language || finalFormData.language || 'es',
+            slug: extractedMetadata.slug || finalFormData.slug || generateSlug(extractedMetadata.title || finalFormData.title),
+            imageUrl: extractedMetadata.imageUrl || finalFormData.imageUrl || '/images/blog/default-placeholder.jpg'
+          };
+          
+          // Convert content to rich text
+          if (extractedMetadata.content) {
+            finalFormData.content = convertMarkdownToHtml(extractedMetadata.content);
+            console.log('✅ FORM SUBMIT DEBUG: Content converted to rich text from rich text mode');
+          }
+          
+          console.log('✅ FORM SUBMIT DEBUG: Final form data from rich text mode:', finalFormData);
         }
       }
       
@@ -241,8 +289,12 @@ export default function SimpleAdminDashboard() {
 
   const extractMetadataFromCode = (code) => {
     try {
+      console.log('🔧 EXTRACT DEBUG: Starting metadata extraction...');
+      console.log('🔧 EXTRACT DEBUG: Code preview:', code.substring(0, 300) + '...');
+      
       // Look for metadata object in the code - handle both const and let declarations
       const metadataMatch = code.match(/(?:const|let)\s+metadata\s*=\s*{([\s\S]*?)}/);
+      console.log('🔧 EXTRACT DEBUG: Metadata match result:', metadataMatch ? 'FOUND' : 'NOT FOUND');
       if (metadataMatch) {
         const metadataStr = metadataMatch[1];
         
@@ -268,6 +320,7 @@ export default function SimpleAdminDashboard() {
       
       // Also check for BlogPost component props (like in the console logs)
       const blogPostMatch = code.match(/BlogPost\s*\(\s*{([\s\S]*?)}\s*\)/);
+      console.log('🔧 EXTRACT DEBUG: BlogPost match result:', blogPostMatch ? 'FOUND' : 'NOT FOUND');
       if (blogPostMatch) {
         const propsStr = blogPostMatch[1];
         
@@ -523,8 +576,15 @@ export default function SimpleAdminDashboard() {
         };
 
         // If content is Next.js code, extract metadata and convert to rich text
+        console.log('🔍 CODE DETECTION DEBUG: Checking post:', post.title || 'Untitled');
+        console.log('🔍 CODE DETECTION DEBUG: Content preview:', post.content ? post.content.substring(0, 200) + '...' : 'NO CONTENT');
+        console.log('🔍 CODE DETECTION DEBUG: Has export default function:', post.content ? post.content.includes('export default function') : false);
+        console.log('🔍 CODE DETECTION DEBUG: Has const metadata:', post.content ? post.content.includes('const metadata') : false);
+        console.log('🔍 CODE DETECTION DEBUG: Has metadata =:', post.content ? post.content.includes('metadata =') : false);
+        console.log('🔍 CODE DETECTION DEBUG: Has BlogPost(', post.content ? post.content.includes('BlogPost(') : false);
+        
         if (post.content && post.content.includes('export default function') && 
-            (post.content.includes('const metadata') || post.content.includes('metadata ='))) {
+            (post.content.includes('const metadata') || post.content.includes('metadata =') || post.content.includes('BlogPost('))) {
           
           console.log('🔧 CODE PROCESSING: Extracting metadata from Next.js code for post:', post.title || 'Untitled');
           
