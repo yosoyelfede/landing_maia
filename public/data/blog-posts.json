@@ -1,0 +1,95 @@
+[
+  {
+    "title": "My Amazing Blog Post",
+    "excerpt": "This is a brief description of the post that will appear in previews.",
+    "content": "// Blog Post Component - All metadata included\nexport default function BlogPost() {\n  // Metadata - this will be extracted automatically\n  const metadata = {\n    title: \"My Amazing Blog Post\",\n    excerpt: \"This is a brief description of the post that will appear in previews.\",\n    author: \"Your Name\",\n    date: \"13 de agosto de 2025\",\n    language: \"es\",\n    imageUrl: \"/images/blog/default.jpg\", // You can upload images in the rich text editor\n    slug: \"my-amazing-blog-post\"\n  };\n\n  return (\n    <article className=\"prose prose-lg max-w-none\">\n      <header className=\"mb-8\">\n        <h1 className=\"text-4xl font-bold text-gray-900 mb-4\">\n          {metadata.title}\n        </h1>\n        <div className=\"flex items-center gap-4 text-gray-600 mb-4\">\n          <span>By {metadata.author}</span>\n          <span>{metadata.date}</span>\n        </div>\n        <p className=\"text-xl text-gray-600 leading-relaxed\">\n          {metadata.excerpt}\n        </p>\n      </header>\n\n      {/* Your content here */}\n      <div className=\"space-y-6\">\n        <p>This is your main content. You can use any Next.js components and Tailwind CSS classes.</p>\n        \n        <div className=\"bg-blue-50 p-6 rounded-lg\">\n          <h2 className=\"text-2xl font-bold text-gray-900 mb-4\">Custom Section</h2>\n          <p>You can create any layout you want with full Next.js functionality!</p>\n        </div>\n\n        <h2>Features</h2>\n        <ul>\n          <li>Full Next.js component support</li>\n          <li>React hooks and state management</li>\n          <li>Tailwind CSS styling</li>\n          <li>Custom layouts and components</li>\n        </ul>\n      </div>\n    </article>\n  );\n}",
+    "author": "Your Name",
+    "imageUrl": "/images/blog/render-vs-recorrido.png",
+    "slug": "my-amazing-blog-post",
+    "language": "es",
+    "date": "13 de agosto de 2025",
+    "id": "1755140555924",
+    "createdAt": "2025-08-14T03:02:35.924Z",
+    "updatedAt": "2025-08-14T12:30:00.000Z"
+  },
+  {
+    "title": "Qué debería hacer hoy una inmobiliaria para vender mejor (si parte desde cero)",
+    "excerpt": "Blueprint práctico para inmobiliarias que empiezan desde cero: combina impacto visual, recorridos virtuales con IA, un sitio que convierta y análisis de datos para vender más y mejor.",
+    "content": "<p><strong>Resumen:</strong><br />Si hoy una inmobiliaria tuviera que comenzar desde cero, tendría la oportunidad de diseñar su estrategia comercial sin las limitaciones de sistemas antiguos. La clave está en combinar herramientas digitales modernas, datos en tiempo real y una ejecución enfocada en la conversión.</p><hr /><h2>1. Define un embudo de ventas claro y medible</h2><ul><li>Entiende cuántos contactos necesitas para cerrar una venta</li><li>Mide cada etapa: visitas, interesados, leads calificados, cierres</li><li>Usa un CRM desde el día uno para registrar y analizar</li></ul><h2>2. Ofrece experiencias visuales y accesibles</h2><ul><li>Renders para la etapa inicial de preventa</li><li>Recorridos virtuales interactivos con IA para guiar y captar leads</li><li>Fotografías y videos reales en la etapa de entrega</li></ul><h2>3. Automatiza el seguimiento</h2><ul><li>Bots o asistentes AI para responder 24/7</li><li>Emails y mensajes automáticos personalizados</li><li>Alertas para el equipo comercial con leads calientes</li></ul><h2>4. Centraliza la data de tus campañas</h2><ul><li>Unifica información de redes, portales y sitio web</li><li>Identifica canales que traen leads de calidad, no solo volumen</li><li>Ajusta presupuesto en base a datos, no a intuición</li></ul><h2>5. Optimiza tu sitio web como canal de ventas</h2><ul><li>Que cargue rápido, se vea bien en móvil y tenga llamadas a la acción claras</li><li>Formulario simple o reemplazado por chat inteligente</li><li>Integración directa con tu CRM</li></ul><h2>Conclusión</h2><p>Comenzar desde cero te da libertad para construir una estrategia sin herencias ineficientes. Una inmobiliaria moderna debe unir marketing visual, inteligencia artificial y gestión de datos para vender más con menos esfuerzo.</p>",
+    "author": "Maia",
+    "slug": "que-deberia-hacer-una-inmobiliaria",
+    "language": "es",
+    "date": "12 Agosto 2025",
+    "imageUrl": "/images/blog/que-deberia-hacer-una-inmobiliaria.jpg"
+  },
+  {
+    "title": "5 métricas clave que puedes obtener desde un recorrido virtual con IA",
+    "excerpt": "Descubre cómo un recorrido con IA puede entregar datos concretos sobre intención de compra, puntos de interés y leads calificados para optimizar la venta inmobiliaria.",
+    "content": "<p><strong>Resumen:</strong><br />No se trata solo de captar leads. Un recorrido con IA entrega métricas que permiten vender mejor y priorizar con datos.</p><hr /><h2>¿Qué mide un recorrido tradicional?</h2><p>Normalmente, nada útil: ni quién visitó, ni qué interesó, ni dónde hubo fricción.</p><h2>Las 5 métricas que sí importan</h2><h3>1. Tiempo total de interacción</h3><p>Clasifica interés y compara engagement entre propiedades.</p><h3>2. Zonas de mayor atención</h3><p>Identifica qué ambientes generan más exploración.</p><h3>3. Preguntas realizadas</h3><p>El asistente registra dudas e intereses reales del comprador.</p><h3>4. Intención de compra</h3><p>Estimación basada en permanencia, interacción y comportamiento.</p><h3>5. Leads con contexto</h3><p>Más que un correo: sabes qué miró, qué preguntó y si conviene contactar ya.</p><h2>¿Por qué importan?</h2><p>Porque vender es entender. Datos mejores = decisiones mejores para marketing y ventas.</p><h2>Conclusión</h2><p>Medir no es opcional. Si tu recorrido no dice nada, no te ayuda a vender. Con Maia, cada visita se convierte en aprendizaje y conversión.</p>",
+    "author": "Maia",
+    "slug": "metricas-recorrido-virtual",
+    "language": "es",
+    "date": "6 Agosto 2025",
+    "imageUrl": "/images/blog/metricas-recorrido-virtual.jpg"
+  },
+  {
+    "title": "Leads no calificados: cómo filtrar interesados reales sin perder oportunidades",
+    "excerpt": "El problema no es la cantidad de leads, es no saber quién vale la pena. Aprende a priorizar automáticamente a los interesados reales sin perder oportunidades.",
+    "content": "<p><strong>Resumen:</strong><br />El mayor dolor no es la falta de leads, es la mala prioridad. Con señales de intención y contexto del recorrido, ventas sabe a quién contactar primero y por qué.</p><hr /><h2>¿Por qué duele tanto el lead no calificado?</h2><p>Foco perdido en curiosos, percepción de \"marketing no funciona\" y esfuerzo comercial desperdiciado.</p><h2>¿Qué pasaría si supieras a quién vale la pena?</h2><ul><li>Qué ambientes miró con interés</li><li>Cuánto tiempo exploró</li><li>Qué preguntas hizo</li><li>En qué etapa de compra está</li></ul><h2>Por qué lo actual no ayuda</h2><ul><li>Solo capturan nombre, correo, teléfono</li><li>Sin contexto ni nivel de interés</li><li>Nada para priorizar</li></ul><h2>¿Cómo lo resuelve Maia?</h2><ul><li>Analiza comportamiento completo en el recorrido</li><li>Detecta intención de compra en tiempo real</li><li>Genera reportes con prioridad sugerida</li></ul><hr /><h2>Conclusión</h2><p>No necesitas más leads, necesitas mejores decisiones. La prioridad correcta convierte mejor con menos esfuerzo.</p>",
+    "author": "Maia",
+    "slug": "leads-no-calificados",
+    "language": "es",
+    "date": "30 Julio 2025",
+    "imageUrl": "/images/blog/leads-no-calificados.jpg"
+  },
+  {
+    "title": "El gran problema de los formularios: por qué nadie quiere dejar sus datos",
+    "excerpt": "Los formularios están quedando obsoletos. Descubre por qué no funcionan y cómo capturar datos de manera natural, sin fricción, dentro de un recorrido inteligente.",
+    "content": "<p><strong>Resumen:</strong><br />Los formularios tradicionales crean fricción y reducen conversiones. La captura de datos debe ser natural y contextual.</p><hr /><h2>¿Por qué fallan los formularios?</h2><ul><li>Interrumpen la experiencia del usuario</li><li>Requieren información sin contexto</li><li>No ofrecen valor inmediato</li><li>Generan desconfianza</li></ul><h2>La solución: captura contextual</h2><p>En lugar de pedir datos de forma abrupta, captúralos durante la interacción natural:</p><ul><li>Durante el recorrido virtual</li><li>Al responder preguntas específicas</li><li>Cuando el usuario muestra interés real</li></ul><h2>Beneficios de la captura contextual</h2><ul><li>Mayor tasa de conversión</li><li>Datos más valiosos y contextualizados</li><li>Experiencia de usuario fluida</li><li>Menos abandono</li></ul><h2>Conclusión</h2><p>Los formularios tradicionales están muertos. La captura de datos debe ser invisible y contextual para maximizar conversiones.</p>",
+    "author": "Maia",
+    "slug": "nadie-quiere-dejar-sus-datos",
+    "language": "es",
+    "date": "23 Julio 2025",
+    "imageUrl": "/images/blog/nadie-quiere-dejar-sus-datos.jpg"
+  },
+  {
+    "title": "¿Para qué sirve realmente un recorrido virtual inmobiliario?",
+    "excerpt": "Los recorridos virtuales no deberían ser solo visuales. Descubre su verdadero rol comercial y cómo transformarlos en herramientas activas de venta.",
+    "content": "<p><strong>Resumen:</strong><br />Un recorrido virtual debe ser más que mostrar una propiedad. Debe ser una herramienta activa de ventas que guíe, informe y convierta.</p><hr /><h2>El problema de los recorridos tradicionales</h2><ul><li>Solo muestran la propiedad</li><li>No guían al visitante</li><li>No capturan información</li><li>No generan leads calificados</li></ul><h2>El recorrido virtual como herramienta de ventas</h2><p>Un recorrido inteligente debe:</p><ul><li>Guiar al visitante por la propiedad</li><li>Responder preguntas en tiempo real</li><li>Capturar información de interés</li><li>Generar leads calificados</li><li>Proporcionar datos de comportamiento</li></ul><h2>Beneficios del recorrido inteligente</h2><ul><li>Mayor engagement del visitante</li><li>Leads más calificados</li><li>Datos de comportamiento valiosos</li><li>Reducción del tiempo de venta</li><li>Mejor experiencia del cliente</li></ul><h2>Conclusión</h2><p>Un recorrido virtual debe ser una herramienta activa de ventas, no solo un catálogo visual. La diferencia está en la inteligencia y la capacidad de conversión.</p>",
+    "author": "Maia",
+    "slug": "para-que-sirve-un-recorrido-virtual",
+    "language": "es",
+    "date": "16 Julio 2025",
+    "imageUrl": "/images/blog/para-que-sirve-un-recorrido-virtual.png"
+  },
+  {
+    "title": "¿Y si tus recorridos virtuales no estuvieran vendiendo?",
+    "excerpt": "La mayoría de los recorridos virtuales son solo visuales. No venden, no califican, no informan. Descubre cómo transformar cualquier recorrido en una herramienta de ventas sin rehacer nada.",
+    "content": "<p><strong>Resumen:</strong><br />La mayoría de los recorridos virtuales son pasivos y no contribuyen activamente a las ventas. Descubre cómo convertirlos en herramientas activas de conversión.</p><hr /><h2>El problema de los recorridos pasivos</h2><ul><li>Solo muestran la propiedad</li><li>No interactúan con el visitante</li><li>No capturan información</li><li>No generan leads</li><li>No proporcionan datos de comportamiento</li></ul><h2>La transformación a recorridos activos</h2><p>Un recorrido activo debe:</p><ul><li>Guiar al visitante</li><li>Responder preguntas</li><li>Capturar información de interés</li><li>Generar leads calificados</li><li>Proporcionar métricas de comportamiento</li></ul><h2>Implementación sin rehacer</h2><p>Puedes transformar tu recorrido existente agregando:</p><ul><li>Asistente virtual inteligente</li><li>Puntos de interacción</li><li>Sistema de captura de leads</li><li>Análisis de comportamiento</li></ul><h2>Conclusión</h2><p>No necesitas rehacer tu recorrido virtual. Solo necesitas hacerlo inteligente y activo para que contribuya a las ventas.</p>",
+    "author": "Maia",
+    "slug": "recorridos-que-venden",
+    "language": "es",
+    "date": "9 Julio 2025",
+    "imageUrl": "/images/blog/recorridos-que-venden.png"
+  },
+  {
+    "title": "¿Render o recorrido? Cuándo conviene usar cada uno para vender mejor",
+    "excerpt": "Los renders son ideales para destacar atributos visuales en etapas tempranas, mientras que los recorridos virtuales son más efectivos cuando se quiere generar conexión emocional y captar leads calificados.",
+    "content": "<p><strong>Resumen:</strong><br />Cada herramienta tiene su momento ideal. Los renders para etapas tempranas, los recorridos para conexión emocional y captura de leads.</p><hr /><h2>¿Cuándo usar renders?</h2><p>Los renders son ideales para:</p><ul><li>Etapas tempranas de desarrollo</li><li>Mostrar conceptos y diseños</li><li>Destacar atributos visuales específicos</li><li>Presentaciones a inversores</li><li>Marketing preventa</li></ul><h2>¿Cuándo usar recorridos virtuales?</h2><p>Los recorridos virtuales son mejores para:</p><ul><li>Generar conexión emocional</li><li>Capturar leads calificados</li><li>Proporcionar experiencia inmersiva</li><li>Responder preguntas específicas</li><li>Facilitar la toma de decisiones</li></ul><h2>Estrategia combinada</h2><p>La estrategia ideal combina ambas herramientas:</p><ul><li>Renders para marketing inicial</li><li>Recorridos para conversión</li><li>Ambas para diferentes etapas del embudo</li></ul><h2>Conclusión</h2><p>No es render O recorrido, es render Y recorrido. Cada uno tiene su momento y propósito en la estrategia de ventas.</p>",
+    "author": "Maia",
+    "slug": "render-vs-recorrido-virtual",
+    "language": "es",
+    "date": "25 Junio 2025",
+    "imageUrl": "/images/blog/render-vs-recorrido.png"
+  },
+  {
+    "title": "¿Qué es un recorrido inteligente? (Y por qué tu equipo de ventas lo necesita urgentemente)",
+    "excerpt": "Un recorrido inteligente no solo muestra una propiedad. Conversa con tus clientes, entiende qué les interesa y te ayuda a vender mejor. Es la evolución natural del marketing inmobiliario digital.",
+    "content": "<p><strong>Resumen:</strong><br />Un recorrido inteligente va más allá de mostrar una propiedad. Es una herramienta activa que conversa, entiende y ayuda a vender.</p><hr /><h2>¿Qué es un recorrido inteligente?</h2><p>Un recorrido inteligente combina:</p><ul><li>Visualización 3D inmersiva</li><li>Asistente virtual con IA</li><li>Captura de datos de comportamiento</li><li>Generación automática de leads</li><li>Análisis de intención de compra</li></ul><h2>¿Por qué lo necesita tu equipo de ventas?</h2><ul><li>Disponibilidad 24/7</li><li>Respuestas inmediatas a preguntas</li><li>Leads pre-calificados</li><li>Datos de comportamiento valiosos</li><li>Reducción del tiempo de venta</li></ul><h2>Beneficios para el negocio</h2><ul><li>Mayor tasa de conversión</li><li>Leads más calificados</li><li>Mejor experiencia del cliente</li><li>Reducción de costos operativos</li><li>Escalabilidad del equipo de ventas</li></ul><h2>Conclusión</h2><p>Un recorrido inteligente no es un lujo, es una necesidad para competir en el mercado inmobiliario actual. Es la evolución natural del marketing digital.</p>",
+    "author": "Maia",
+    "slug": "recorrido-inteligente",
+    "language": "es",
+    "date": "2 Julio 2025",
+    "imageUrl": "/images/blog/recorrido-inteligente.png"
+  }
+]
