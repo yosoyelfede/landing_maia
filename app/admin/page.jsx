@@ -323,7 +323,7 @@ export default function SimpleAdminDashboard() {
       console.log('🔧 EXTRACT DEBUG: Code contains BlogPost:', code.includes('BlogPost'));
       console.log('🔧 EXTRACT DEBUG: Code contains BlogPost(:', code.includes('BlogPost('));
       
-      const blogPostMatch = code.match(/BlogPost\s*\(\s*([\s\S]*?)\s*\)/);
+      const blogPostMatch = code.match(/<BlogPost\s*([\s\S]*?)\s*\/?>/);
       console.log('🔧 EXTRACT DEBUG: BlogPost match result:', blogPostMatch ? 'FOUND' : 'NOT FOUND');
       if (blogPostMatch) {
         const propsStr = blogPostMatch[1];
