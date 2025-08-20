@@ -323,10 +323,28 @@ export default function SimpleAdminDashboard() {
       console.log('🔧 EXTRACT DEBUG: Code contains BlogPost:', code.includes('BlogPost'));
       console.log('🔧 EXTRACT DEBUG: Code contains BlogPost(:', code.includes('BlogPost('));
       
-      const blogPostMatch = code.match(/<BlogPost\s*([\s\S]*?)\s*\/?>/);
-      console.log('🔧 EXTRACT DEBUG: BlogPost match result:', blogPostMatch ? 'FOUND' : 'NOT FOUND');
-      if (blogPostMatch) {
-        const propsStr = blogPostMatch[1];
+      // Find the opening and closing of the BlogPost component more robustly
+      const blogPostStart = code.indexOf('<BlogPost');
+      if (blogPostStart === -1) {
+        console.log('🔧 EXTRACT DEBUG: BlogPost start not found');
+        return null;
+      }
+      
+      // Find the last occurrence of /> to get the proper closing
+      const blogPostEnd = code.lastIndexOf('/>', blogPostStart);
+      if (blogPostEnd === -1) {
+        console.log('🔧 EXTRACT DEBUG: BlogPost end not found');
+        return null;
+      }
+      
+      // Extract the full BlogPost component
+      const fullBlogPost = code.substring(blogPostStart, blogPostEnd + 2);
+      console.log('🔧 EXTRACT DEBUG: Full BlogPost component length:', fullBlogPost.length);
+      console.log('🔧 EXTRACT DEBUG: Full BlogPost preview:', fullBlogPost.substring(0, 200));
+      
+      // Extract props by removing the opening and closing tags
+      const propsStr = fullBlogPost.replace(/^<BlogPost\s*/, '').replace(/\s*\/>$/, '');
+      console.log('🔧 EXTRACT DEBUG: Props string length:', propsStr.length);
         
         // Extract props from JSX format
         const titleMatch = propsStr.match(/title\s*=\s*["']([^"']+)["']/);
