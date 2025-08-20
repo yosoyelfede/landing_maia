@@ -323,18 +323,18 @@ export default function SimpleAdminDashboard() {
       console.log('🔧 EXTRACT DEBUG: Code contains BlogPost:', code.includes('BlogPost'));
       console.log('🔧 EXTRACT DEBUG: Code contains BlogPost(:', code.includes('BlogPost('));
       
-      const blogPostMatch = code.match(/BlogPost\s*\(\s*{([\s\S]*?)}\s*\)/);
+      const blogPostMatch = code.match(/BlogPost\s*\(\s*([\s\S]*?)\s*\)/);
       console.log('🔧 EXTRACT DEBUG: BlogPost match result:', blogPostMatch ? 'FOUND' : 'NOT FOUND');
       if (blogPostMatch) {
         const propsStr = blogPostMatch[1];
         
-        // Extract props
-        const titleMatch = propsStr.match(/title:\s*["']([^"']+)["']/);
-        const tldrMatch = propsStr.match(/tldr:\s*["']([^"']+)["']/);
-        const dateMatch = propsStr.match(/date:\s*["']([^"']+)["']/);
+        // Extract props from JSX format
+        const titleMatch = propsStr.match(/title\s*=\s*["']([^"']+)["']/);
+        const tldrMatch = propsStr.match(/tldr\s*=\s*["']([^"']+)["']/);
+        const dateMatch = propsStr.match(/date\s*=\s*["']([^"']+)["']/);
         
         // Extract content from the content prop
-        const contentMatch = propsStr.match(/content:\s*`([\s\S]*?)`/);
+        const contentMatch = propsStr.match(/content\s*=\s*{`([\s\S]*?)`}/);
         let content = '';
         if (contentMatch) {
           content = contentMatch[1].trim();
