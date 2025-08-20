@@ -333,8 +333,8 @@ export default function SimpleAdminDashboard() {
         const tldrMatch = propsStr.match(/tldr\s*=\s*["']([^"']+)["']/);
         const dateMatch = propsStr.match(/date\s*=\s*["']([^"']+)["']/);
         
-        // Extract content from the content prop
-        const contentMatch = propsStr.match(/content\s*=\s*{`([\s\S]*?)`}/);
+        // Extract content from the content prop - handle multi-line template literals
+        const contentMatch = propsStr.match(/content\s*=\s*{`([\s\S]*?)`}/s);
         let content = '';
         if (contentMatch) {
           content = contentMatch[1].trim();
