@@ -158,7 +158,9 @@ export default function SimpleAdminDashboard() {
 
   const handleEdit = (post) => {
     setEditingPost(post);
-    setFormData({
+    
+    // If content is Next.js code, extract metadata
+    let formData = {
       title: post.title,
       excerpt: post.excerpt,
       content: post.content,
@@ -166,7 +168,39 @@ export default function SimpleAdminDashboard() {
       imageUrl: post.imageUrl,
       slug: post.slug,
       language: post.language || 'es'
-    });
+    };
+
+    // Check if content is Next.js code and extract metadata
+    if (post.content && post.content.includes('export default function') && 
+        (post.content.includes('const metadata') || post.content.includes('metadata =') || post.content.includes('BlogPost('))) {
+      
+      console.log('🔧 EDIT DEBUG: Detected Next.js code, extracting metadata...');
+      const extractedMetadata = extractMetadataFromCode(post.content);
+      
+      if (extractedMetadata) {
+        console.log('🔧 EDIT DEBUG: Extracted metadata:', extractedMetadata);
+        
+        // Update form data with extracted metadata
+        formData = {
+          ...formData,
+          title: extractedMetadata.title || formData.title,
+          excerpt: extractedMetadata.excerpt || formData.excerpt,
+          author: extractedMetadata.author || formData.author || 'Maia',
+          language: extractedMetadata.language || formData.language || 'es',
+          slug: extractedMetadata.slug || formData.slug || generateSlug(extractedMetadata.title || formData.title),
+          imageUrl: extractedMetadata.imageUrl || formData.imageUrl || '/images/blog/default-placeholder.jpg'
+        };
+        
+        // If we extracted content, convert it to rich text
+        if (extractedMetadata.content) {
+          formData.content = convertMarkdownToHtml(extractedMetadata.content);
+        }
+        
+        console.log('✅ EDIT DEBUG: Form data updated with extracted metadata');
+      }
+    }
+    
+    setFormData(formData);
     setShowForm(true);
   };
 
@@ -1047,7 +1081,38 @@ export default function SimpleAdminDashboard() {
                 <span className="text-sm font-medium text-gray-700">Editor Mode:</span>
                 <div className="flex bg-gray-100 rounded-lg p-1">
                   <button
-                    onClick={() => setEditorMode('rich')}
+                    onClick={() => {
+                      // If switching from code mode to rich text mode, extract metadata
+                      if (editorMode === 'code' && formData.content) {
+                        console.log('🔧 MODE SWITCH DEBUG: Switching from code to rich text, extracting metadata...');
+                        const extractedMetadata = extractMetadataFromCode(formData.content);
+                        if (extractedMetadata) {
+                          console.log('🔧 MODE SWITCH DEBUG: Extracted metadata:', extractedMetadata);
+                          
+                          // Update form data with extracted metadata
+                          setFormData(prev => ({
+                            ...prev,
+                            title: extractedMetadata.title || prev.title,
+                            excerpt: extractedMetadata.excerpt || prev.excerpt,
+                            author: extractedMetadata.author || prev.author || 'Maia',
+                            language: extractedMetadata.language || prev.language || 'es',
+                            slug: extractedMetadata.slug || prev.slug || generateSlug(extractedMetadata.title || prev.title),
+                            imageUrl: extractedMetadata.imageUrl || prev.imageUrl || '/images/blog/default-placeholder.jpg'
+                          }));
+                          
+                          // If we extracted content, convert it to rich text
+                          if (extractedMetadata.content) {
+                            setFormData(prev => ({
+                              ...prev,
+                              content: convertMarkdownToHtml(extractedMetadata.content)
+                            }));
+                          }
+                          
+                          console.log('✅ MODE SWITCH DEBUG: Form data updated with extracted metadata');
+                        }
+                      }
+                      setEditorMode('rich');
+                    }}
                     className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                       editorMode === 'rich' 
                         ? 'bg-white text-blue-600 shadow-sm' 
@@ -1261,6 +1326,40 @@ export default function BlogPost() {
                          className="text-sm text-blue-600 hover:text-blue-700"
                        >
                          Load Complete Template
+                       </button>
+                       
+                       <button
+                         type="button"
+                         onClick={() => {
+                           if (formData.content) {
+                             console.log('🔧 EXTRACT DEBUG: Manually extracting metadata from code...');
+                             const extractedMetadata = extractMetadataFromCode(formData.content);
+                             if (extractedMetadata) {
+                               console.log('🔧 EXTRACT DEBUG: Extracted metadata:', extractedMetadata);
+                               
+                               // Update form data with extracted metadata
+                               setFormData(prev => ({
+                                 ...prev,
+                                 title: extractedMetadata.title || prev.title,
+                                 excerpt: extractedMetadata.excerpt || prev.excerpt,
+                                 author: extractedMetadata.author || prev.author || 'Maia',
+                                 language: extractedMetadata.language || prev.language || 'es',
+                                 slug: extractedMetadata.slug || prev.slug || generateSlug(extractedMetadata.title || prev.title),
+                                 imageUrl: extractedMetadata.imageUrl || prev.imageUrl || '/images/blog/default-placeholder.jpg'
+                               }));
+                               
+                               console.log('✅ EXTRACT DEBUG: Form data updated with extracted metadata');
+                               alert('✅ Metadata extracted successfully! Check the form fields above.');
+                             } else {
+                               alert('❌ No metadata found in the code. Make sure your code includes a metadata object or BlogPost component props.');
+                             }
+                           } else {
+                             alert('❌ No content to extract metadata from. Please add some code first.');
+                           }
+                         }}
+                         className="text-sm text-green-600 hover:text-green-700 ml-2"
+                       >
+                         Extract Metadata
                        </button>
                      </div>
                      
