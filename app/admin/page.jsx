@@ -159,7 +159,7 @@ export default function SimpleAdminDashboard() {
       // Also check if content is Next.js code even in rich text mode
       if (editorMode === 'rich' && formData.content && 
           formData.content.includes('export default function') && 
-          (formData.content.includes('const metadata') || formData.content.includes('metadata =') || formData.content.includes('BlogPost('))) {
+          (formData.content.includes('const metadata') || formData.content.includes('metadata =') || formData.content.includes('BlogPost'))) {
         
         console.log('🔧 FORM SUBMIT DEBUG: Detected Next.js code in rich text mode, extracting metadata...');
         const extractedMetadata = extractMetadataFromCode(formData.content);
@@ -220,7 +220,7 @@ export default function SimpleAdminDashboard() {
 
     // Check if content is Next.js code and extract metadata
     if (post.content && post.content.includes('export default function') && 
-        (post.content.includes('const metadata') || post.content.includes('metadata =') || post.content.includes('BlogPost('))) {
+        (post.content.includes('const metadata') || post.content.includes('metadata =') || post.content.includes('BlogPost'))) {
       
       console.log('🔧 EDIT DEBUG: Detected Next.js code, extracting metadata...');
       const extractedMetadata = extractMetadataFromCode(post.content);
@@ -319,7 +319,13 @@ export default function SimpleAdminDashboard() {
       }
       
       // Also check for BlogPost component props (like in the console logs)
+      console.log('🔧 EXTRACT DEBUG: Looking for BlogPost pattern...');
+      console.log('🔧 EXTRACT DEBUG: Code contains BlogPost:', code.includes('BlogPost'));
+      console.log('🔧 EXTRACT DEBUG: Code contains BlogPost(:', code.includes('BlogPost('));
+      
       const blogPostMatch = code.match(/BlogPost\s*\(\s*{([\s\S]*?)}\s*\)/);
+      console.log('🔧 EXTRACT DEBUG: BlogPost match result:', blogPostMatch ? 'FOUND' : 'NOT FOUND');
+      if (blogPostMatch) {
       console.log('🔧 EXTRACT DEBUG: BlogPost match result:', blogPostMatch ? 'FOUND' : 'NOT FOUND');
       if (blogPostMatch) {
         const propsStr = blogPostMatch[1];
@@ -584,7 +590,7 @@ export default function SimpleAdminDashboard() {
         console.log('🔍 CODE DETECTION DEBUG: Has BlogPost(', post.content ? post.content.includes('BlogPost(') : false);
         
         if (post.content && post.content.includes('export default function') && 
-            (post.content.includes('const metadata') || post.content.includes('metadata =') || post.content.includes('BlogPost('))) {
+            (post.content.includes('const metadata') || post.content.includes('metadata =') || post.content.includes('BlogPost'))) {
           
           console.log('🔧 CODE PROCESSING: Extracting metadata from Next.js code for post:', post.title || 'Untitled');
           
