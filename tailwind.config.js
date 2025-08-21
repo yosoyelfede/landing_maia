@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    // Removed './pages/**/*' - only using app router
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
@@ -18,8 +18,8 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ['var(--font-inter)', 'ui-sans-serif', 'system-ui'],
-        display: ['var(--font-space-grotesk)', 'ui-sans-serif', 'system-ui'],
+        sans: ['ui-sans-serif', 'system-ui'],
+        display: ['ui-sans-serif', 'system-ui'],
       },
       fontSize: {
         'xxs': '0.65rem',

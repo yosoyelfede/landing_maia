@@ -1,10 +1,11 @@
-import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
+// Temporarily disable Google Fonts to fix build hang
+// import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import { getAssetPath } from '../lib/assetUtils';
 import { LanguageProvider } from '../lib/LanguageContext';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
-const plusJakarta = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-space-grotesk', display: 'swap' });
+// const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
+// const plusJakarta = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-space-grotesk', display: 'swap' });
 
 export const metadata = {
   metadataBase: new URL(process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://maiavr.cl'),
@@ -51,7 +52,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="es" className={`${inter.variable} ${plusJakarta.variable} scroll-smooth`}>
+    <html lang="es" className="scroll-smooth">
       <head>
         <meta name="google-site-verification" content="_jBu0z5AOuedmoN8S1RomjG9q4yuMsqHZ71Axnaa73M" />
         <link rel="icon" href={getAssetPath('/favicon.ico')} sizes="32x32" />

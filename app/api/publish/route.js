@@ -1,4 +1,6 @@
-import { NextResponse } from 'next/server'
+ import { NextResponse } from 'next/server'
+import { promises as fs } from 'fs'
+import path from 'path'
 import { verifySession } from '../../../lib/session.js'
 import { sanitizeInput, validateInput } from '../../../lib/validation.js'
 
@@ -21,6 +23,7 @@ export async function POST(request) {
   console.log('🔍 API DEBUG: Request origin:', request.headers.get('origin'))
   console.log('🔍 API DEBUG: Request method:', request.method)
   console.log('🔍 API DEBUG: Request headers:', Object.fromEntries(request.headers.entries()))
+  console.log('🔍 API DEBUG: NODE_ENV:', process.env.NODE_ENV)
   
   try {
     // Verify authentication
@@ -76,7 +79,30 @@ export async function POST(request) {
       validatedPosts.push(sanitizedPost)
     }
     
-    console.log('=== Getting GitHub configuration ===')
+    console.log('=== Checking environment ===')
+    const isDevelopment = process.env.NODE_ENV === 'development'
+    
+    if (isDevelopment) {
+      console.log('=== Development mode: saving to local file ===')
+      // In development, save directly to local file
+      const filePath = path.join(process.cwd(), 'public', 'data', 'blog-posts.json')
+      const content = {
+        posts: validatedPosts,
+        lastUpdated: new Date().toISOString()
+      }
+      
+      await fs.writeFile(filePath, JSON.stringify(content, null, 2))
+      console.log('=== Local file updated successfully ===')
+      
+      return addCorsHeaders(NextResponse.json({
+        success: true,
+        message: 'Blog posts published successfully (local)',
+        postsCount: validatedPosts.length,
+        environment: 'development'
+      }))
+    }
+    
+    console.log('=== Production mode: publishing to GitHub ===')
     // Get GitHub configuration
     const githubToken = process.env.GITHUB_TOKEN
     const githubRepo = process.env.GITHUB_REPO
@@ -111,7 +137,10 @@ export async function POST(request) {
     
     console.log('=== Preparing content for GitHub ===')
     // Prepare the content for GitHub
-    const content = JSON.stringify(validatedPosts, null, 2)
+    const content = JSON.stringify({
+      posts: validatedPosts,
+      lastUpdated: new Date().toISOString()
+    }, null, 2)
     const contentBase64 = Buffer.from(content).toString('base64')
     
     console.log('=== Updating file on GitHub ===')

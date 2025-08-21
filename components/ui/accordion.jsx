@@ -69,19 +69,16 @@ export function AccordionItem({ value, title, children, isOpen, onToggle }) {
           </svg>
         </button>
       </h3>
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden"
-          >
-            <div className="px-4 pb-4">{children}</div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {isOpen && (
+        <div
+          className="px-4 pb-4 animate-fade-in"
+          style={{
+            transition: 'all 0.2s ease-in-out'
+          }}
+        >
+          {children}
+        </div>
+      )}
     </div>
   );
 } 
