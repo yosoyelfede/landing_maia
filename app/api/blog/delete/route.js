@@ -58,16 +58,10 @@ export async function DELETE(request) {
     await fs.writeFile(blogPostsPath, JSON.stringify(updatedData, null, 2))
     console.log('📝 Blog posts file updated after deletion')
 
-    // Try to delete the associated image file if it exists
+    // Note: Images are stored in GitHub repo, not deleted automatically
+    // This keeps the image available for potential recovery or reuse
     if (postToDelete.imageUrl) {
-      try {
-        const imagePath = path.join(process.cwd(), 'public', postToDelete.imageUrl)
-        await fs.unlink(imagePath)
-        console.log('🖼️ Associated image deleted:', postToDelete.imageUrl)
-      } catch (imageError) {
-        console.log('⚠️ Could not delete associated image (may not exist):', imageError.message)
-        // Don't fail the whole operation if image deletion fails
-      }
+      console.log('📷 Image remains in GitHub repo:', postToDelete.imageUrl)
     }
 
     console.log('✅ Post deleted successfully:', slug)

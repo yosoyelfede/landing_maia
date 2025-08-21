@@ -1,6 +1,4 @@
 import { NextResponse } from 'next/server'
-import { promises as fs } from 'fs'
-import path from 'path'
 import { verifySession } from '../../../lib/session.js'
 
 // Add CORS headers helper function
@@ -17,7 +15,7 @@ export async function OPTIONS(request) {
 }
 
 export async function POST(request) {
-  console.log('📤 Image upload API called')
+  console.log('📤 Image upload API called - will upload to GitHub')
   
   try {
     // Verify authentication
@@ -42,7 +40,7 @@ export async function POST(request) {
       return addCorsHeaders(NextResponse.json({ error: 'Slug is required for image naming' }, { status: 400 }))
     }
 
-    console.log('📷 Processing image upload:', {
+    console.log('📷 Processing image for GitHub upload:', {
       fileName: file.name,
       fileSize: `${(file.size / 1024 / 1024).toFixed(2)}MB`,
       fileType: file.type,
@@ -55,47 +53,90 @@ export async function POST(request) {
       return addCorsHeaders(NextResponse.json({ error: 'File must be an image' }, { status: 400 }))
     }
 
-    // Get file extension from original filename
-    const originalExtension = path.extname(file.name).toLowerCase()
-    let fileExtension = originalExtension
-
-    // Default to .jpg if no extension or unsupported extension
-    if (!fileExtension || !['.jpg', '.jpeg', '.png', '.webp'].includes(fileExtension)) {
-      fileExtension = '.jpg'
+    // Get GitHub configuration
+    const githubToken = process.env.GITHUB_TOKEN
+    const githubRepo = process.env.GITHUB_REPO
+    
+    if (!githubToken || !githubRepo) {
+      console.log('❌ GitHub configuration missing')
+      return addCorsHeaders(NextResponse.json({ 
+        error: 'GitHub configuration missing' 
+      }, { status: 500 }))
     }
 
-    // Create filename based on slug
+    // Determine file extension (force .jpg for consistency)
+    const fileExtension = '.jpg'
     const filename = `${slug}${fileExtension}`
-    const uploadDir = path.join(process.cwd(), 'public', 'images', 'blog')
-    const filePath = path.join(uploadDir, filename)
+    const githubPath = `public/images/blog/${filename}`
 
-    console.log('💾 Saving image to:', filePath)
+    console.log('🐙 Uploading to GitHub:', githubPath)
 
-    // Ensure the upload directory exists
-    try {
-      await fs.access(uploadDir)
-    } catch {
-      console.log('📁 Creating blog images directory')
-      await fs.mkdir(uploadDir, { recursive: true })
-    }
-
-    // Convert File to Buffer
+    // Convert File to base64 for GitHub API
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
+    const base64Content = buffer.toString('base64')
 
-    // Write the file
-    await fs.writeFile(filePath, buffer)
+    // Check if file already exists (for updating)
+    let currentSha = null
+    try {
+      const existingFileResponse = await fetch(
+        `https://api.github.com/repos/${githubRepo}/contents/${githubPath}`,
+        {
+          headers: {
+            'Authorization': `token ${githubToken}`,
+            'Accept': 'application/vnd.github.v3+json'
+          }
+        }
+      )
+      
+      if (existingFileResponse.ok) {
+        const existingFile = await existingFileResponse.json()
+        currentSha = existingFile.sha
+        console.log('📄 Found existing file, will update')
+      }
+    } catch (error) {
+      console.log('📄 No existing file found, will create new')
+    }
 
+    // Upload to GitHub
+    const uploadResponse = await fetch(
+      `https://api.github.com/repos/${githubRepo}/contents/${githubPath}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Authorization': `token ${githubToken}`,
+          'Content-Type': 'application/json',
+          'Accept': 'application/vnd.github.v3+json'
+        },
+        body: JSON.stringify({
+          message: `Add blog image: ${filename}`,
+          content: base64Content,
+          ...(currentSha && { sha: currentSha })
+        })
+      }
+    )
+
+    if (!uploadResponse.ok) {
+      const errorData = await uploadResponse.json()
+      console.error('❌ GitHub image upload error:', errorData)
+      return addCorsHeaders(NextResponse.json({ 
+        error: 'Failed to upload image to GitHub',
+        details: errorData.message
+      }, { status: 500 }))
+    }
+
+    const result = await uploadResponse.json()
     const imageUrl = `/images/blog/${filename}`
     
-    console.log('✅ Image uploaded successfully:', imageUrl)
+    console.log('✅ Image uploaded to GitHub successfully:', imageUrl)
 
     return addCorsHeaders(NextResponse.json({
       success: true,
       imageUrl: imageUrl,
       filename: filename,
       size: file.size,
-      message: 'Image uploaded successfully'
+      githubCommit: result.commit.sha,
+      message: 'Image uploaded to GitHub successfully'
     }))
 
   } catch (error) {
