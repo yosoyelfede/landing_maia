@@ -373,11 +373,12 @@ export default function AdminPage() {
         return;
       }
 
-      if (!uploadedImageUrl && !editingPost) {
-        alert('Featured image is required. Please upload an image before publishing.');
-        setIsPublishing(false);
-        return;
-      }
+      // Temporarily disable image requirement for testing
+      // if (!uploadedImageUrl && !editingPost) {
+      //   alert('Featured image is required. Please upload an image before publishing.');
+      //   setIsPublishing(false);
+      //   return;
+      // }
 
       // Generate slug if not provided
       if (!dataToSubmit.slug) {

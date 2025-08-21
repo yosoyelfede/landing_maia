@@ -1,15 +1,15 @@
 [
   {
-    "title": "Enhanced CMS Test Post",
-    "content": "<p>This is a test post to verify the enhanced CMS dual write functionality. The system should now save posts to both JSON files and individual data files for better version control and performance.</p>",
-    "excerpt": "Testing the enhanced CMS dual write functionality",
+    "title": "Test Enhanced CMS Post",
+    "content": "<p>This is a test post for the enhanced CMS system. It demonstrates the new dual write functionality that saves posts to both JSON files and individual data files for better version control and performance.</p>",
+    "excerpt": "This is a test post to verify the enhanced CMS functionality with dual write capabilities.",
     "author": "Maia",
-    "slug": "enhanced-cms-test-post",
-    "imageUrl": "/images/blog/enhanced-cms-test-post.jpg",
+    "slug": "test-enhanced-cms-post",
+    "imageUrl": "/images/blog/test-enhanced-cms-post.jpg",
     "language": "es",
-    "date": "2025-01-16",
-    "createdAt": "2025-08-21T04:14:59.467Z",
-    "updatedAt": "2025-08-21T04:14:59.467Z"
+    "date": "2025-01-15",
+    "createdAt": "2025-08-21T04:13:40.739Z",
+    "updatedAt": "2025-08-21T04:13:40.739Z"
   },
   {
     "title": "¿Por qué tu sitio inmobiliario espanta a los interesados?",

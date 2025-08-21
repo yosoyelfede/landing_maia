@@ -7,10 +7,11 @@ import Navbar from '../../../components/Navbar'
 import Footer from '../../../components/Footer'
 import { getAssetPath } from '../../../lib/assetUtils'
 
+
 // Generate static params for static generation
 export async function generateStaticParams() {
   try {
-    // Read dynamic posts from JSON file
+    // Read from JSON file
     const jsonFilePath = path.join(process.cwd(), 'public/data/blog-posts.json')
     let posts = []
     
@@ -33,7 +34,8 @@ export async function generateStaticParams() {
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }) {
-  const post = await getPost(params.slug)
+  const { slug } = await params
+  const post = await getPost(slug)
   
   if (!post) {
     return {
@@ -65,10 +67,10 @@ export async function generateMetadata({ params }) {
   }
 }
 
-// Get post data
+// Get post data from JSON file
 async function getPost(slug) {
   try {
-    // Try to read from JSON file first (dynamic posts)
+    // Read from JSON file
     const jsonFilePath = path.join(process.cwd(), 'public/data/blog-posts.json')
     
     try {
@@ -86,8 +88,6 @@ async function getPost(slug) {
       console.log('No dynamic posts file found or error reading it')
     }
     
-    // If not found in dynamic posts, could check for static posts here
-    // For now, we'll just return null
     return null
     
   } catch (error) {
@@ -98,7 +98,8 @@ async function getPost(slug) {
 
 // Main page component
 export default async function BlogPostPage({ params }) {
-  const post = await getPost(params.slug)
+  const { slug } = await params
+  const post = await getPost(slug)
 
   if (!post) {
     notFound()
@@ -113,30 +114,39 @@ export default async function BlogPostPage({ params }) {
     <>
       <Navbar />
       
-      <main className="min-h-screen bg-white pt-20">
-        {/* Hero Section */}
-        <article className="py-12">
-          <div className="container mx-auto px-4">
-            {/* Breadcrumb */}
-            <nav className="mb-8">
-              <ol className="flex items-center space-x-2 text-sm text-gray-500">
-                <li>
-                  <Link href="/" className="hover:text-primary-600 transition-colors">
-                    Inicio
+      <main className="min-h-screen bg-white">
+        <div className="pt-24">
+          {/* Featured Image - Full Screen Hero */}
+          {post.imageUrl && (
+            <header className="relative mb-16">
+              <div className="absolute inset-0 w-full h-full">
+                <img 
+                  src={getAssetPath(post.imageUrl)} 
+                  alt={post.title} 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/60"></div>
+              </div>
+              <div className="relative z-10 container mx-auto px-4 py-32 md:py-40 text-center">
+                <div className="mb-4">
+                  <Link href="/blog" className="text-white hover:text-primary-300 font-semibold">
+                    ← Volver al blog
                   </Link>
-                </li>
-                <li>/</li>
-                <li>
-                  <Link href="/blog" className="hover:text-primary-600 transition-colors">
-                    Blog
-                  </Link>
-                </li>
-                <li>/</li>
-                <li className="text-gray-800">{post.title}</li>
-              </ol>
-            </nav>
+                </div>
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white max-w-4xl mx-auto leading-tight">
+                  {post.title}
+                </h1>
+                <div className="flex justify-center gap-4 text-sm text-gray-200 font-medium">
+                  <span>{post.date}</span>
+                  <span>·</span>
+                  <span>{readingTime} min de lectura</span>
+                </div>
+              </div>
+            </header>
+          )}
 
-            {/* Article Header */}
+          {/* Article Header - Only show if no hero image */}
+          {!post.imageUrl && (
             <header className="max-w-4xl mx-auto text-center mb-12">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
                 {post.title}
@@ -166,55 +176,18 @@ export default async function BlogPostPage({ params }) {
                 </p>
               )}
             </header>
+          )}
 
-            {/* Featured Image */}
-            {post.imageUrl && (
-              <div className="max-w-4xl mx-auto mb-12">
-                <div className="relative overflow-hidden rounded-2xl shadow-lg">
-                  <Image
-                    src={getAssetPath(post.imageUrl)}
-                    alt={post.title}
-                    width={800}
-                    height={450}
-                    className="w-full h-auto object-cover"
-                    priority
-                  />
-                </div>
-              </div>
-            )}
-
-            {/* Article Content */}
-            <div className="max-w-4xl mx-auto">
+          {/* Article Content */}
+          <article className="container mx-auto px-4 max-w-4xl pb-16">
+            <div className="prose prose-lg max-w-none mb-10">
               <div 
                 className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-headings:font-bold prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6 prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-4 prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-6 prose-strong:text-gray-900 prose-strong:font-semibold prose-a:text-primary-600 prose-a:no-underline hover:prose-a:text-primary-700 prose-ul:my-6 prose-ol:my-6 prose-li:text-gray-700 prose-li:mb-2 prose-blockquote:border-l-4 prose-blockquote:border-primary-600 prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-gray-600"
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
             </div>
-
-            {/* Article Footer */}
-            <footer className="max-w-4xl mx-auto mt-16 pt-8 border-t border-gray-200">
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-                <div className="mb-4 md:mb-0">
-                  <p className="text-gray-600">
-                    Publicado por <span className="font-medium text-gray-900">{post.author || 'Maia'}</span>
-                  </p>
-                </div>
-                
-                <div className="flex space-x-4">
-                  <Link 
-                    href="/blog" 
-                    className="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
-                  >
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                    </svg>
-                    Volver al blog
-                  </Link>
-                </div>
-              </div>
-            </footer>
-          </div>
-        </article>
+          </article>
+        </div>
 
         {/* CTA Section */}
         <section className="bg-gradient-to-r from-primary-600 to-primary-700 py-16 mt-16">

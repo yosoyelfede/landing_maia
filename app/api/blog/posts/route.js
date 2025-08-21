@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import { promises as fs } from 'fs'
 import path from 'path'
+// import { readAllPosts, getFeatureFlagsStatus, validateConsistency } from '../../../lib/fileBasedCMS'
+
 
 // Add CORS headers helper function
 function addCorsHeaders(response) {
@@ -17,31 +19,28 @@ export async function OPTIONS(request) {
 
 export async function GET(request) {
   try {
-    console.log('📖 Fetching blog posts for admin CMS')
+    console.log('📖 Fetching blog posts from JSON file')
     
-    // Read dynamic posts from JSON file
+    // Read posts from JSON file (temporary fallback)
     const jsonFilePath = path.join(process.cwd(), 'public/data/blog-posts.json')
-    let dynamicPosts = []
+    let allPosts = []
     
     try {
       const jsonContent = await fs.readFile(jsonFilePath, 'utf8')
-      dynamicPosts = JSON.parse(jsonContent)
-      console.log(`✅ Found ${dynamicPosts.length} dynamic posts`)
+      const posts = JSON.parse(jsonContent)
+      
+      allPosts = posts.map(post => ({
+        ...post,
+        type: 'dynamic',
+        id: post.slug || post.title?.toLowerCase().replace(/\s+/g, '-')
+      }))
+      
+      console.log(`✅ Found ${allPosts.length} posts from JSON`)
     } catch (error) {
-      console.log('⚠️ No dynamic posts file found or error reading it:', error.message)
-      dynamicPosts = []
+      console.log('⚠️ No JSON file found or error reading it:', error.message)
     }
     
-    // For now, we'll only return dynamic posts since static posts are handled separately
-    // In the future, we could scan the app/blog directory for static posts if needed
-    
-    const allPosts = dynamicPosts.map(post => ({
-      ...post,
-      type: 'dynamic', // Mark as dynamic for the admin interface
-      id: post.slug || post.title?.toLowerCase().replace(/\s+/g, '-') // Ensure we have an ID
-    }))
-    
-    console.log(`📊 Returning ${allPosts.length} total posts to admin`)
+    console.log(`📊 Returning ${allPosts.length} total posts`)
     
     return addCorsHeaders(NextResponse.json({
       success: true,
@@ -58,61 +57,4 @@ export async function GET(request) {
   }
 }
 
-// Optional: Handle POST requests for creating posts directly via API
-export async function POST(request) {
-  try {
-    console.log('✏️ Creating new blog post via API')
-    
-    const body = await request.json()
-    console.log('📄 New post data:', { title: body.title, slug: body.slug })
-    
-    // Read existing posts
-    const jsonFilePath = path.join(process.cwd(), 'public/data/blog-posts.json')
-    let existingPosts = []
-    
-    try {
-      const jsonContent = await fs.readFile(jsonFilePath, 'utf8')
-      existingPosts = JSON.parse(jsonContent)
-    } catch (error) {
-      console.log('⚠️ No existing posts file, starting fresh')
-      existingPosts = []
-    }
-    
-    // Add the new post to the beginning of the array (newest first)
-    const newPost = {
-      id: body.slug || body.title?.toLowerCase().replace(/\s+/g, '-'),
-      title: body.title,
-      excerpt: body.excerpt || '',
-      content: body.content || '',
-      author: body.author || 'Maia',
-      slug: body.slug || body.title?.toLowerCase().replace(/\s+/g, '-'),
-      language: body.language || 'es',
-      date: body.date || new Date().toLocaleDateString('es-ES', { 
-        day: 'numeric', 
-        month: 'long', 
-        year: 'numeric' 
-      }),
-      imageUrl: body.imageUrl || '/images/blog/default-placeholder.jpg'
-    }
-    
-    existingPosts.unshift(newPost)
-    
-    // Write back to file
-    await fs.writeFile(jsonFilePath, JSON.stringify(existingPosts, null, 2))
-    
-    console.log('✅ Post created successfully')
-    
-    return addCorsHeaders(NextResponse.json({
-      success: true,
-      message: 'Post created successfully',
-      post: newPost
-    }))
-    
-  } catch (error) {
-    console.error('❌ Error creating blog post:', error)
-    return addCorsHeaders(NextResponse.json({ 
-      error: 'Failed to create blog post',
-      details: error.message
-    }, { status: 500 }))
-  }
-}
+// Note: POST method removed - posts are now created via file system through /api/publish
